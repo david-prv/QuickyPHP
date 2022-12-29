@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace app\net;
-
 class Route
 {
     private string $method;
@@ -15,5 +13,10 @@ class Route
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
+    }
+
+    public function hashCode(): string
+    {
+        return sha1($this->pattern.$this->method);
     }
 }

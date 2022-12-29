@@ -2,14 +2,6 @@
 
 declare(strict_types=1);
 
-namespace app\core;
-
-use ReflectionClass;
-use Exception;
-use DirectoryIterator;
-
-use app\utils\exceptions\InvalidClassException;
-
 class DynamicLoader
 {
     private static ?DynamicLoader $instance = null;
@@ -17,6 +9,7 @@ class DynamicLoader
     private array $instances = array();
     private array $locations;
     private array $classes;
+    private array $loaded;
 
     /**
      * DynamicLoader constructor.
@@ -27,6 +20,7 @@ class DynamicLoader
         $this->workingDir = $override ?? getcwd();
         $this->locations = [];
         $this->classes = [];
+        $this->loaded = [];
         $this->scan();
     }
 
@@ -48,10 +42,16 @@ class DynamicLoader
      */
     public function load(string $className): void
     {
+        $temp = explode('\\', $className);
+        $className = end($temp);
+
         if (!in_array($className, $this->classes)) throw new InvalidClassException("$className is not a class");
+        if (in_array($className, $this->loaded)) return;
+
         foreach ($this->locations as $loc) {
             $fileName = $this->workingDir . $loc . "/" . $className . ".php";
             if (is_file($fileName)) {
+                array_push($this->loaded, $className);
                 require $fileName . "";
             }
         }

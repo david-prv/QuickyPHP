@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-use app\core\Dispatcher;
-use app\utils\exceptions\UnknownCallException;
-
+/**
+ * @method static get(string $pattern, callable $callback)
+ * @method static post(string $pattern, callable $callback)
+ */
 class App
 {
     private static ?App $instance = null;
@@ -32,7 +33,7 @@ class App
      */
     public function run()
     {
-
+        $router = DynamicLoader::getLoader()->getInstance("Router");
         $route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     }

@@ -1,3 +1,8 @@
 {
-
+  "project": {
+    "name": "Micro-Framework",
+    "author": "David Dewes",
+    "version": "0.0.1",
+    "env": "development"
+  }
 }
