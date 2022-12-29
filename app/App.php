@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use app\core\Dispatcher;
+use app\utils\exceptions\UnknownCallException;
+
 class App
 {
     private static ?App $instance = null;
@@ -39,7 +42,7 @@ class App
      * @param $arguments
      * @throws UnknownCallException
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic($name, $arguments): void
     {
         Dispatcher::dispatch($name, $arguments);
     }

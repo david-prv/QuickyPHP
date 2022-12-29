@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+namespace app\core;
+
+use app\utils\exceptions\UnknownCallException;
+
 class Dispatcher
 {
     /**

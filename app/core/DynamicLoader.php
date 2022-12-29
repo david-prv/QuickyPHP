@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+namespace app\core;
+
+use ReflectionClass;
+use Exception;
+use DirectoryIterator;
+
+use app\utils\exceptions\InvalidClassException;
+
 class DynamicLoader
 {
     private static ?DynamicLoader $instance = null;
@@ -97,23 +105,12 @@ class DynamicLoader
     }
 
     /**
-     * @param string $className
-     * @return bool
-     */
-    public function hasClass(string $className): bool
-    {
-        return isset($this->classes[$className]);
-    }
-
-    /**
      * @param string $name
      * @return string|null
      */
     public function findMethod(string $name): ?string
     {
-        var_dump($this->classes);
         foreach ($this->classes as $class) {
-            echo "searching in $class <br>";
             if (method_exists($class, $name)) return $class;
         }
         return null;
