@@ -14,4 +14,4 @@ App::get("/test/abc", function(Request $request, Response $response) {
 
 try {
     $app->run();
-} catch (Exception $e) {}
+} catch (Exception $e) { die($e->getTraceAsString()); }
