@@ -6,7 +6,6 @@ $app = App::getInstance();
 
 App::get("/", function(Request $request, Response $response) {
     echo "Hello World";
-
 });
 
 App::get("/test/abc", function(Request $request, Response $response) {
