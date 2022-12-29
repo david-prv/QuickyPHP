@@ -19,7 +19,7 @@ class Dispatcher
             if (is_null($c))
                 throw new UnknownCallException("$name is not a method or not instantiable");
             else
-                call_user_func(array($c, $name), $args);
+                call_user_func(array($c, $name), ...$args);
         } else {
             $c = $loader->findMethod($name);
             $i = $loader->getInstance($c);
@@ -27,7 +27,7 @@ class Dispatcher
             if (is_null($c) || is_null($i))
                 throw new UnknownCallException("$name is not a method or not instantiable");
             else
-                call_user_func(array($i, $name), $args);
+                call_user_func(array($i, $name), ...$args);
         }
     }
 }

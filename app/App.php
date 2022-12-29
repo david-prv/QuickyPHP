@@ -41,6 +41,6 @@ class App
      */
     public static function __callStatic($name, $arguments)
     {
-        Dispatcher::dispatch($name, $arguments, Router::class);
+        Dispatcher::dispatch($name, $arguments);
     }
 }

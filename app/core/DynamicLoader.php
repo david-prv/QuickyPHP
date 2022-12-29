@@ -36,10 +36,11 @@ class DynamicLoader
 
     /**
      * @param string $className
+     * @throws InvalidClassException
      */
     public function load(string $className): void
     {
-        array_push($this->classes, $className);
+        if (!in_array($className, $this->classes)) throw new InvalidClassException("$className is not a class");
         foreach ($this->locations as $loc) {
             $fileName = $this->workingDir . $loc . "/" . $className . ".php";
             if (is_file($fileName)) {
@@ -73,14 +74,25 @@ class DynamicLoader
     /**
      * @param string $current
      */
-    public function scan(string $current = ""): void
+    public function scan(string $current = "/app"): void
     {
         array_push($this->locations, $current);
-        $dir = new DirectoryIterator($this->workingDir . $current);
-        foreach ($dir as $info) {
-            if ($info->isDir() && !$info->isDot()) {
-                $this->scan($current . "/" . $info->getFilename());
+
+        $dirs = new DirectoryIterator($this->workingDir . $current);
+        foreach ($dirs as $dir) {
+
+            if ($dir->isFile()) {
+                $file = $dir->getFilename();
+                $temp = explode(".", $file);
+                $ext = $temp[count($temp) - 1];
+                $name = $temp[0];
+                if ($ext === "php" && $name !== "autoload") array_push($this->classes, $name);
             }
+
+            if ($dir->isDir() && !$dir->isDot()) {
+                $this->scan($current . "/" . $dir->getFilename());
+            }
+
         }
     }
 
@@ -99,6 +111,7 @@ class DynamicLoader
      */
     public function findMethod(string $name): ?string
     {
+        var_dump($this->classes);
         foreach ($this->classes as $class) {
             echo "searching in $class <br>";
             if (method_exists($class, $name)) return $class;
