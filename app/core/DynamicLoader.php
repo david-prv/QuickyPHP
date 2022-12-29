@@ -6,7 +6,7 @@ class DynamicLoader
 {
     private static ?DynamicLoader $instance = null;
     private string $workingDir;
-    private array $instances = array();
+    private array $instances;
     private array $locations;
     private array $classes;
     private array $loaded;
@@ -18,9 +18,10 @@ class DynamicLoader
     private function __construct(?string $override = null)
     {
         $this->workingDir = $override ?? getcwd();
-        $this->locations = [];
-        $this->classes = [];
-        $this->loaded = [];
+        $this->instances = array();
+        $this->locations = array();
+        $this->classes = array();
+        $this->loaded = array();
         $this->scan();
     }
 

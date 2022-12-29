@@ -44,10 +44,7 @@ class Router
      */
     private function findRoute(string $hash): ?Route
     {
-        foreach ($this->routes as $r) {
-            if ($hash === $r->hashCode()) return $r;
-        }
-        return null;
+        return (isset($this->routes[$hash])) ? $this->routes[$hash] : null;
     }
 
     /**

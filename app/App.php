@@ -30,6 +30,7 @@ class App
 
     /**
      * Run application
+     * @throws UnknownRouteException
      */
     public function run()
     {
