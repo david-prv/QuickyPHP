@@ -75,8 +75,25 @@ class Response
     /**
      * @param int $code
      */
-    public function status(int $code)
+    public function status(int $code): void
     {
         http_response_code($code);
+    }
+
+    /**
+     * @param string $destination
+     */
+    public function redirect(string $destination): void
+    {
+        http_redirect($destination);
+    }
+
+    /**
+     * @param string $text
+     * @param mixed ...$formatters
+     */
+    public function send(string $text, ...$formatters): void
+    {
+        printf($text, ...$formatters);
     }
 }

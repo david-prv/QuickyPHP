@@ -5,13 +5,13 @@ require __DIR__ . "/app/autoload.php";
 $app = App::getInstance();
 
 App::get("/", function(Request $request, Response $response) {
-    echo "Hello World";
+    $response->send("Hello World");
 });
 
-App::get("/test/abc", function(Request $request, Response $response) {
-    echo "Nice to meet you!";
+App::get("/time", function(Request $request, Response $response) {
+    $response->send("Request time: %s", $request->getTime());
 });
 
 try {
     $app->run();
-} catch (Exception $e) { die($e->getTraceAsString()); }
+} catch (Exception $e) { die($e->getMessage()); }
