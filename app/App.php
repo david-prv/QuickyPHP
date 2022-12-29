@@ -34,8 +34,7 @@ class App
     public function run()
     {
         $router = DynamicLoader::getLoader()->getInstance("Router");
-        $route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
+        if ($router instanceof Router) $router(Request::current());
     }
 
     /**

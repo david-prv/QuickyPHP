@@ -19,4 +19,10 @@ class Route
     {
         return sha1($this->pattern.$this->method);
     }
+
+    #[\ReturnTypeWillChange]
+    public function execute()
+    {
+        return call_user_func($this->callback);
+    }
 }
