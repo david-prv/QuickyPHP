@@ -45,7 +45,7 @@ class DynamicLoader
         $temp = explode('\\', $className);
         $className = end($temp);
 
-        if (!in_array($className, $this->classes)) throw new InvalidClassException("$className is not a class");
+        if (!in_array($className, $this->classes)) throw new InvalidClassException($className);
         if (in_array($className, $this->loaded)) return;
 
         foreach ($this->locations as $loc) {

@@ -16,17 +16,17 @@ class Dispatcher
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
-            if (is_null($c)) throw new UnknownCallException("$name is not a method or not instantiable");
+            if (is_null($c)) throw new UnknownCallException($name);
             else {
                 call_user_func(array($c, $name), ...$args);
             }
         } else {
             $c = $loader->findMethod($name);
 
-            if (is_null($c)) throw new UnknownCallException("$name is not a method or not instantiable");
+            if (is_null($c)) throw new UnknownCallException($name);
             else {
                 $i = $loader->getInstance($c);
-                if (is_null($i)) throw new UnknownCallException("$name is not a method or not instantiable");
+                if (is_null($i)) throw new UnknownCallException($name);
                 call_user_func(array($i, $name), ...$args);
             }
         }

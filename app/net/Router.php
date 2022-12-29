@@ -21,7 +21,7 @@ class Router
     public function __invoke(Request $request)
     {
         $route = $this->findRoute(sha1($request->getUrl().$request->getMethod()));
-        if (is_null($route)) throw new UnknownRouteException("Unknown route");
+        if (is_null($route)) throw new UnknownRouteException($request->getUrl());
 
         $route->execute();
     }

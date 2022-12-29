@@ -4,5 +4,11 @@ declare(strict_types=1);
 
 class CoreException extends Exception
 {
+    protected string $default = "Critical Error! An error has occurred in a core function. " .
+                                "Please report that to a maintainer or your system administrator.";
 
+    public function __construct($message = null, $code = 0, Throwable $previous = null)
+    {
+        parent::__construct($message ?? $this->default, $code, $previous);
+    }
 }
