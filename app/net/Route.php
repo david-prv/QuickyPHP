@@ -8,6 +8,12 @@ class Route
     private string $pattern;
     private $callback;
 
+    /**
+     * Route constructor.
+     * @param string $method
+     * @param string $pattern
+     * @param callable $callback
+     */
     public function __construct(string $method, string $pattern, callable $callback)
     {
         $this->method = $method;
@@ -15,6 +21,9 @@ class Route
         $this->callback = $callback;
     }
 
+    /**
+     * @return string
+     */
     public function hashCode(): string
     {
         return sha1($this->pattern.$this->method);

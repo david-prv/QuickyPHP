@@ -29,11 +29,17 @@ class Request
         return new Request($method, $url);
     }
 
+    /**
+     * @return string
+     */
     public function getMethod(): string
     {
         return $this->method;
     }
 
+    /**
+     * @return string
+     */
     public function getUrl(): string
     {
         return $this->url;
