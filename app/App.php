@@ -1,4 +1,11 @@
 <?php
+/**
+ * A handmade php micro-framework
+ *
+ * @author David Dewes <hello@david-dewes.de>
+ *
+ * Copyright - David Dewes (c) 2022
+ */
 
 declare(strict_types=1);
 
@@ -34,8 +41,8 @@ class App
      */
     public function run()
     {
-        $router = DynamicLoader::getLoader()->getInstance("Router");
-        if ($router instanceof Router) $router(Request::current());
+        $router = DynamicLoader::getLoader()->getInstance(Router::class);
+        if ($router instanceof Router) $router(new Request(), new Response());
     }
 
     /**

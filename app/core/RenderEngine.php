@@ -7,9 +7,7 @@
  * Copyright - David Dewes (c) 2022
  */
 
-declare(strict_types=1);
-
-class JSONParser
+class RenderEngine
 {
 
 }

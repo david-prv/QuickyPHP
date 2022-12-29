@@ -1,4 +1,11 @@
 <?php
+/**
+ * A handmade php micro-framework
+ *
+ * @author David Dewes <hello@david-dewes.de>
+ *
+ * Copyright - David Dewes (c) 2022
+ */
 
 declare(strict_types=1);
 
@@ -29,9 +36,14 @@ class Route
         return sha1($this->pattern.$this->method);
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return mixed
+     */
     #[\ReturnTypeWillChange]
-    public function execute()
+    public function execute(Request $request, Response $response)
     {
-        return call_user_func($this->callback);
+        ($this->callback)($request, $response);
     }
 }

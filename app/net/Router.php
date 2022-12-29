@@ -1,4 +1,11 @@
 <?php
+/**
+ * A handmade php micro-framework
+ *
+ * @author David Dewes <hello@david-dewes.de>
+ *
+ * Copyright - David Dewes (c) 2022
+ */
 
 declare(strict_types=1);
 
@@ -16,14 +23,15 @@ class Router
 
     /**
      * @param Request $request
+     * @param Response $response
      * @throws UnknownRouteException
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, Response $response)
     {
         $route = $this->findRoute(sha1($request->getUrl().$request->getMethod()));
         if (is_null($route)) throw new UnknownRouteException($request->getUrl());
 
-        $route->execute();
+        $route->execute($request, $response);
     }
 
     /**
