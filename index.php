@@ -13,4 +13,6 @@ App::get("/test/abc", function(Request $request, Response $response) {
     echo "Nice to meet you!";
 });
 
-$app->run();
+try {
+    $app->run();
+} catch (Exception $e) {}
