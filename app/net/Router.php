@@ -45,7 +45,7 @@ class Router
      */
     public function __invoke(Request $request, Response $response)
     {
-        $route = $this->findRoute(sha1($request->getUrl().$request->getMethod()));
+        $route = $this->findRoute($request);
         if (is_null($route)) throw new UnknownRouteException($request->getUrl());
 
         $route->execute($request, $response);
@@ -102,8 +102,26 @@ class Router
      * @param string $hash
      * @return Route|null
      */
-    private function findRoute(string $hash): ?Route
+    private function findRouteByHash(string $hash): ?Route
     {
         return (isset($this->routes[$hash])) ? $this->routes[$hash] : null;
+    }
+
+    private function findRoute(Request $request): ?Route
+    {
+        $url = $request->getUrl();
+        $method = $request->getMethod();
+
+        // Trivial route
+        if ($url === "/") {
+            return $this->findRouteByHash(sha1($url.$method));
+        }
+
+        foreach ($this->routes as $route) {
+            if ($route instanceof Route) {
+                if ($route->match($url, $request)) return $route;
+            }
+        }
+        return null;
     }
 }

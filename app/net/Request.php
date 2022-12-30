@@ -95,6 +95,14 @@ class Request
     private array $data;
 
     /**
+     * Contains all arguments passed
+     * dynamically in route
+     *
+     * @var array
+     */
+    private array $args;
+
+    /**
      * Request constructor.
      * @param array $data
      */
@@ -112,6 +120,7 @@ class Request
             $this->secure = isset($_SERVER["HTTPS"]) && !is_null($_SERVER["HTTPS"]);
             $this->referrer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
             $this->data = (count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array());
+            $this->args = array();
         } else {
             $this->method = $data["method"];
             $this->url = $data["url"];
@@ -124,6 +133,7 @@ class Request
             $this->secure = $data["secure"];
             $this->referrer = $data["referrer"];
             $this->data = $data["data"];
+            $this->args = $data["args"];
         }
     }
 
@@ -230,10 +240,30 @@ class Request
     /**
      * Returns the sent data
      *
-     * @return array|mixed
+     * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * Returns the passed args
+     *
+     * @return array
+     */
+    public function getArgs(): array
+    {
+        return $this->args;
+    }
+
+    /**
+     * Updates the passed args
+     *
+     * @param array $args
+     */
+    public function setArgs(array $args): void
+    {
+        $this->args = $args;
     }
 }

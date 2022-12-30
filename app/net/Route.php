@@ -52,12 +52,12 @@ class Route
     /**
      * Returns the route hashcode
      *
-     * @uses sha1()
      * @return string
+     * @uses sha1()
      */
     public function hashCode(): string
     {
-        return sha1($this->pattern.$this->method);
+        return sha1($this->pattern . $this->method);
     }
 
     /**
@@ -69,6 +69,66 @@ class Route
      */
     public function execute(Request $request, Response $response)
     {
-        ($this->callback)($request, $response);
+        return ($this->callback)($request, $response);
+    }
+
+    /**
+     * Returns the route in string format
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->method . " - " . $this->pattern;
+    }
+
+    /**
+     * Checks if the requested url
+     * matches this route and additionally parses
+     * all arguments and updates the request, iff vars are present
+     *
+     * @param string $url
+     * @param Request $request
+     * @return bool
+     */
+    public function match(string $url, Request $request): bool
+    {
+        $parts = array_filter(explode("/", $this->pattern), function ($e) {
+            return $e !== "" && $e !== null;
+        });
+        $variables = array_filter($parts, function ($e) {
+            return strpos($e, "{") !== false && strpos($e, "}") !== false;
+        });
+        $hasVariables = count($variables) >= 1;
+
+        switch ($hasVariables) {
+            case false:
+                return ($url === $this->pattern);
+            case true:
+                $varPos = array_map(function ($e) {
+                    return strpos($e, "{") !== false && strpos($e, "}") !== false;
+                }, $parts);
+                $urlParts = array_filter(explode("/", $url), function ($e) {
+                    return $e !== "" && $e !== null;
+                });
+
+                $values = array();
+                $pos = 1;
+                foreach ($urlParts as $urlPart) {
+                    if (!isset($varPos[$pos])) return false;
+                    if ($varPos[$pos]) {
+                        $varName = str_replace("{", "", $parts[$pos]);
+                        $varName = str_replace("}", "", $varName);
+                        $values[$varName] = $urlPart;
+                        $pos++;
+                        continue;
+                    }
+                    if ($urlPart !== $parts[$pos]) return false;
+                    $pos++;
+                }
+                $request->setArgs($values);
+                return true;
+        }
+        return false;
     }
 }
