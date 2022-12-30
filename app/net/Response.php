@@ -81,6 +81,13 @@ class Response
     ];
 
     /**
+     * Response constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * Updates the HTTP response code
      *
      * @param int $code
@@ -109,5 +116,15 @@ class Response
     public function send(string $text, ...$formatters): void
     {
         printf($text, ...$formatters);
+    }
+
+    /**
+     * Returns response in string format
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
+        return gettype($this);
     }
 }

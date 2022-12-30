@@ -276,7 +276,8 @@ class Request
     {
         $out = "";
         foreach ($this as $name => $value) {
-            if (!is_string($value)) $value = "[mixed]";
+            if (!is_string($value) && !is_bool($value)) $value = "[" . gettype($value) . "]";
+            if (is_bool($value)) $value = ($value) ? "true" : "false";
             $out .= "$name => $value <br>";
         }
         return $out;

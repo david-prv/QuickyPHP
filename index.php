@@ -9,11 +9,11 @@ App::get("/", function(Request $request, Response $response) {
 });
 
 App::get("/dump", function(Request $request, Response $response) {
-    $response->send("Request dump: %s", $request->toString());
+    $response->send("Request dump:<br>%s", $request->toString());
 });
 
 App::get("/data/{var1}/{var2}", function(Request $request, Response $response) {
-    var_dump($request->getArgs()["var2"]);
+    var_dump($request->getArgs());
 });
 
 try {

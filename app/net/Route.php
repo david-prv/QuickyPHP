@@ -93,42 +93,27 @@ class Route
      */
     public function match(string $url, Request $request): bool
     {
-        $parts = array_filter(explode("/", $this->pattern), function ($e) {
+        $pattern = array_filter(explode("/", $this->pattern), function ($e) {
             return $e !== "" && $e !== null;
         });
-        $variables = array_filter($parts, function ($e) {
-            return strpos($e, "{") !== false && strpos($e, "}") !== false;
+        $urlParts = array_filter(explode("/", $url), function ($e) {
+            return $e !== "" && $e !== null;
         });
-        $hasVariables = count($variables) >= 1;
 
-        switch ($hasVariables) {
-            case false:
-                return ($url === $this->pattern);
-            case true:
-                $varPos = array_map(function ($e) {
-                    return strpos($e, "{") !== false && strpos($e, "}") !== false;
-                }, $parts);
-                $urlParts = array_filter(explode("/", $url), function ($e) {
-                    return $e !== "" && $e !== null;
-                });
-
-                $values = array();
-                $pos = 1;
-                foreach ($urlParts as $urlPart) {
-                    if (!isset($varPos[$pos])) return false;
-                    if ($varPos[$pos]) {
-                        $varName = str_replace("{", "", $parts[$pos]);
-                        $varName = str_replace("}", "", $varName);
-                        $values[$varName] = $urlPart;
-                        $pos++;
-                        continue;
-                    }
-                    if ($urlPart !== $parts[$pos]) return false;
-                    $pos++;
-                }
-                $request->setArgs($values);
-                return true;
+        if (count($pattern) !== count($urlParts)) {
+            return false;
         }
-        return false;
+
+        $values = array();
+        for ($i = 1; $i < count($pattern) + 1; $i++) {
+            if (preg_match("/^{.*}$/", $pattern[$i])) {
+                $varName = str_replace(["{", "}"], "", $pattern[$i]);
+                $values[$varName] = $urlParts[$i];
+            } elseif ($pattern[$i] !== $urlParts[$i]) {
+                return false;
+            }
+        }
+        $request->setArgs($values);
+        return true;
     }
 }
