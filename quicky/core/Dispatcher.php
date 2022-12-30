@@ -30,7 +30,7 @@ class Dispatcher
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
-            if (!Dispatcher::isDispatchedByClass($className, $name)) throw new UnknownCallException($name);
+            if (!Dispatcher::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
             if (is_null($c)) throw new UnknownCallException($name);
             else call_user_func(array($c, $name), ...$args);
         } else {
@@ -67,7 +67,7 @@ class Dispatcher
      * @return bool
      * @throws ReflectionException
      */
-    public static function isDispatchedByClass(string $className, string $methodName)
+    public static function canDispatchMethod(string $className, string $methodName)
     {
         $reflection = new ReflectionClass($className);
         return strpos($reflection->getDocComment(), "@dispatch $methodName") !== false;
