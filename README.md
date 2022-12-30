@@ -42,6 +42,7 @@ $app->run();
 - [x] Route RegEx 
 - [ ] Write Tests!
 - [ ] Write Docs!
+- [ ] Add support for DELETE, UPDATE, PUT methods
 
 ## Installation
 TBD
