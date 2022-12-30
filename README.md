@@ -35,9 +35,11 @@ $app->run();
 - [ ] In-built Global Variables  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  
-- [ ] Response->sendFile method  
+- [x] Response->sendFile method  
 - [ ] Config Parser  
 - [ ] Route Wildcards  
+- [ ] Write Tests!
+- [ ] Write Docs!
 
 ## Installation
 TBD

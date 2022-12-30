@@ -19,6 +19,10 @@ Quicky::get("/greet/{name}/{age}", function (Request $request, Response $respons
         $request->getArg("age"));
 });
 
+Quicky::get("/static/{name}", function(Request $request, Response $response) {
+   $response->sendFile($request->getArg("name"));
+});
+
 try {
     $app->run();
 } catch (Exception $e) {

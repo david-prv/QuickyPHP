@@ -16,6 +16,8 @@ declare(strict_types=1);
  */
 class Response
 {
+    private string $storagePath;
+
     /**
      * All HTTP codes
      *
@@ -87,6 +89,7 @@ class Response
      */
     public function __construct()
     {
+        $this->storagePath = getcwd() . "/quicky/storage";
     }
 
     /**
@@ -118,6 +121,37 @@ class Response
     public function send(string $text, ...$formatters): void
     {
         printf($text, ...$formatters);
+    }
+
+    /**
+     * Resolves the error message for a
+     * HTTP error code (int)
+     *
+     * @param int $code
+     * @return string
+     */
+    public function getErrorMessage(int $code): string
+    {
+        return (isset($this->codes[$code])) ? $this->codes[$code] : "Strange HTTP Error";
+    }
+
+    /**
+     * Sends file-content as response
+     *
+     * @param string $fileName
+     * @throws UnknownFileSentException
+     */
+    public function sendFile(string $fileName): void
+    {
+        $basePath = $this->storagePath;
+        $fullPath = "$basePath/$fileName";
+
+        if (strpos($fullPath, $basePath) !== 0) throw new UnknownFileSentException($fileName);
+        if (!file_exists($fullPath)) throw new UnknownFileSentException($fileName);
+
+        $contents = file_get_contents($fullPath);
+
+        echo $contents;
     }
 
     /**

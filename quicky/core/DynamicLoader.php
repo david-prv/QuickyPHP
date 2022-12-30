@@ -120,7 +120,7 @@ class DynamicLoader
      */
     public function registerInstance(string $className, object $instance): void
     {
-        $this->instances[$className] = $instance;
+        if (!isset($this->instances[$className])) $this->instances[$className] = $instance;
     }
 
     /**
