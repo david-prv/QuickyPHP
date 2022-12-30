@@ -38,7 +38,8 @@ $app->run();
 - [ ] In-built Event Logging  
 - [x] Response->sendFile method  
 - [ ] Config Parser  
-- [ ] Route Wildcards  
+- [x] Route Wildcards 
+- [x] Route RegEx 
 - [ ] Write Tests!
 - [ ] Write Docs!
 

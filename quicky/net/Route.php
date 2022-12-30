@@ -106,14 +106,29 @@ class Route
 
         $values = array();
         for ($i = 1; $i < count($pattern) + 1; $i++) {
+            // Check if the pattern is a variable
             if (preg_match("/^{.*}$/", $pattern[$i])) {
                 $varName = str_replace(["{", "}"], "", $pattern[$i]);
                 $values[$varName] = $urlParts[$i];
-            } elseif ($pattern[$i] !== $urlParts[$i]) {
+            }
+            // Check if the pattern is a regex
+            elseif (preg_match("/^\(.*\)$/", $pattern[$i])) {
+                $pattern[$i] = str_replace(["(", ")"], "", $pattern[$i]);
+                if (!preg_match("/$pattern[$i]/", $urlParts[$i])) {
+                    return false;
+                }
+            }
+            // Check if the pattern is a wildcard
+            elseif ($pattern[$i] === "*") {
+                continue;
+            }
+            // If none of the above, check for an exact match
+            elseif ($pattern[$i] !== $urlParts[$i]) {
                 return false;
             }
         }
         $request->setArgs($values);
         return true;
     }
+
 }

@@ -23,6 +23,14 @@ Quicky::get("/static/{name}", function(Request $request, Response $response) {
    $response->sendFile($request->getArg("name"));
 });
 
+Quicky::get("/profile/(\d+)", function(Request $request, Response $response) {
+   $response->send("You looked for a profile page?");
+});
+
+Quicky::get("/wildcard/*/test", function(Request $request, Response $response) {
+   $response->send("Wildcard Action, UwU");
+});
+
 try {
     $app->run();
 } catch (Exception $e) {
