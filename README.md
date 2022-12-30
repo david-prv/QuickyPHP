@@ -21,17 +21,17 @@ $app->run();
 ```
 
 ## TODO
-[ ] Find a project name  
-[ ] Create a logo  
-[ ] Simple Middleware  
-[ ] In-built Sessions  
-[ ] In-built CSRF Tokens  
-[ ] In-built Global Variables  
-[ ] In-built Error Handling  
-[ ] In-built Event Logging  
-[ ] Response->sendFile method  
-[ ] Config Parser  
-[ ] Route Wildcards  
+- [ ] Find a project name  
+- [ ] Create a logo  
+- [ ] Simple Middleware  
+- [ ] In-built Sessions  
+- [ ] In-built CSRF Tokens  
+- [ ] In-built Global Variables  
+- [ ] In-built Error Handling  
+- [ ] In-built Event Logging  
+- [ ] Response->sendFile method  
+- [ ] Config Parser  
+- [ ] Route Wildcards  
 
 ## Installation
 TBD
