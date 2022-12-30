@@ -4,5 +4,11 @@
     "author": "David Dewes",
     "version": "0.0.1",
     "env": "development"
-  }
+  },
+  "cache": {
+    "enabled": true,
+    "expires": 3600
+  },
+  "storage": "/quicky/storage",
+  "views": "/quicky/views"
 }

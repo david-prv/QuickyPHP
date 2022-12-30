@@ -10,7 +10,6 @@ Quicky::get("/", function (Request $request, Response $response) {
 
 Quicky::get("/about", function (Request $request, Response $response) {
     $response->render("about");
-
 });
 
 Quicky::get("/greet/{name}/{age}", function (Request $request, Response $response) {
