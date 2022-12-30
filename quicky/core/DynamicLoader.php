@@ -67,10 +67,11 @@ class DynamicLoader
     private function __construct(?string $override = null)
     {
         $this->workingDir = $override ?? getcwd();
-        $this->instances = array($this);
+        $this->instances = array();
         $this->locations = array();
         $this->classes = array();
         $this->loaded = array();
+        $this->registerInstance(DynamicLoader::class, $this);
         $this->scan();
     }
 
