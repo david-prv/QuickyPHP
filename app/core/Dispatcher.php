@@ -16,14 +16,15 @@ class Dispatcher
      * @param array $args
      * @param string|null $className
      * @throws UnknownCallException
+     * @throws ReflectionException
      */
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
         $loader = DynamicLoader::getLoader();
-        $name = "__$name"; // only methods with "magic" prefix allowed
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
+            if (!DispatchReflector::isDispatchedMethod($className, $name)) throw new UnknownCallException($name);
             if (is_null($c)) throw new UnknownCallException($name);
             else call_user_func(array($c, $name), ...$args);
         } else {
@@ -31,6 +32,7 @@ class Dispatcher
 
             if (is_null($cname)) throw new UnknownCallException($name);
             else {
+                if (!DispatchReflector::isDispatchedMethod($cname, $name)) throw new UnknownCallException($name);
                 $c = $loader->getInstance($cname);
                 if (is_null($c)) throw new UnknownCallException($name);
                 call_user_func(array($c, $name), ...$args);

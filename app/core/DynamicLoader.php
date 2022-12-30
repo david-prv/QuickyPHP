@@ -115,11 +115,13 @@ class DynamicLoader
     /**
      * @param string $name
      * @return string|null
+     * @throws ReflectionException
      */
     public function findMethod(string $name): ?string
     {
         foreach ($this->classes as $class) {
-            if (method_exists($class, $name)) return $class;
+            if (method_exists($class, $name)
+                && DispatchReflector::hasDispatchedMethods($class)) return $class;
         }
         return null;
     }

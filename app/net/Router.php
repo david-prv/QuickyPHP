@@ -9,6 +9,10 @@
 
 declare(strict_types=1);
 
+/**
+ * @dispatch get
+ * @dispatch post
+ */
 class Router
 {
     private array $routes;
@@ -35,13 +39,25 @@ class Router
     }
 
     /**
-     * @param string $method
      * @param string $pattern
      * @param callable $callback
      */
-    public function __route(string $method, string $pattern, callable $callback): void
+    public function get(string $pattern, callable $callback): void
     {
-        $route = new Route(strtoupper($method), $pattern, $callback);
+        $route = new Route("GET", $pattern, $callback);
+
+        if (!$this->isRoute($route)) {
+            $this->routes[$route->hashCode()] = $route;
+        }
+    }
+
+    /**
+     * @param string $pattern
+     * @param callable $callback
+     */
+    public function post(string $pattern, callable $callback): void
+    {
+        $route = new Route("POST", $pattern, $callback);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;

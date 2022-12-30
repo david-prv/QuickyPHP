@@ -4,11 +4,11 @@ require __DIR__ . "/app/autoload.php";
 
 $app = App::getInstance();
 
-App::route("GET", "/", function(Request $request, Response $response) {
+App::get("/", function(Request $request, Response $response) {
     $response->send("Hello World");
 });
 
-App::route("GET", "/time", function(Request $request, Response $response) {
+App::get("/time", function(Request $request, Response $response) {
     $response->send("Request time: %s", $request->getTime());
 });
 
