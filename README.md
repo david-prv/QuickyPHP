@@ -37,7 +37,7 @@ $app->run();
 - [ ] In-built Global Variables  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  
-- [ ] In-built Caching
+- [x] In-built Caching
 - [x] Response->sendFile method  
 - [ ] Config Parser  
 - [x] Route Wildcards 

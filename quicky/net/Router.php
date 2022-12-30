@@ -45,6 +45,7 @@ class Router
      */
     public function __invoke(Request $request, Response $response)
     {
+        if (count($this->routes) === 0) throw new UnknownRouteException($request->getUrl());
         $route = $this->findRoute($request);
         if (is_null($route)) throw new UnknownRouteException($request->getUrl());
 
@@ -120,7 +121,7 @@ class Router
 
         // Trivial route
         if ($url === "/") {
-            return $this->findRouteByHash(sha1($url.$method));
+            return $this->findRouteByHash(sha1($url . $method));
         }
 
         foreach ($this->routes as $route) {

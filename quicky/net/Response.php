@@ -16,7 +16,27 @@ declare(strict_types=1);
  */
 class Response
 {
+    /**
+     * Storage path
+     *
+     * @var string
+     */
     private string $storagePath;
+
+    /**
+     * Is cache active?
+     *
+     * @var bool
+     */
+    private bool $useCache;
+
+    /**
+     * Expiration of cache
+     * iff it is enabled
+     *
+     * @var int|null
+     */
+    private ?int $cacheExpires = null;
 
     /**
      * All HTTP codes
@@ -91,6 +111,8 @@ class Response
     {
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
         $this->storagePath = getcwd() . $config->getStoragePath();
+        $this->useCache = $config->isCacheActive();
+        $this->cacheExpires = ($this->useCache) ? $config->getCacheExpiration() : null;
     }
 
     /**
@@ -113,6 +135,16 @@ class Response
         http_redirect($destination);
     }
 
+    private function setCacheHeaders(): void
+    {
+        if (is_null($this->cacheExpires) || !$this->useCache) return;
+
+        $expire = time() + $this->cacheExpires;
+        header("Cache-Control: max-age=$expire");
+        header("Expires: " . gmdate("D, d M Y H:i:s", $expire) . " GMT");
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s", time()) . " GMT");
+    }
+
     /**
      * Sends text/html with formatters
      *
@@ -121,6 +153,8 @@ class Response
      */
     public function send(string $text, ...$formatters): void
     {
+        if ($this->useCache) $this->setCacheHeaders();
+
         printf($text, ...$formatters);
     }
 
@@ -144,6 +178,8 @@ class Response
      */
     public function sendFile(string $fileName): void
     {
+        if ($this->useCache) $this->setCacheHeaders();
+
         $basePath = $this->storagePath;
         $fullPath = "$basePath/$fileName";
 
@@ -165,6 +201,8 @@ class Response
      */
     public function render(string $viewName, ?array $variables = null, ?string $override = null): void
     {
+        if ($this->useCache) $this->setCacheHeaders();
+
         View::display($viewName, $variables, $override);
     }
 

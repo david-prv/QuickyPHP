@@ -72,22 +72,7 @@ class Config
      */
     public function init(string $mode)
     {
-        $config = ($this->parser instanceof ConfigParser)
-            ? $this->parser->parse($mode)
-            : array(
-                "project" => array(
-                    "name" => "Quicky - PHP framework",
-                    "author" => "David Dewes",
-                    "version" => "0.0.1",
-                    "env" => "development"
-                ),
-                "cache" => array(
-                    "enabled"=> true,
-                    "expires" => 3600
-                ),
-                "storage" => "/quicky/storage",
-                "views" => "/quicky/views"
-            );
+        $config = $this->parser->parse($mode);
 
         $this->cache = $config["cache"];
         $this->project = $config["project"];
