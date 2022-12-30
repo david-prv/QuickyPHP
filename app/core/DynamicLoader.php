@@ -67,7 +67,7 @@ class DynamicLoader
     private function __construct(?string $override = null)
     {
         $this->workingDir = $override ?? getcwd();
-        $this->instances = array();
+        $this->instances = array($this);
         $this->locations = array();
         $this->classes = array();
         $this->loaded = array();
@@ -113,6 +113,17 @@ class DynamicLoader
     }
 
     /**
+     * Registers an existing instance
+     *
+     * @param string $className
+     * @param object $instance
+     */
+    public function registerInstance(string $className, object $instance): void
+    {
+        $this->instances[$className] = $instance;
+    }
+
+    /**
      * Creates or returns an instance
      * of a certain class by name
      *
@@ -147,7 +158,7 @@ class DynamicLoader
      *
      * @param string $current
      */
-    public function scan(string $current = "/app"): void
+    private function scan(string $current = "/app"): void
     {
         array_push($this->locations, $current);
 

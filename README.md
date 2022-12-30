@@ -16,9 +16,9 @@ A simple web application powered by this framework:
 ```php
 require __DIR__ . "/app/autoload.php";
 
-$app = App::getInstance();
+$app = Quicky::getInstance();
 
-App::get("/", function(Request $request, Response $response) {
+Quicky::get("/", function(Request $request, Response $response) {
     $response->send("Hello World");
 });
 
@@ -26,7 +26,7 @@ $app->run();
 ```
 
 ## TODO
-- [ ] Find a project name  
+- [x] Find a project name  
 - [ ] Create a logo  
 - [ ] Simple Middleware  
 - [ ] In-built Sessions  

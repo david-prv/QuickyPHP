@@ -2,18 +2,18 @@
 
 require __DIR__ . "/app/autoload.php";
 
-$app = App::getInstance();
+$app = Quicky::getInstance();
 
-App::get("/", function (Request $request, Response $response) {
+Quicky::get("/", function (Request $request, Response $response) {
     $response->render("index", array("placeholder1" => "Hello", "placeholder2" => "World"));
 });
 
-App::get("/about", function (Request $request, Response $response) {
+Quicky::get("/about", function (Request $request, Response $response) {
     $response->render("about");
 
 });
 
-App::get("/greet/{name}/{age}", function (Request $request, Response $response) {
+Quicky::get("/greet/{name}/{age}", function (Request $request, Response $response) {
     $response->send("Hello %s, you are %s years old.",
         $request->getArg("name"),
         $request->getArg("age"));

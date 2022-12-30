@@ -10,32 +10,33 @@
 declare(strict_types=1);
 
 /**
- * Class App
+ * Class Quicky
  *
  * @method static get(string $pattern, callable $callback)
  * @method static post(string $pattern, callable $callback)
  * @method static render(string $viewName, ?array $params = null)
  */
-class App
+class Quicky
 {
-    private static ?App $instance = null;
+    private static ?Quicky $instance = null;
 
     /**
-     * App constructor.
+     * Quicky constructor.
      */
     private function __construct()
     {
+        DynamicLoader::getLoader()->registerInstance(Quicky::class, $this);
     }
 
     /**
      * Creates or returns an instance
      *
-     * @return App|null
+     * @return Quicky|null
      */
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new App();
+            self::$instance = new Quicky();
         }
         return self::$instance;
     }
