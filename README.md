@@ -29,7 +29,8 @@ $app->run();
 - [x] Find a project name  
 - [ ] Create a logo  
 - [ ] Support .env files
-- [ ] Simple Middleware  
+- [ ] Simple Middleware
+- [ ] Response->toString() method  
 - [ ] In-built Sessions  
 - [ ] In-built CSRF Tokens  
 - [ ] In-built Global Variables  
