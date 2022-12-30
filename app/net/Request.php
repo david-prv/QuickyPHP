@@ -266,4 +266,19 @@ class Request
     {
         $this->args = $args;
     }
+
+    /**
+     * Returns the request in string format
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
+        $out = "";
+        foreach ($this as $name => $value) {
+            if (!is_string($value)) $value = "[mixed]";
+            $out .= "$name => $value <br>";
+        }
+        return $out;
+    }
 }

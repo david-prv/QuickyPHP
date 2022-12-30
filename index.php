@@ -8,8 +8,8 @@ App::get("/", function(Request $request, Response $response) {
     $response->send("Hello World");
 });
 
-App::get("/time", function(Request $request, Response $response) {
-    $response->send("Request time: %s", $request->getTime());
+App::get("/dump", function(Request $request, Response $response) {
+    $response->send("Request dump: %s", $request->toString());
 });
 
 App::get("/data/{var1}/{var2}", function(Request $request, Response $response) {
