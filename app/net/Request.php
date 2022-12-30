@@ -269,6 +269,7 @@ class Request
 
     /**
      * Returns a specific argument
+     * as url-decoded string
      *
      * @param string $argName
      * @return string
@@ -276,7 +277,7 @@ class Request
      */
     public function getArg(string $argName): string
     {
-        if (isset($this->args[$argName])) return $this->args[$argName];
+        if (isset($this->args[$argName])) return urldecode($this->args[$argName]);
         else throw new InvalidParametersException($argName);
     }
 
