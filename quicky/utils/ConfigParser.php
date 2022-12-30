@@ -41,7 +41,7 @@ class ConfigParser
     {
         return array(
             "project" => array(
-                "name" => "Micro-Framework",
+                "name" => "Quicky - PHP framework",
                 "author" => "David Dewes",
                 "version" => "0.0.1",
                 "env" => "development"

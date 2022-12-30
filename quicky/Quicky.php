@@ -18,7 +18,19 @@ declare(strict_types=1);
  */
 class Quicky
 {
+    /**
+     * Quicky instance
+     *
+     * @var Quicky|null
+     */
     private static ?Quicky $instance = null;
+
+    /**
+     * Project env
+     *
+     * @var string
+     */
+    private string $env;
 
     /**
      * Quicky constructor.
@@ -32,6 +44,7 @@ class Quicky
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
         if (!is_null($config) && $config instanceof Config) {
             $config->init($mode);
+            $this->env = $config->getEnv();
         } else {
             $this->stop(1);
         }
