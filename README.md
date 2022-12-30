@@ -62,4 +62,4 @@ TBD
 TBD
 
 ## License
-Flight is released under the [MIT](http://flightphp.com/license) license.
+Flight is released under the [MIT](https://en.m.wikipedia.org/wiki/MIT_License) license.
