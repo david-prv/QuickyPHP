@@ -28,6 +28,7 @@ $app->run();
 ## TODO
 - [x] Find a project name  
 - [ ] Create a logo  
+- [ ] Support .env files
 - [ ] Simple Middleware  
 - [ ] In-built Sessions  
 - [ ] In-built CSRF Tokens  
