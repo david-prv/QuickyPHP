@@ -28,6 +28,7 @@ $app->run();
 ## TODO
 - [x] Find a project name  
 - [ ] Create a logo  
+- [x] Buy domain: quickyphp.de
 - [ ] Support .env files
 - [ ] Simple Middleware
 - [ ] Response->toString() method  
@@ -36,12 +37,13 @@ $app->run();
 - [ ] In-built Global Variables  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  
+- [ ] In-built Caching
 - [x] Response->sendFile method  
 - [ ] Config Parser  
 - [x] Route Wildcards 
 - [x] Route RegEx 
 - [ ] Write Tests!
-- [ ] Write Docs!
+- [ ] Write Docs / simple webpage!
 - [ ] Add support for DELETE, UPDATE, PUT methods
 
 ## Installation
