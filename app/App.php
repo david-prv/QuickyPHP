@@ -14,6 +14,7 @@ declare(strict_types=1);
  *
  * @method static get(string $pattern, callable $callback)
  * @method static post(string $pattern, callable $callback)
+ * @method static render(string $viewName, ?array $params = null)
  */
 class App
 {
@@ -48,6 +49,16 @@ class App
     {
         $router = DynamicLoader::getLoader()->getInstance(Router::class);
         if ($router instanceof Router) $router(new Request(), new Response());
+    }
+
+    /**
+     * Stop application
+     *
+     * @param int $code
+     */
+    public function stop(int $code = 0)
+    {
+        exit($code);
     }
 
     /**

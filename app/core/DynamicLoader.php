@@ -14,11 +14,49 @@ declare(strict_types=1);
  */
 class DynamicLoader
 {
+    /**
+     * Singleton instance
+     *
+     * @var DynamicLoader|null
+     */
     private static ?DynamicLoader $instance = null;
+
+    /**
+     * The current working directory
+     *
+     * @var false|string
+     */
     private string $workingDir;
+
+    /**
+     * The list of instances
+     *
+     * @var array
+     */
     private array $instances;
+
+    /**
+     * All directories in the project folder
+     *
+     * @var array
+     */
     private array $locations;
+
+    /**
+     * All available classes
+     * Read more about PSR standards:
+     *
+     * @link https://en.wikipedia.org/wiki/PHP_Standard_Recommendation
+     *
+     * @var array
+     */
     private array $classes;
+
+    /**
+     * All already included classes
+     *
+     * @var array
+     */
     private array $loaded;
 
     /**

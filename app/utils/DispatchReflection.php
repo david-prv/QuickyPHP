@@ -23,8 +23,8 @@ class DispatchReflection
      */
     public static function isDispatchingClass(string $className)
     {
-        $t = new ReflectionClass($className);
-        return strpos($t->getDocComment(), "@dispatch") !== false;
+        $reflection = new ReflectionClass($className);
+        return strpos($reflection->getDocComment(), "@dispatch") !== false;
     }
 
     /**
@@ -38,7 +38,7 @@ class DispatchReflection
      */
     public static function isDispatchedByClass(string $className, string $methodName)
     {
-        $t = new ReflectionClass($className);
-        return strpos($t->getDocComment(), "@dispatch $methodName") !== false;
+        $reflection = new ReflectionClass($className);
+        return strpos($reflection->getDocComment(), "@dispatch $methodName") !== false;
     }
 }

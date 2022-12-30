@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 /**
  * Class Response
+ *
+ * @dispatch render
  */
 class Response
 {
@@ -119,12 +121,26 @@ class Response
     }
 
     /**
+     * Renders a view as response
+     *
+     * @param string $viewName
+     * @param array|null $variables
+     * @param string|null $override
+     * @throws ViewNotFoundException
+     */
+    public function render(string $viewName, ?array $variables = null, ?string $override = null): void
+    {
+        RenderEngine::display($viewName, $variables, $override);
+    }
+
+    /**
      * Returns response in string format
      *
      * @return string
      */
     public function toString(): string
     {
+        // TODO: Implement something different here
         return gettype($this);
     }
 }

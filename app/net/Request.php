@@ -268,6 +268,19 @@ class Request
     }
 
     /**
+     * Returns a specific argument
+     *
+     * @param string $argName
+     * @return string
+     * @throws InvalidParametersException
+     */
+    public function getArg(string $argName): string
+    {
+        if (isset($this->args[$argName])) return $this->args[$argName];
+        else throw new InvalidParametersException($argName);
+    }
+
+    /**
      * Returns the request in string format
      *
      * @return string
