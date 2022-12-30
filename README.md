@@ -46,8 +46,20 @@ $app->run();
 - [ ] Write Docs / simple webpage!
 - [ ] Add support for DELETE, UPDATE, PUT methods
 
+## Requirements
+QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.
+
 ## Installation
 TBD
 
 ## Get Started
 TBD
+
+## Contributing
+TBD
+
+## Support
+TBD
+
+## License
+Flight is released under the [MIT](http://flightphp.com/license) license.
