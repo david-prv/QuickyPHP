@@ -20,7 +20,7 @@ class Dispatcher
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
         $loader = DynamicLoader::getLoader();
-        $name = "__".$name; // only methods with prefix allowed
+        $name = "__$name"; // only methods with prefix allowed
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
