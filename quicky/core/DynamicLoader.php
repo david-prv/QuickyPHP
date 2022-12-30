@@ -1,6 +1,6 @@
 <?php
 /**
- * A handmade php micro-framework
+ * QuickyPHP - A handmade php micro-framework
  *
  * @author David Dewes <hello@david-dewes.de>
  *
@@ -158,7 +158,7 @@ class DynamicLoader
      *
      * @param string $current
      */
-    private function scan(string $current = "/app"): void
+    private function scan(string $current = "/quicky"): void
     {
         array_push($this->locations, $current);
 

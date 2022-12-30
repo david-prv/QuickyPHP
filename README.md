@@ -1,5 +1,5 @@
-# PHP Micro-Framework
-A project name needs to be determined soon!
+# QuickyPHP
+A php micro-framework for simple and quick web-applications
 
 ## Motivation
 I started this project because I wanted to procrastinate important work for university. No joke. But it turned into a slight obsession that has been with me for a few days now. I found developing my own PHP micro-framework so interesting that I kept reading up on documentation and articles and watching tutorial after tutorial.
@@ -14,7 +14,7 @@ I got the idea of how a simple PHP framework works from other open source projec
 ## Sneak Peak
 A simple web application powered by this framework:
 ```php
-require __DIR__ . "/app/autoload.php";
+require __DIR__ . "/quicky/autoload.php";
 
 $app = Quicky::getInstance();
 

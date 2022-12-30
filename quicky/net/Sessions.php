@@ -1,6 +1,6 @@
 <?php
 /**
- * A handmade php micro-framework
+ * QuickyPHP - A handmade php micro-framework
  *
  * @author David Dewes <hello@david-dewes.de>
  *
@@ -14,5 +14,5 @@ declare(strict_types=1);
  */
 class Sessions
 {
-
+    // TODO
 }
