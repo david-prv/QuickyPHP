@@ -29,12 +29,12 @@ class ConfigParser
 
     public function loadFromJSON(): array
     {
-        return array();
+        return array(); // TODO
     }
 
     public function loadFromEnv(): array
     {
-        return array();
+        return array(); // TODO
     }
 
     public function loadDefault(): array
