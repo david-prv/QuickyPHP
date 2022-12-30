@@ -16,7 +16,7 @@ A simple web application powered by this framework:
 ```php
 require __DIR__ . "/quicky/autoload.php";
 
-$app = Quicky::getInstance();
+$app = Quicky::create();
 
 Quicky::get("/", function(Request $request, Response $response) {
     $response->send("Hello World");

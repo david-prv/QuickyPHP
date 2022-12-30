@@ -89,7 +89,8 @@ class Response
      */
     public function __construct()
     {
-        $this->storagePath = getcwd() . "/quicky/storage";
+        $config = DynamicLoader::getLoader()->getInstance(Config::class);
+        $this->storagePath = getcwd() . $config->getStoragePath();
     }
 
     /**
@@ -164,7 +165,7 @@ class Response
      */
     public function render(string $viewName, ?array $variables = null, ?string $override = null): void
     {
-        RenderEngine::display($viewName, $variables, $override);
+        View::display($viewName, $variables, $override);
     }
 
     /**

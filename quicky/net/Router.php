@@ -107,6 +107,12 @@ class Router
         return (isset($this->routes[$hash])) ? $this->routes[$hash] : null;
     }
 
+    /**
+     * Finds route that fits to requested url
+     *
+     * @param Request $request
+     * @return Route|null
+     */
     private function findRoute(Request $request): ?Route
     {
         $url = $request->getUrl();

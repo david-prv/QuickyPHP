@@ -2,7 +2,7 @@
 
 require __DIR__ . "/quicky/autoload.php";
 
-$app = Quicky::getInstance();
+$app = Quicky::create();
 
 Quicky::get("/", function (Request $request, Response $response) {
     $response->render("index", array("placeholder1" => "Hello", "placeholder2" => "World"));

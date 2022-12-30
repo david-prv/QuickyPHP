@@ -22,21 +22,31 @@ class Quicky
 
     /**
      * Quicky constructor.
+     *
+     * @param string $mode
      */
-    private function __construct()
+    private function __construct(string $mode)
     {
         DynamicLoader::getLoader()->registerInstance(Quicky::class, $this);
+
+        $config = DynamicLoader::getLoader()->getInstance(Config::class);
+        if (!is_null($config) && $config instanceof Config) {
+            $config->init($mode);
+        } else {
+            $this->stop(1);
+        }
     }
 
     /**
      * Creates or returns an instance
      *
-     * @return Quicky|null
+     * @param string $mode
+     * @return Quicky
      */
-    public static function getInstance()
+    public static function create(string $mode = Config::LOAD_DEFAULT)
     {
         if (self::$instance === null) {
-            self::$instance = new Quicky();
+            self::$instance = new Quicky($mode);
         }
         return self::$instance;
     }

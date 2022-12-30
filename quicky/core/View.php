@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class RenderEngine
+ * Class View
  */
-class RenderEngine
+class View
 {
     /**
      * Displays a view file
@@ -24,7 +24,8 @@ class RenderEngine
      */
     public static function display(string $viewName, ?array $variables = null, ?string $override = null)
     {
-        $workingDir = $override ?? getcwd() . "/quicky/views";
+        $config = DynamicLoader::getLoader()->getInstance(Config::class);
+        $workingDir = $override ?? getcwd() . $config->getViewsPath();
         $viewFile = "$workingDir/$viewName.html";
 
         if (!is_dir($workingDir) || !is_file($viewFile)) throw new ViewNotFoundException($viewName);
