@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class InvalidParametersException
+ */
 class InvalidParametersException extends CoreException
 {
     protected string $default = "The passed parameter '%s' is either not existing or invalid.";

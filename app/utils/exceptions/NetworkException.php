@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class NetworkException
+ */
 class NetworkException extends Exception
 {
     protected string $default = "Critical Error! An error has occurred in a networking function. " .

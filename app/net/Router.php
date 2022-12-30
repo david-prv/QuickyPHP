@@ -10,6 +10,8 @@
 declare(strict_types=1);
 
 /**
+ * Class Router
+ *
  * @dispatch get
  * @dispatch post
  */

@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class Dispatcher
+ */
 class Dispatcher
 {
     /**

@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class InvalidClassException
+ */
 class InvalidClassException extends CoreException
 {
     protected string $default = "The method name '%s' could not be resolved. It may not exist.";

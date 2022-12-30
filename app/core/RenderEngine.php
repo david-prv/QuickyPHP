@@ -7,6 +7,11 @@
  * Copyright - David Dewes (c) 2022
  */
 
+declare(strict_types=1);
+
+/**
+ * Class RenderEngine
+ */
 class RenderEngine
 {
 

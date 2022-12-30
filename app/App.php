@@ -10,6 +10,8 @@
 declare(strict_types=1);
 
 /**
+ * Class App
+ *
  * @method static get(string $pattern, callable $callback)
  * @method static post(string $pattern, callable $callback)
  */

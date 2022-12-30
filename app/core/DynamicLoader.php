@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class DynamicLoader
+ */
 class DynamicLoader
 {
     private static ?DynamicLoader $instance = null;

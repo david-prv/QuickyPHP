@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class UnknownRouteException
+ */
 class UnknownRouteException extends NetworkException
 {
     protected string $default = "No route found for '%s'. It may not exist.";

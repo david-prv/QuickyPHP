@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class JSONParser
+ */
 class JSONParser
 {
 

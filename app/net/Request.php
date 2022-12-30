@@ -9,6 +9,9 @@
 
 declare(strict_types=1);
 
+/**
+ * Class Request
+ */
 class Request
 {
     private string $method;
