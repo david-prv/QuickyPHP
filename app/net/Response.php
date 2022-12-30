@@ -14,6 +14,11 @@ declare(strict_types=1);
  */
 class Response
 {
+    /**
+     * All HTTP codes
+     *
+     * @var array|string[]
+     */
     private array $codes = [
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -76,6 +81,8 @@ class Response
     ];
 
     /**
+     * Updates the HTTP response code
+     *
      * @param int $code
      */
     public function status(int $code): void
@@ -84,6 +91,8 @@ class Response
     }
 
     /**
+     * Initiates a HTTP redirection
+     *
      * @param string $destination
      */
     public function redirect(string $destination): void
@@ -92,6 +101,8 @@ class Response
     }
 
     /**
+     * Sends text/html with formatters
+     *
      * @param string $text
      * @param mixed ...$formatters
      */

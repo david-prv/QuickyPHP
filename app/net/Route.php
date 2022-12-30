@@ -14,12 +14,30 @@ declare(strict_types=1);
  */
 class Route
 {
+    /**
+     * The method for the route
+     *
+     * @var string
+     */
     private string $method;
+
+    /**
+     * A matching pattern for the route
+     *
+     * @var string
+     */
     private string $pattern;
+
+    /**
+     * The callback method
+     *
+     * @var callable
+     */
     private $callback;
 
     /**
      * Route constructor.
+     *
      * @param string $method
      * @param string $pattern
      * @param callable $callback
@@ -32,6 +50,9 @@ class Route
     }
 
     /**
+     * Returns the route hashcode
+     *
+     * @uses sha1()
      * @return string
      */
     public function hashCode(): string
@@ -40,11 +61,12 @@ class Route
     }
 
     /**
+     * Executes the route closure
+     *
      * @param Request $request
      * @param Response $response
      * @return mixed
      */
-    #[\ReturnTypeWillChange]
     public function execute(Request $request, Response $response)
     {
         ($this->callback)($request, $response);

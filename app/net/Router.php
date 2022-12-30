@@ -17,6 +17,12 @@ declare(strict_types=1);
  */
 class Router
 {
+    /**
+     * All existing routes
+     * (Associative array)
+     *
+     * @var array
+     */
     private array $routes;
 
     /**
@@ -28,6 +34,11 @@ class Router
     }
 
     /**
+     * Invoked method
+     *
+     * Finds a route depending on the request
+     * and executes it with a proper response object
+     *
      * @param Request $request
      * @param Response $response
      * @throws UnknownRouteException
@@ -41,6 +52,8 @@ class Router
     }
 
     /**
+     * Dispatched GET route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -54,6 +67,8 @@ class Router
     }
 
     /**
+     * Dispatched POST route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -67,6 +82,9 @@ class Router
     }
 
     /**
+     * Checks if a route is contained in
+     * the routes array
+     *
      * @param Route $route
      * @return bool
      */
@@ -79,6 +97,8 @@ class Router
     }
 
     /**
+     * Finds route by hash-code
+     *
      * @param string $hash
      * @return Route|null
      */

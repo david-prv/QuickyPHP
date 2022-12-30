@@ -15,6 +15,9 @@ declare(strict_types=1);
 class Dispatcher
 {
     /**
+     * Dispatches a method to the corresponding
+     * dispatching class.
+     *
      * @param string $name
      * @param array $args
      * @param string|null $className
@@ -27,7 +30,7 @@ class Dispatcher
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
-            if (!DispatchReflector::isDispatchedMethod($className, $name)) throw new UnknownCallException($name);
+            if (!DispatchReflection::isDispatchedByClass($className, $name)) throw new UnknownCallException($name);
             if (is_null($c)) throw new UnknownCallException($name);
             else call_user_func(array($c, $name), ...$args);
         } else {
@@ -35,7 +38,6 @@ class Dispatcher
 
             if (is_null($cname)) throw new UnknownCallException($name);
             else {
-                if (!DispatchReflector::isDispatchedMethod($cname, $name)) throw new UnknownCallException($name);
                 $c = $loader->getInstance($cname);
                 if (is_null($c)) throw new UnknownCallException($name);
                 call_user_func(array($c, $name), ...$args);

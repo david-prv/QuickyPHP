@@ -23,6 +23,7 @@ class DynamicLoader
 
     /**
      * DynamicLoader constructor.
+     *
      * @param string|null $override
      */
     private function __construct(?string $override = null)
@@ -36,6 +37,8 @@ class DynamicLoader
     }
 
     /**
+     * Creates or returns the loader
+     *
      * @param string|null $override
      * @return static
      */
@@ -48,6 +51,9 @@ class DynamicLoader
     }
 
     /**
+     * Load a class by classname
+     * using the PSR-4 standard
+     *
      * @param string $className
      * @throws InvalidClassException
      */
@@ -69,6 +75,9 @@ class DynamicLoader
     }
 
     /**
+     * Creates or returns an instance
+     * of a certain class by name
+     *
      * @param string $className
      * @param array|null $params
      * @return object|null
@@ -91,6 +100,13 @@ class DynamicLoader
     }
 
     /**
+     * Scans the framework working directory
+     * to get an overview over all existing files
+     * an classes.
+     *
+     * NOTE:    It is necessary that all files are named by
+     *          the PSR-4 standard.
+     *
      * @param string $current
      */
     public function scan(string $current = "/app"): void
@@ -116,6 +132,10 @@ class DynamicLoader
     }
 
     /**
+     * Searches a certain method.
+     * The method has to be dispatch-able
+     * and should be named uniquely.
+     *
      * @param string $name
      * @return string|null
      * @throws ReflectionException
@@ -124,7 +144,8 @@ class DynamicLoader
     {
         foreach ($this->classes as $class) {
             if (method_exists($class, $name)
-                && DispatchReflector::hasDispatchedMethods($class)) return $class;
+                && DispatchReflection::isDispatchingClass($class)
+                && DispatchReflection::isDispatchedByClass($class, $name)) return $class;
         }
         return null;
     }

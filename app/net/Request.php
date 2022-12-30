@@ -14,18 +14,84 @@ declare(strict_types=1);
  */
 class Request
 {
+    /**
+     * The HTTP method
+     *
+     * @var mixed|string
+     */
     private string $method;
+
+    /**
+     * The requested URL
+     *
+     * @var mixed|string
+     */
     private string $url;
+
+    /**
+     * The time of request
+     *
+     * @var mixed|string
+     */
     private string $time;
+
+    /**
+     * Sent cookies
+     *
+     * @var mixed|string
+     */
     private string $cookie;
+
+    /**
+     * The Accept-Header
+     *
+     * @var mixed|string
+     */
     private string $accept;
+
+    /**
+     * The HTTP referrer
+     *
+     * @var mixed|string
+     */
     private string $referrer;
+
+    /**
+     * The user-agent
+     *
+     * @var mixed|string
+     */
     private string $ua;
 
+    /**
+     * HTTPS used
+     *
+     * @var bool|mixed
+     */
     private bool $secure;
 
+    /**
+     * All headers, unsorted
+     *
+     * @var array|false|mixed
+     */
     private array $headers;
+
+    /**
+     * All remote information
+     *
+     * @var array|mixed
+     */
     private array $remote;
+
+    /**
+     * The sent data
+     *
+     * Priority:
+     * $_POST > $_GET
+     *
+     * @var array|mixed
+     */
     private array $data;
 
     /**
@@ -62,6 +128,8 @@ class Request
     }
 
     /**
+     * Returns the method
+     *
      * @return string
      */
     public function getMethod(): string
@@ -70,6 +138,8 @@ class Request
     }
 
     /**
+     * Returns the time
+     *
      * @return mixed|string
      */
     public function getTime()
@@ -78,6 +148,8 @@ class Request
     }
 
     /**
+     * Returns the cookie
+     *
      * @return mixed|string
      */
     public function getCookie()
@@ -86,6 +158,8 @@ class Request
     }
 
     /**
+     * Returns the accept-header
+     *
      * @return mixed|string
      */
     public function getAccept()
@@ -94,6 +168,8 @@ class Request
     }
 
     /**
+     * Returns the referrer
+     *
      * @return mixed|string
      */
     public function getReferrer()
@@ -102,6 +178,8 @@ class Request
     }
 
     /**
+     * Returns the user-agent
+     *
      * @return mixed|string
      */
     public function getUserAgent()
@@ -110,6 +188,8 @@ class Request
     }
 
     /**
+     * Indicates whether HTTPS is used
+     *
      * @return bool|mixed
      */
     public function getSecure()
@@ -118,6 +198,8 @@ class Request
     }
 
     /**
+     * Returns all headers
+     *
      * @return array|false|mixed
      */
     public function getHeaders()
@@ -126,6 +208,8 @@ class Request
     }
 
     /**
+     * Returns all remote details
+     *
      * @return array|mixed
      */
     public function getRemote()
@@ -134,6 +218,8 @@ class Request
     }
 
     /**
+     * Returns the requested url
+     *
      * @return string
      */
     public function getUrl(): string
@@ -142,6 +228,8 @@ class Request
     }
 
     /**
+     * Returns the sent data
+     *
      * @return array|mixed
      */
     public function getData()

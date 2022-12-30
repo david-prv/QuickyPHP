@@ -27,6 +27,8 @@ class App
     }
 
     /**
+     * Creates or returns an instance
+     *
      * @return App|null
      */
     public static function getInstance()
@@ -39,6 +41,7 @@ class App
 
     /**
      * Run application
+     *
      * @throws UnknownRouteException
      */
     public function run()
@@ -48,9 +51,14 @@ class App
     }
 
     /**
+     * Handle static function calls.
+     * They will be dispatched to their corresponding
+     * dispatching classes.
+     *
      * @param $name
      * @param $arguments
      * @throws UnknownCallException
+     * @throws ReflectionException
      */
     public static function __callStatic($name, $arguments): void
     {
