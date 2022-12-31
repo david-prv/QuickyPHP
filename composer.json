@@ -20,7 +20,8 @@
             "quicky/net/",
             "quicky/storage/",
             "quicky/utils/",
-            "quicky/views/"
+            "quicky/views/",
+            "tests/"
         ]
     },
     "require-dev": {
