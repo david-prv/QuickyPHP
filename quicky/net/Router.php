@@ -12,6 +12,7 @@ declare(strict_types=1);
 /**
  * Class Router
  *
+ * @dispatch router
  * @dispatch get
  * @dispatch post
  * @dispatch put
@@ -56,6 +57,20 @@ class Router
         if (Quicky::session()->isSecure()) Quicky::session()->regenerateId();
 
         $route->execute($request, $response);
+    }
+
+    /**
+     * Getter for router instance
+     *
+     * @return object|Router|null
+     * @throws NetworkException
+     */
+    public function router()
+    {
+        $instance = DynamicLoader::getLoader()->getInstance(Router::class);
+
+        if ($instance instanceof Router) return $instance;
+        else throw new NetworkException();
     }
 
     /**

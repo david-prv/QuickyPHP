@@ -40,7 +40,7 @@ Quicky::get("/session/{name}", function(Request $request, Response $response) {
 });
 
 Quicky::post("/", function(Request $request, Response $response) {
-   var_dump($request->getData());
+   print_r($request->getData());
 });
 
 try {

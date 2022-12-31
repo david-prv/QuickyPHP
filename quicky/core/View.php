@@ -11,9 +11,18 @@ declare(strict_types=1);
 
 /**
  * Class View
+ *
+ * @dispatch view
  */
 class View
 {
+    /**
+     * View constructor.
+     */
+    public function __construct()
+    {
+    }
+
     /**
      * Displays a view file
      *
@@ -39,5 +48,19 @@ class View
         }
 
         print $html;
+    }
+
+    /**
+     * Getter for view instance
+     *
+     * @return View|object|null
+     * @throws CoreException
+     */
+    public function view()
+    {
+        $instance = DynamicLoader::getLoader()->getInstance(View::class);
+
+        if ($instance instanceof View) return $instance;
+        else throw new CoreException();
     }
 }

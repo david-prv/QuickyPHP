@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 /**
  * Class Config
+ *
+ * @dispatch config
  */
 class Config
 {
@@ -63,6 +65,20 @@ class Config
     public function __construct()
     {
         $this->parser = DynamicLoader::getLoader()->getInstance(ConfigParser::class);
+    }
+
+    /**
+     * Getter for config instance
+     *
+     * @return Config|object|null
+     * @throws ConfigParserException
+     */
+    public function config()
+    {
+        $instance = DynamicLoader::getLoader()->getInstance(Config::class);
+
+        if ($instance instanceof Config) return $instance;
+        else throw new ConfigParserException();
     }
 
     /**

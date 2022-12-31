@@ -44,9 +44,10 @@ class DynamicLoader
 
     /**
      * All available classes
-     * Read more about PSR standards:
+     * Read more about the required naming
+     * standards:
      *
-     * @link https://en.wikipedia.org/wiki/PHP_Standard_Recommendation
+     * @link https://pear.php.net/manual/en/standards.naming.php
      *
      * @var array
      */
@@ -155,7 +156,7 @@ class DynamicLoader
      * an classes.
      *
      * NOTE:    It is necessary that all files are named by
-     *          the PSR-4 standard.
+     *          their class names.
      *
      * @param string $current
      */

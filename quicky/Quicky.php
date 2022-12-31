@@ -21,10 +21,17 @@ declare(strict_types=1);
  * @method static patch(string $pattern, callable $callback)
  *
  * Views:
+ * @method static view()
  * @method static render(string $viewName, ?array $params = null)
  *
  * Session:
  * @method static session()
+ *
+ * Config:
+ * @method static config()
+ *
+ * Router:
+ * @method static router()
  */
 class Quicky
 {
