@@ -1,0 +1,26 @@
+{
+    "name": "david-prv/quickyphp",
+    "description": "A handmade php micro-framework",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "david-prv",
+            "email": "66866223+david-prv@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "classmap": [
+            "quicky/",
+            "quicky/core/",
+            "quicky/net/",
+            "quicky/storage/",
+            "quicky/utils/",
+            "quicky/views/"
+        ]
+    }
+}
