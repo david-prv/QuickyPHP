@@ -34,11 +34,14 @@ Quicky::get("/wildcard/*/test", function(Request $request, Response $response) {
 });
 
 Quicky::get("/session/{name}", function(Request $request, Response $response) {
-   $response->send("Variable '%s' = '%s",
+   $response->send("Variable '%s' = '%s'",
        $request->getArg("name"),
        Quicky::session()->get($request->getArg("name")));
 });
 
+Quicky::post("/", function(Request $request, Response $response) {
+   var_dump($request->getData());
+});
 
 try {
     $app->run();

@@ -38,6 +38,7 @@ $app->run();
 - [x] ~~Support .env files~~
 - [x] ~~Add support for DELETE, UPDATE, PUT, ... methods~~
 - [x] ~~Response->toString() method~~  
+- [x] ~~Create composer package~~
 - [ ] Create a logo  
 - [ ] Simple Middleware
 - [ ] In-built CSRF Tokens  
@@ -45,7 +46,6 @@ $app->run();
 - [ ] In-built Event Logging  
 - [ ] Write Tests!
 - [ ] Write Docs / simple webpage!
-- [ ] Create composer package
 
 ## Requirements
 QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.

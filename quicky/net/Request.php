@@ -114,7 +114,7 @@ class Request
             $this->time = (string)$_SERVER["REQUEST_TIME"];
             $this->headers = getallheaders();
             $this->remote = array($_SERVER["REMOTE_ADDR"], gethostbyaddr($_SERVER["REMOTE_ADDR"]), $_SERVER["REMOTE_PORT"]);
-            $this->cookie = $this->headers["Cookie"];
+            $this->cookie = $this->headers["Cookie"] ?? "";
             $this->accept = $this->headers["Accept"];
             $this->ua = $this->headers["User-Agent"];
             $this->secure = isset($_SERVER["HTTPS"]) && !is_null($_SERVER["HTTPS"]);
