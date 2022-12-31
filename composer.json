@@ -9,7 +9,7 @@
             "email": "66866223+david-prv@users.noreply.github.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.4"
     },
