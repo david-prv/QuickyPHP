@@ -78,12 +78,6 @@ composer install
 First things first. Let's define a basic application:
 ```php
 require __DIR__ . "/quicky/autoload.php";
-
-/*
-    Uncomment if you'd like to use composer instead.
-    Don't forget to remove first require above!
-*/
-
 // require __DIR__ . "/vendor/autoload.php";
 
 // The basic application
