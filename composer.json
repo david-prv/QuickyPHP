@@ -22,5 +22,8 @@
             "quicky/utils/",
             "quicky/views/"
         ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9"
     }
 }

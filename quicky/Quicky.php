@@ -23,7 +23,7 @@ declare(strict_types=1);
  * Views:
  * @method static render(string $viewName, ?array $params = null)
  *
- * Sessions:
+ * Session:
  * @method static session()
  */
 class Quicky

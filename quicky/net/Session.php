@@ -10,11 +10,11 @@
 declare(strict_types=1);
 
 /**
- * Class Sessions
+ * Class Session
  *
  * @dispatch session
  */
-class Sessions
+class Session
 {
     /**
      * In-built sessionId
@@ -44,7 +44,7 @@ class Sessions
     const QUICKY_SESSION_CREATED_AT = "quicky_created_at";
 
     /**
-     * Sessions constructor.
+     * Session constructor.
      */
     public function __construct()
     {
@@ -68,9 +68,9 @@ class Sessions
      */
     public static function session()
     {
-        $instance = DynamicLoader::getLoader()->getInstance(Sessions::class);
+        $instance = DynamicLoader::getLoader()->getInstance(Session::class);
 
-        if ($instance instanceof Sessions) return $instance;
+        if ($instance instanceof Session) return $instance;
         else throw new InvalidSessionException();
     }
 

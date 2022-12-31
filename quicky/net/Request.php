@@ -112,11 +112,11 @@ class Request
             $this->method = strtoupper($_SERVER['REQUEST_METHOD']);
             $this->url = (string)parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $this->time = (string)$_SERVER["REQUEST_TIME"];
-            $this->headers = getallheaders();
+            $this->headers = (function_exists("getallheaders")) ? getallheaders() : $this->readRequestHeaders();
             $this->remote = array($_SERVER["REMOTE_ADDR"], gethostbyaddr($_SERVER["REMOTE_ADDR"]), $_SERVER["REMOTE_PORT"]);
             $this->cookie = $this->headers["Cookie"] ?? "";
-            $this->accept = $this->headers["Accept"];
-            $this->ua = $this->headers["User-Agent"];
+            $this->accept = $this->headers["Accept"] ?? "";
+            $this->ua = $this->headers["User-Agent"] ?? "";
             $this->secure = isset($_SERVER["HTTPS"]) && !is_null($_SERVER["HTTPS"]);
             $this->referrer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
             $this->data = (count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array());
@@ -135,6 +135,23 @@ class Request
             $this->data = $data["data"];
             $this->args = $data["args"];
         }
+    }
+
+    /**
+     * Workaround for undefined
+     * in-built function "getallheaders()"
+     *
+     * @return array
+     */
+    private function readRequestHeaders(): array
+    {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        return $headers;
     }
 
     /**
