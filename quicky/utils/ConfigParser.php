@@ -14,6 +14,13 @@ declare(strict_types=1);
  */
 class ConfigParser
 {
+    /**
+     * Parses config
+     *
+     * @param $mode
+     * @return array
+     * @throws ConfigParserException
+     */
     public function parse($mode): array
     {
         switch ($mode) {
@@ -27,17 +34,46 @@ class ConfigParser
         }
     }
 
+    /**
+     * Loads from JSON
+     *
+     * @return array
+     * @throws ConfigParserException
+     */
     public function loadFromJSON(): array
     {
-        return array(); // TODO
+        $expectedPath = getcwd() . "/quicky/config.json";
+        if (is_file($expectedPath)) {
+            $json = (array)json_decode(file_get_contents($expectedPath), true);
+            if (is_null($json) || $json === false) throw new ConfigParserException();
+
+            return $json;
+        } else {
+            throw new ConfigParserException();
+        }
     }
 
-    public function loadFromEnv(): array
+    /**
+     * Loads from Env
+     *
+     * @return array
+     */
+    private function loadFromEnv(): array
     {
-        return array(); // TODO
+        return array(
+            "project" => getenv("project"),
+            "cache" => getenv("cache"),
+            "storage" => getenv("storage"),
+            "views" => getenv("views")
+        );
     }
 
-    public function loadDefault(): array
+    /**
+     * Loads default config
+     *
+     * @return array
+     */
+    private function loadDefault(): array
     {
         return array(
             "project" => array(

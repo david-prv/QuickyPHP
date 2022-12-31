@@ -27,21 +27,21 @@ $app->run();
 
 ## TODO
 - [x] ~~Find a project name~~  
-- [ ] Create a logo  
 - [x] ~~Buy domain: quickyphp.de~~
-- [ ] Support .env files
-- [ ] Simple Middleware
-- [ ] Response->toString() method  
 - [x] ~~In-built Sessions~~  
-- [ ] In-built CSRF Tokens  
 - [x] ~~In-built Global Variables~~  
-- [ ] In-built Error Handling  
-- [ ] In-built Event Logging  
 - [x] ~~In-built Caching~~
 - [x] ~~Response->sendFile method~~  
-- [ ] Config Parser  
+- [x] ~~Config Parser~~  
 - [x] ~~Route Wildcards~~ 
 - [x] ~~Route RegEx~~ 
+- [x] ~~Support .env files~~
+- [ ] Create a logo  
+- [ ] Simple Middleware
+- [ ] Response->toString() method  
+- [ ] In-built CSRF Tokens  
+- [ ] In-built Error Handling  
+- [ ] In-built Event Logging  
 - [ ] Write Tests!
 - [ ] Write Docs / simple webpage!
 - [ ] Create composer package

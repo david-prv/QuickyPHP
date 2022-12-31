@@ -2,7 +2,7 @@
 
 require __DIR__ . "/quicky/autoload.php";
 
-$app = Quicky::create();
+$app = Quicky::create(Config::LOAD_FROM_JSON);
 
 Quicky::session()->start();
 Quicky::session()->set("test", "I am a test!");
@@ -38,6 +38,7 @@ Quicky::get("/session/{name}", function(Request $request, Response $response) {
        $request->getArg("name"),
        Quicky::session()->get($request->getArg("name")));
 });
+
 
 try {
     $app->run();

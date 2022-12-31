@@ -146,6 +146,20 @@ class Sessions
     }
 
     /**
+     * Set multiple session variables
+     *
+     * @param array $assoc
+     */
+    public function setRange(array $assoc): void
+    {
+        if (!$this->active) return;
+
+        foreach ($assoc as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
+
+    /**
      * Get a session variable
      *
      * @param string $name
