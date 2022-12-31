@@ -32,9 +32,9 @@ $app->run();
 - [ ] Support .env files
 - [ ] Simple Middleware
 - [ ] Response->toString() method  
-- [ ] In-built Sessions  
+- [x] ~~In-built Sessions~~  
 - [ ] In-built CSRF Tokens  
-- [ ] In-built Global Variables  
+- [x] ~~In-built Global Variables~~  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  
 - [x] ~~In-built Caching~~
@@ -44,6 +44,7 @@ $app->run();
 - [x] ~~Route RegEx~~ 
 - [ ] Write Tests!
 - [ ] Write Docs / simple webpage!
+- [ ] Create composer package
 - [ ] Add support for DELETE, UPDATE, PUT methods
 
 ## Requirements

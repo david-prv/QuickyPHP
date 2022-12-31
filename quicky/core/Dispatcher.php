@@ -23,6 +23,7 @@ class Dispatcher
      * @param string|null $className
      * @throws UnknownCallException
      * @throws ReflectionException
+     * @return mixed
      */
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
@@ -32,7 +33,7 @@ class Dispatcher
 
             if (!Dispatcher::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
             if (is_null($c)) throw new UnknownCallException($name);
-            else call_user_func(array($c, $name), ...$args);
+            else return call_user_func(array($c, $name), ...$args);
         } else {
             $cname = $loader->findMethod($name);
 
@@ -40,7 +41,7 @@ class Dispatcher
             else {
                 $c = $loader->getInstance($cname);
                 if (is_null($c)) throw new UnknownCallException($name);
-                call_user_func(array($c, $name), ...$args);
+                return call_user_func(array($c, $name), ...$args);
             }
         }
     }

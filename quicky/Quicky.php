@@ -15,6 +15,7 @@ declare(strict_types=1);
  * @method static get(string $pattern, callable $callback)
  * @method static post(string $pattern, callable $callback)
  * @method static render(string $viewName, ?array $params = null)
+ * @method static session()
  */
 class Quicky
 {
@@ -94,9 +95,10 @@ class Quicky
      * @param $arguments
      * @throws UnknownCallException
      * @throws ReflectionException
+     * @return mixed
      */
-    public static function __callStatic($name, $arguments): void
+    public static function __callStatic($name, $arguments)
     {
-        Dispatcher::dispatch($name, $arguments);
+        return Dispatcher::dispatch($name, $arguments);
     }
 }

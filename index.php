@@ -4,6 +4,9 @@ require __DIR__ . "/quicky/autoload.php";
 
 $app = Quicky::create();
 
+Quicky::session()->start();
+Quicky::session()->set("test", "I am a test!");
+
 Quicky::get("/", function (Request $request, Response $response) {
     $response->render("index", array("placeholder1" => "Hello", "placeholder2" => "World"));
 });
@@ -28,6 +31,12 @@ Quicky::get("/profile/(\d+)", function(Request $request, Response $response) {
 
 Quicky::get("/wildcard/*/test", function(Request $request, Response $response) {
    $response->send("Wildcard Action, UwU");
+});
+
+Quicky::get("/session/{name}", function(Request $request, Response $response) {
+   $response->send("Variable '%s' = '%s",
+       $request->getArg("name"),
+       Quicky::session()->get($request->getArg("name")));
 });
 
 try {

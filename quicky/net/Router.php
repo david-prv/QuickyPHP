@@ -49,6 +49,8 @@ class Router
         $route = $this->findRoute($request);
         if (is_null($route)) throw new UnknownRouteException($request->getUrl());
 
+        if (Quicky::session()->isSecure()) Quicky::session()->regenerateId();
+
         $route->execute($request, $response);
     }
 
