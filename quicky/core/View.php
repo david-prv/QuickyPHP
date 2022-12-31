@@ -22,7 +22,7 @@ class View
      * @param string|null $override
      * @throws ViewNotFoundException
      */
-    public static function display(string $viewName, ?array $variables = null, ?string $override = null)
+    public static function render(string $viewName, ?array $variables = null, ?string $override = null)
     {
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
         $workingDir = $override ?? getcwd() . $config->getViewsPath();

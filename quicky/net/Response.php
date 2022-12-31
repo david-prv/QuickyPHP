@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 /**
  * Class Response
- *
- * @dispatch render
  */
 class Response
 {
@@ -203,7 +201,7 @@ class Response
     {
         if ($this->useCache) $this->setCacheHeaders();
 
-        View::display($viewName, $variables, $override);
+        View::render($viewName, $variables, $override);
     }
 
     /**
