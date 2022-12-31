@@ -14,6 +14,10 @@ declare(strict_types=1);
  *
  * @dispatch get
  * @dispatch post
+ * @dispatch put
+ * @dispatch update
+ * @dispatch delete
+ * @dispatch patch
  */
 class Router
 {
@@ -78,6 +82,66 @@ class Router
     public function post(string $pattern, callable $callback): void
     {
         $route = new Route("POST", $pattern, $callback);
+
+        if (!$this->isRoute($route)) {
+            $this->routes[$route->hashCode()] = $route;
+        }
+    }
+
+    /**
+     * Dispatched PUT route
+     *
+     * @param string $pattern
+     * @param callable $callback
+     */
+    public function put(string $pattern, callable $callback): void
+    {
+        $route = new Route("PUT", $pattern, $callback);
+
+        if (!$this->isRoute($route)) {
+            $this->routes[$route->hashCode()] = $route;
+        }
+    }
+
+    /**
+     * Dispatched UPDATE route
+     *
+     * @param string $pattern
+     * @param callable $callback
+     */
+    public function update(string $pattern, callable $callback): void
+    {
+        $route = new Route("UPDATE", $pattern, $callback);
+
+        if (!$this->isRoute($route)) {
+            $this->routes[$route->hashCode()] = $route;
+        }
+    }
+
+    /**
+     * Dispatched DELETE route
+     *
+     * @param string $pattern
+     * @param callable $callback
+     */
+    public function delete(string $pattern, callable $callback): void
+    {
+        $route = new Route("DELETE", $pattern, $callback);
+
+        if (!$this->isRoute($route)) {
+            $this->routes[$route->hashCode()] = $route;
+        }
+    }
+
+    /**
+     * Dispatched PATCH route
+     *
+     * @param string $pattern
+     * @param callable $callback
+     */
+    public function patch(string $pattern, callable $callback): void
+    {
+        $route = new Route("PATCH", $pattern, $callback);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;

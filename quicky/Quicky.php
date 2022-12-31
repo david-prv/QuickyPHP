@@ -12,9 +12,18 @@ declare(strict_types=1);
 /**
  * Class Quicky
  *
+ * Routes:
  * @method static get(string $pattern, callable $callback)
  * @method static post(string $pattern, callable $callback)
+ * @method static put(string $pattern, callable $callback)
+ * @method static update(string $pattern, callable $callback)
+ * @method static delete(string $pattern, callable $callback)
+ * @method static patch(string $pattern, callable $callback)
+ *
+ * Views:
  * @method static render(string $viewName, ?array $params = null)
+ *
+ * Sessions:
  * @method static session()
  */
 class Quicky

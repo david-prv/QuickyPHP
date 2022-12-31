@@ -36,6 +36,7 @@ $app->run();
 - [x] ~~Route Wildcards~~ 
 - [x] ~~Route RegEx~~ 
 - [x] ~~Support .env files~~
+- [x] ~~Add support for DELETE, UPDATE, PUT, ... methods~~
 - [ ] Create a logo  
 - [ ] Simple Middleware
 - [ ] Response->toString() method  
@@ -45,7 +46,6 @@ $app->run();
 - [ ] Write Tests!
 - [ ] Write Docs / simple webpage!
 - [ ] Create composer package
-- [ ] Add support for DELETE, UPDATE, PUT methods
 
 ## Requirements
 QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.
@@ -63,4 +63,4 @@ TBD
 TBD
 
 ## License
-Flight is released under the [MIT](https://en.m.wikipedia.org/wiki/MIT_License) license.
+Quicky is released under the [MIT](https://en.m.wikipedia.org/wiki/MIT_License) license.
