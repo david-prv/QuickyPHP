@@ -211,7 +211,6 @@ class Response
      */
     public function toString(): string
     {
-        // TODO: Implement something different here
-        return gettype($this);
+        return "Response Object (cached=" . ($this->useCache) ? "yes" : "no" . ")";
     }
 }

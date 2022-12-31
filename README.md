@@ -37,9 +37,9 @@ $app->run();
 - [x] ~~Route RegEx~~ 
 - [x] ~~Support .env files~~
 - [x] ~~Add support for DELETE, UPDATE, PUT, ... methods~~
+- [x] ~~Response->toString() method~~  
 - [ ] Create a logo  
 - [ ] Simple Middleware
-- [ ] Response->toString() method  
 - [ ] In-built CSRF Tokens  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  
