@@ -47,19 +47,6 @@ class Dispatcher
     }
 
     /**
-     * Check if a class is dispatching
-     *
-     * @param string $className
-     * @return bool
-     * @throws ReflectionException
-     */
-    public static function isDispatchingClass(string $className)
-    {
-        $reflection = new ReflectionClass($className);
-        return strpos($reflection->getDocComment(), "@dispatch") !== false;
-    }
-
-    /**
      * Checks if a method is dispatched by
      * a certain class
      *
@@ -68,9 +55,17 @@ class Dispatcher
      * @return bool
      * @throws ReflectionException
      */
-    public static function canDispatchMethod(string $className, string $methodName)
+    public static function canDispatchMethod(string $className, string $methodName): bool
     {
-        $reflection = new ReflectionClass($className);
-        return strpos($reflection->getDocComment(), "@dispatch $methodName") !== false;
+        $re = new ReflectionClass($className);
+        $methods = array_filter($re->getMethods(), function($method) use ($methodName) {
+            return $method->getName() === $methodName;
+        });
+
+        if (count($methods) === 0) return false;
+        foreach ($methods as $method) {
+            if (strpos($method->getDocComment(), "@dispatch") !== false) return true;
+        }
+        return false;
     }
 }

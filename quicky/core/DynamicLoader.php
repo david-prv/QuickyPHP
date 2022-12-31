@@ -195,7 +195,6 @@ class DynamicLoader
     {
         foreach ($this->classes as $class) {
             if (method_exists($class, $name)
-                && Dispatcher::isDispatchingClass($class)
                 && Dispatcher::canDispatchMethod($class, $name)) return $class;
         }
         return null;

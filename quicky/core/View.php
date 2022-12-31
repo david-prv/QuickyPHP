@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 /**
  * Class View
- *
- * @dispatch view
  */
 class View
 {
@@ -50,12 +48,7 @@ class View
         print $html;
     }
 
-    /**
-     * Getter for view instance
-     *
-     * @return View|object|null
-     * @throws CoreException
-     */
+    /** @dispatch */
     public function view()
     {
         $instance = DynamicLoader::getLoader()->getInstance(View::class);

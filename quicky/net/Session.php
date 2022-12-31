@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 /**
  * Class Session
- *
- * @dispatch session
  */
 class Session
 {
@@ -62,8 +60,7 @@ class Session
     }
 
     /**
-     * Getter for session instance
-     *
+     * @dispatch
      * @throws InvalidSessionException
      */
     public static function session()

@@ -60,8 +60,7 @@ class Router
     }
 
     /**
-     * Getter for router instance
-     *
+     * @dispatch
      * @return object|Router|null
      * @throws NetworkException
      */
@@ -74,8 +73,7 @@ class Router
     }
 
     /**
-     * Dispatched GET route
-     *
+     * @dispatch
      * @param string $pattern
      * @param callable $callback
      */
@@ -89,8 +87,7 @@ class Router
     }
 
     /**
-     * Dispatched POST route
-     *
+     * @dispatch
      * @param string $pattern
      * @param callable $callback
      */
@@ -104,8 +101,7 @@ class Router
     }
 
     /**
-     * Dispatched PUT route
-     *
+     * @dispatch
      * @param string $pattern
      * @param callable $callback
      */
@@ -119,8 +115,7 @@ class Router
     }
 
     /**
-     * Dispatched UPDATE route
-     *
+     * @dispatch
      * @param string $pattern
      * @param callable $callback
      */
@@ -134,8 +129,7 @@ class Router
     }
 
     /**
-     * Dispatched DELETE route
-     *
+     * @dispatch
      * @param string $pattern
      * @param callable $callback
      */
@@ -149,8 +143,7 @@ class Router
     }
 
     /**
-     * Dispatched PATCH route
-     *
+     * @dispatch
      * @param string $pattern
      * @param callable $callback
      */
