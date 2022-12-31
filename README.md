@@ -75,7 +75,37 @@ composer install
 ```
 
 ## Get Started
-TBD
+First things first. Let's define a basic application:
+```php
+require __DIR__ . "/quicky/autoload.php";
+
+/*
+    Uncomment if you'd like to use composer instead.
+    Don't forget to remove first require above!
+*/
+
+// require __DIR__ . "/vendor/autoload.php";
+
+// The basic application
+$app = Quicky::create();
+
+// Run it
+$app->run();
+```
+By now, no route will be accepted. Let's start with the index page.  
+I will use the in-built autoloader in the following snippets.
+```php
+require __DIR__ . "/quicky/autoload.php";
+
+$app = Quicky::create();
+
+// Define the basic route "/" which will be displayed by default
+App::get("/", function(Request $request, Response $response) {
+    $response->send("Welcome to this page!");
+});
+
+$app->run();
+```
 
 ## Contributing
 TBD
