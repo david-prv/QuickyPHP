@@ -48,10 +48,31 @@ $app->run();
 - [ ] Write Docs / simple webpage!
 
 ## Requirements
-QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.
+QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.  
+Note: Composer 2+ is required to find the package.
 
 ## Installation
-TBD
+### Composer:
+
+Install the project via command-line:
+```bash
+composer create-project david-prv/quickyphp
+```
+  
+### Manual
+
+Create a project folder:
+```bash
+mkdir myProject && cd myProject
+```
+Download git repository:
+```bash
+git clone https://github.com/david-prv/QuickyPHP.git
+```
+If you want to use composer autoloader or unit-tests:
+```bash
+composer install
+```
 
 ## Get Started
 TBD
