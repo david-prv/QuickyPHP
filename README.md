@@ -108,8 +108,9 @@ $app->run();
 ```
 You can access the main components alternatively directly:
 ```php
-/* $app creation as seen above */
+require __DIR__ . "/quicky/autoload.php";
 
+$app = Quicky::create();
 $router = Quicky::router();
 
 $router->get("/", function(Request $request, Response $response) {
