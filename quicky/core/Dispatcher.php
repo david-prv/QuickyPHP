@@ -22,7 +22,6 @@ class Dispatcher
      * @param array $args
      * @param string|null $className
      * @throws UnknownCallException
-     * @throws ReflectionException
      * @return mixed
      */
     public static function dispatch(string $name, array $args, ?string $className = null)
@@ -53,19 +52,12 @@ class Dispatcher
      * @param string $className
      * @param string $methodName
      * @return bool
-     * @throws ReflectionException
      */
     public static function canDispatchMethod(string $className, string $methodName): bool
     {
-        $re = new ReflectionClass($className);
-        $methods = array_filter($re->getMethods(), function($method) use ($methodName) {
-            return $method->getName() === $methodName;
-        });
-
-        if (count($methods) === 0) return false;
-        foreach ($methods as $method) {
-            if (strpos($method->getDocComment(), "@dispatch") !== false) return true;
-        }
-        return false;
+        $instance = DynamicLoader::getLoader()->getInstance($className);
+        if (method_exists($className, "dispatches")) {
+            return $instance->dispatches($methodName);
+        } else return false;
     }
 }

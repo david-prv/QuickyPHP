@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "phpunit/phpunit": "9"
     },
     "autoload": {
         "classmap": [
@@ -20,10 +21,8 @@
             "quicky/net/",
             "quicky/storage/",
             "quicky/utils/",
-            "quicky/views/"
+            "quicky/views/",
+            "quicky/interfaces"
         ]
-    },
-    "require-dev": {
-        "phpunit/phpunit": "9"
     }
 }

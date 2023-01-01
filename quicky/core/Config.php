@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class Config
  */
-class Config
+class Config implements IDispatching
 {
     /**
      * Project info
@@ -49,6 +49,12 @@ class Config
      */
     private ?object $parser;
 
+    /**
+     * Dispatching methods
+     *
+     * @var array
+     */
+    private array $dispatching;
 
     /**
      * Constants
@@ -63,9 +69,15 @@ class Config
     public function __construct()
     {
         $this->parser = DynamicLoader::getLoader()->getInstance(ConfigParser::class);
+        $this->dispatching = array("config");
     }
 
-    /** @dispatch */
+    /**
+     * Return config instance
+     *
+     * @return Config|object|null
+     * @throws ConfigParserException
+     */
     public function config()
     {
         $instance = DynamicLoader::getLoader()->getInstance(Config::class);
@@ -213,5 +225,16 @@ class Config
     public function getViewsPath(): string
     {
         return $this->views;
+    }
+
+    /**
+     * Checks if class is dispatching
+     *
+     * @param string $method
+     * @return bool
+     */
+    public function dispatches(string $method): bool
+    {
+        return in_array($method, $this->dispatching);
     }
 }

@@ -11,16 +11,8 @@ declare(strict_types=1);
 
 /**
  * Class Router
- *
- * @dispatch router
- * @dispatch get
- * @dispatch post
- * @dispatch put
- * @dispatch update
- * @dispatch delete
- * @dispatch patch
  */
-class Router
+class Router implements IDispatching
 {
     /**
      * All existing routes
@@ -31,11 +23,19 @@ class Router
     private array $routes;
 
     /**
+     * Dispatching methods
+     *
+     * @var array
+     */
+    private array $dispatching;
+
+    /**
      * Router constructor.
      */
     public function __construct()
     {
         $this->routes = array();
+        $this->dispatching = array("router", "get", "post", "put", "update", "delete", "patch");
     }
 
     /**
@@ -60,7 +60,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Return router instance
+     *
      * @return object|Router|null
      * @throws NetworkException
      */
@@ -73,7 +74,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Add GET route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -87,7 +89,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Add POST route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -101,7 +104,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Add PUT route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -115,7 +119,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Add UPDATE route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -129,7 +134,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Add DELETE route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -143,7 +149,8 @@ class Router
     }
 
     /**
-     * @dispatch
+     * Add PATCH route
+     *
      * @param string $pattern
      * @param callable $callback
      */
@@ -204,5 +211,16 @@ class Router
             }
         }
         return null;
+    }
+
+    /**
+     * Checks if class is dispatching
+     *
+     * @param string $method
+     * @return bool
+     */
+    public function dispatches(string $method): bool
+    {
+        return in_array($method, $this->dispatching);
     }
 }

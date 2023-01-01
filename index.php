@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/quicky/autoload.php";
+require __DIR__ . "/vendor/autoload.php";
 
 $app = Quicky::create(Config::LOAD_FROM_JSON);
 

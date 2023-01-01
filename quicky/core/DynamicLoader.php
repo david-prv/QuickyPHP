@@ -71,7 +71,7 @@ class DynamicLoader
         $this->instances = array();
         $this->locations = array();
         $this->classes = array();
-        $this->loaded = array();
+        $this->loaded = array(self::class);
         $this->registerInstance(DynamicLoader::class, $this);
         $this->scan();
     }
@@ -189,7 +189,6 @@ class DynamicLoader
      *
      * @param string $name
      * @return string|null
-     * @throws ReflectionException
      */
     public function findMethod(string $name): ?string
     {

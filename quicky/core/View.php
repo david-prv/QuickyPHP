@@ -12,13 +12,21 @@ declare(strict_types=1);
 /**
  * Class View
  */
-class View
+class View implements IDispatching
 {
+    /**
+     * Dispatching methods
+     *
+     * @var array
+     */
+    private array $dispatching;
+
     /**
      * View constructor.
      */
     public function __construct()
     {
+        $this->dispatching = array("view", "render");
     }
 
     /**
@@ -48,12 +56,28 @@ class View
         print $html;
     }
 
-    /** @dispatch */
+    /**
+     * Return view instance
+     *
+     * @return object|View|null
+     * @throws CoreException
+     */
     public function view()
     {
         $instance = DynamicLoader::getLoader()->getInstance(View::class);
 
         if ($instance instanceof View) return $instance;
         else throw new CoreException();
+    }
+
+    /**
+     * Checks if class is dispatching
+     *
+     * @param string $method
+     * @return bool
+     */
+    public function dispatches(string $method): bool
+    {
+        return in_array($method, $this->dispatching);
     }
 }

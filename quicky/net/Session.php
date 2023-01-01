@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class Session
  */
-class Session
+class Session implements IDispatching
 {
     /**
      * In-built sessionId
@@ -36,6 +36,13 @@ class Session
     private bool $active;
 
     /**
+     * Dispatching methods
+     *
+     * @var array
+     */
+    private array $dispatching;
+
+    /**
      * Field names for in-built session fields
      */
     const QUICKY_SESSION_ID = "quicky_session_id";
@@ -49,6 +56,7 @@ class Session
         $this->id = uniqid();
         $this->secure = true;
         $this->active = false;
+        $this->dispatching = array("session");
     }
 
     /**
@@ -60,7 +68,8 @@ class Session
     }
 
     /**
-     * @dispatch
+     * Return session instance
+     *
      * @throws InvalidSessionException
      */
     public static function session()
@@ -178,5 +187,16 @@ class Session
     public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * Checks if class is dispatching
+     *
+     * @param string $method
+     * @return bool
+     */
+    public function dispatches(string $method): bool
+    {
+        return in_array($method, $this->dispatching);
     }
 }

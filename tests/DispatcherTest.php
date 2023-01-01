@@ -40,6 +40,17 @@ class DispatcherTest extends QuickyTestCase
         );
     }
 
+    public function testIllegalMethodDispatch(): void
+    {
+        $instance = Quicky::create();
+        try {
+            $instance::findRouteByHash("123abc");
+            $this->fail("Method shouldn't be dispatching");
+        } catch (Exception $e) {
+            $this->assertInstanceOf(UnknownCallException::class, $e);
+        }
+    }
+
     public function testUnknownMethodDispatch(): void
     {
         $instance = Quicky::create();
