@@ -30,12 +30,20 @@ class Router implements IDispatching
     private array $dispatching;
 
     /**
+     * Universal middleware
+     *
+     * @var array
+     */
+    private array $middleware;
+
+    /**
      * Router constructor.
      */
     public function __construct()
     {
         $this->routes = array();
         $this->dispatching = array("router", "get", "post", "put", "update", "delete", "patch");
+        $this->middleware = array();
     }
 
     /**
@@ -74,6 +82,16 @@ class Router implements IDispatching
     }
 
     /**
+     * Set universal middleware
+     *
+     * @param mixed ...$middleware
+     */
+    public function useMiddleware(...$middleware): void
+    {
+        $this->middleware = $middleware;
+    }
+
+    /**
      * Add GET route
      *
      * @param string $pattern
@@ -82,6 +100,7 @@ class Router implements IDispatching
      */
     public function get(string $pattern, callable $callback, ...$middleware): void
     {
+        $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("GET", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
@@ -98,6 +117,7 @@ class Router implements IDispatching
      */
     public function post(string $pattern, callable $callback,  ...$middleware): void
     {
+        $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("POST", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
@@ -114,6 +134,7 @@ class Router implements IDispatching
      */
     public function put(string $pattern, callable $callback, ...$middleware): void
     {
+        $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("PUT", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
@@ -130,6 +151,7 @@ class Router implements IDispatching
      */
     public function update(string $pattern, callable $callback, ...$middleware): void
     {
+        $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("UPDATE", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
@@ -146,6 +168,7 @@ class Router implements IDispatching
      */
     public function delete(string $pattern, callable $callback, ...$middleware): void
     {
+        $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("DELETE", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
@@ -162,6 +185,7 @@ class Router implements IDispatching
      */
     public function patch(string $pattern, callable $callback, ...$middleware): void
     {
+        $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("PATCH", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {

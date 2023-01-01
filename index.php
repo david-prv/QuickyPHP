@@ -8,6 +8,8 @@ Quicky::session()->start();
 Quicky::session()->set("test", "I am a test!");
 Quicky::session()->setRange(array("test2" => "we like testing", "test3" => "holymoly"));
 
+Quicky::router()->useMiddleware(new LoggingMiddleware());
+
 Quicky::get("/middleware", function(Request $request, Response $response) {
     $response->send("<h1>Main Callback</h1>");
 }, new ExampleMiddleware(), new ExampleMiddleware());

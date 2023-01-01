@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.4",
-        "ext-http": "*"
+        "ext-http": "*",
+      "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "9"

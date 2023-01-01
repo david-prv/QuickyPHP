@@ -41,9 +41,9 @@ $app->run();
 - [x] ~~Create composer package~~
 - [x] ~~Simple Middleware~~
 - [x] ~~In-built CSRF Tokens~~  
+- [x] ~~In-built Access Logging~~  
 - [ ] Create a logo  
 - [ ] In-built Error Handling  
-- [ ] In-built Event Logging  
 - [ ] Write Tests!
 - [ ] Write Docs / simple webpage!
 

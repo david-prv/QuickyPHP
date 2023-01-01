@@ -24,7 +24,7 @@ class ExampleMiddleware implements IMiddleware
      */
     public function run(Request $request, Response $response, callable $next): ?Response
     {
-        $response->send("<h3>Middleware</h3>");
+        $response->send("<h3>Middleware loaded...</h3>");
         $response = $next($request, $response);
         return $response;
     }
