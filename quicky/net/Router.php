@@ -78,10 +78,11 @@ class Router implements IDispatching
      *
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function get(string $pattern, callable $callback): void
+    public function get(string $pattern, callable $callback, array $middleware = []): void
     {
-        $route = new Route("GET", $pattern, $callback);
+        $route = new Route("GET", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
@@ -93,10 +94,11 @@ class Router implements IDispatching
      *
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function post(string $pattern, callable $callback): void
+    public function post(string $pattern, callable $callback, array $middleware = []): void
     {
-        $route = new Route("POST", $pattern, $callback);
+        $route = new Route("POST", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
@@ -108,10 +110,11 @@ class Router implements IDispatching
      *
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function put(string $pattern, callable $callback): void
+    public function put(string $pattern, callable $callback, array $middleware = []): void
     {
-        $route = new Route("PUT", $pattern, $callback);
+        $route = new Route("PUT", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
@@ -123,10 +126,11 @@ class Router implements IDispatching
      *
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function update(string $pattern, callable $callback): void
+    public function update(string $pattern, callable $callback, array $middleware = []): void
     {
-        $route = new Route("UPDATE", $pattern, $callback);
+        $route = new Route("UPDATE", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
@@ -138,10 +142,11 @@ class Router implements IDispatching
      *
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function delete(string $pattern, callable $callback): void
+    public function delete(string $pattern, callable $callback, array $middleware = []): void
     {
-        $route = new Route("DELETE", $pattern, $callback);
+        $route = new Route("DELETE", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
@@ -153,10 +158,11 @@ class Router implements IDispatching
      *
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function patch(string $pattern, callable $callback): void
+    public function patch(string $pattern, callable $callback, array $middleware = []): void
     {
-        $route = new Route("PATCH", $pattern, $callback);
+        $route = new Route("PATCH", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;

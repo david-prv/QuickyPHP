@@ -13,12 +13,12 @@ declare(strict_types=1);
  * Class Quicky
  *
  * Routes:
- * @method static get(string $pattern, callable $callback)
- * @method static post(string $pattern, callable $callback)
- * @method static put(string $pattern, callable $callback)
- * @method static update(string $pattern, callable $callback)
- * @method static delete(string $pattern, callable $callback)
- * @method static patch(string $pattern, callable $callback)
+ * @method static get(string $pattern, callable $callback, array $middleware = [])
+ * @method static post(string $pattern, callable $callback, array $middleware = [])
+ * @method static put(string $pattern, callable $callback, array $middleware = [])
+ * @method static update(string $pattern, callable $callback, array $middleware = [])
+ * @method static delete(string $pattern, callable $callback, array $middleware = [])
+ * @method static patch(string $pattern, callable $callback, array $middleware = [])
  *
  * Views:
  * @method static view()
@@ -86,10 +86,11 @@ class Quicky
      *
      * @throws UnknownRouteException
      */
-    public function run()
+    public function run(): void
     {
         $router = DynamicLoader::getLoader()->getInstance(Router::class);
         if ($router instanceof Router) $router(new Request(), new Response());
+        else $this->stop(1);
     }
 
     /**
@@ -97,8 +98,10 @@ class Quicky
      *
      * @param int $code
      */
-    public function stop(int $code = 0)
+    public function stop(int $code = 0): void
     {
+        $session = DynamicLoader::getLoader()->getInstance(Session::class);
+        if ($session instanceof Session && $session->isActive()) $session->__destruct();
         exit($code);
     }
 
@@ -110,7 +113,6 @@ class Quicky
      * @param $name
      * @param $arguments
      * @throws UnknownCallException
-     * @throws ReflectionException
      * @return mixed
      */
     public static function __callStatic($name, $arguments)

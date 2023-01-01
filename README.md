@@ -39,8 +39,8 @@ $app->run();
 - [x] ~~Add support for DELETE, UPDATE, PUT, ... methods~~
 - [x] ~~Response->toString() method~~  
 - [x] ~~Create composer package~~
+- [x] ~~Simple Middleware~~
 - [ ] Create a logo  
-- [ ] Simple Middleware
 - [ ] In-built CSRF Tokens  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  

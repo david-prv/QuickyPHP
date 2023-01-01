@@ -15,12 +15,12 @@ declare(strict_types=1);
 interface IMiddleware
 {
     /**
-     * Execute the middleware
+     * Execute middleware
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param callable $next
+     * @return Response
      */
-    public function run(): void;
-
-    /**
-     * Execute next callable
-     */
-    public function next(): void;
+    public function run(Request $request, Response $response, callable $next): ?Response;
 }

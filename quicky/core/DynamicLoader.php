@@ -144,9 +144,9 @@ class DynamicLoader
 
                 $this->instances[$className] = $instance;
                 return $this->instances[$className];
-            } catch (Exception $e) {
-                return null;
-            }
+            } catch (ArgumentCountError $e) {
+            } catch (ReflectionException $e) {}
+            return null;
         }
     }
 

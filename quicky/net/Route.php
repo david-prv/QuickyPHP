@@ -29,6 +29,13 @@ class Route
     private string $pattern;
 
     /**
+     * Provided middleware
+     *
+     * @var array
+     */
+    private array $middleware;
+
+    /**
      * The callback method
      *
      * @var callable
@@ -41,12 +48,14 @@ class Route
      * @param string $method
      * @param string $pattern
      * @param callable $callback
+     * @param array $middleware
      */
-    public function __construct(string $method, string $pattern, callable $callback)
+    public function __construct(string $method, string $pattern, callable $callback, array $middleware = [])
     {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
+        $this->middleware = $middleware;
     }
 
     /**
@@ -61,6 +70,16 @@ class Route
     }
 
     /**
+     * Checks if middleware is used
+     *
+     * @return bool
+     */
+    private function useMiddleware(): bool
+    {
+        return (count($this->middleware) >= 1);
+    }
+
+    /**
      * Executes the route closure
      *
      * @param Request $request
@@ -69,7 +88,25 @@ class Route
      */
     public function execute(Request $request, Response $response)
     {
-        return ($this->callback)($request, $response);
+        $middleware = $this->middleware;
+        $callback = $this->callback;
+
+        // Define the initial "next" function
+        $next = function (Request $request, Response $response) use ($callback) {
+            return call_user_func($callback, $request, $response);
+        };
+
+        // Loop through the middleware in reverse order
+        for ($i = count($middleware) - 1; $i >= 0; $i--) {
+            // Define the next middleware function
+            $next = function (Request $request, Response $response) use ($middleware, $i, $next) {
+                $currentMiddleware = $middleware[$i];
+                return $currentMiddleware->run($request, $response, $next);
+            };
+        }
+
+        // Execute the middleware chain
+        return $next($request, $response);
     }
 
     /**

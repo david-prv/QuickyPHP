@@ -17,9 +17,16 @@ class Session implements IDispatching
     /**
      * In-built sessionId
      *
-     * @var string
+     * @var string|null
      */
-    private string $id;
+    private ?string $id = null;
+
+    /**
+     * Creation timestamp
+     *
+     * @var int|null
+     */
+    private ?int $createdAt = null;
 
     /**
      * Secure flag
@@ -53,7 +60,6 @@ class Session implements IDispatching
      */
     public function __construct()
     {
-        $this->id = uniqid();
         $this->secure = true;
         $this->active = false;
         $this->dispatching = array("session");
@@ -91,11 +97,13 @@ class Session implements IDispatching
 
         session_start();
 
+        $this->id = uniqid();
         $this->active = true;
         $this->secure = $secure;
+        $this->createdAt = time();
 
         $_SESSION[$this::QUICKY_SESSION_ID] = $this->id;
-        $_SESSION[$this::QUICKY_SESSION_CREATED_AT] = time();
+        $_SESSION[$this::QUICKY_SESSION_CREATED_AT] = $this->createdAt;
     }
 
     /**
@@ -121,6 +129,8 @@ class Session implements IDispatching
         }
 
         $this->active = false;
+        $this->id = null;
+        $this->createdAt = null;
         session_destroy();
     }
 
@@ -180,13 +190,33 @@ class Session implements IDispatching
     }
 
     /**
+     * Returns the activation state
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
      * Returns quicky-in-built sessionId
      *
-     * @return string
+     * @return string|null
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    /**
+     * Returns quicky-in-built creation time
+     *
+     * @return int|null
+     */
+    public function getCreatedAt(): ?int
+    {
+        return $this->createdAt;
     }
 
     /**
