@@ -57,6 +57,17 @@ class View implements IDispatching
     }
 
     /**
+     * Render a basic error message.
+     *
+     * @param $errNo
+     * @param $errStr
+     */
+    public static function error(string $errNo, string $errStr): void
+    {
+        echo "$errNo - Error: $errStr\n";
+    }
+
+    /**
      * Return view instance
      *
      * @return object|View|null

@@ -332,12 +332,13 @@ class Request
      * as url-decoded string
      *
      * @param string $argName
+     * @param bool $decode
      * @return string
      * @throws InvalidParametersException
      */
-    public function getArg(string $argName): string
+    public function getArg(string $argName, bool $decode = true): string
     {
-        if (isset($this->args[$argName])) return urldecode($this->args[$argName]);
+        if (isset($this->args[$argName])) return ($decode) ? urldecode($this->args[$argName]) : $this->args[$argName];
         else throw new InvalidParametersException($argName);
     }
 

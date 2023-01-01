@@ -25,7 +25,13 @@ Quicky::get("/", function(Request $request, Response $response) {
 $app->run();
 ```
 
-## TODO
+## Work in progress
+#### ToDo:
+- [ ] Create a logo  
+- [ ] Write tests
+- [ ] Write documentation
+- [ ] Host a website
+#### Done:
 - [x] ~~Find a project name~~  
 - [x] ~~Buy domain: quickyphp.de~~
 - [x] ~~In-built Sessions~~  
@@ -42,10 +48,7 @@ $app->run();
 - [x] ~~Simple Middleware~~
 - [x] ~~In-built CSRF Tokens~~  
 - [x] ~~In-built Access Logging~~  
-- [ ] Create a logo  
-- [ ] In-built Error Handling  
-- [ ] Write Tests!
-- [ ] Write Docs / simple webpage!
+- [x] ~~In-built Error Handling~~  
 
 ## Requirements
 QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.  
