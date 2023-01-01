@@ -26,7 +26,7 @@ class CSRFMiddleware implements IMiddleware
     {
         $session = DynamicLoader::getLoader()->getInstance(Session::class);
         if ($session instanceof Session) {
-            if (!$request->hasCSRFToken() || !$session->verify($request->getCSRFToken())) {
+            if (!$request->hasCSRFToken() || !$session->verifyCSRF($request->getCSRFToken())) {
                 // send forbidden message and error code
                 $response->forbidden($response->getErrorMessage(403));
 
@@ -34,6 +34,6 @@ class CSRFMiddleware implements IMiddleware
                 $response->stop();
             }
         }
-        return $response;
+        return $next($request, $response);;
     }
 }

@@ -67,14 +67,6 @@ class Session implements IDispatching
     }
 
     /**
-     * Session destructor.
-     */
-    public function __destruct()
-    {
-        if ($this->active) $this->destroy();
-    }
-
-    /**
      * Return session instance
      *
      * @throws InvalidSessionException

@@ -10,7 +10,7 @@ Quicky::session()->setRange(array("test2" => "we like testing", "test3" => "holy
 
 Quicky::get("/middleware", function(Request $request, Response $response) {
     $response->send("<h1>Main Callback</h1>");
-}, array(new ExampleMiddleware(), new ExampleMiddleware()));
+}, new ExampleMiddleware(), new ExampleMiddleware());
 
 Quicky::get("/", function (Request $request, Response $response) {
     $response->render("index", array("placeholder1" => "Hello", "placeholder2" => "World"));
@@ -43,6 +43,18 @@ Quicky::get("/session/{name}", function(Request $request, Response $response) {
        $request->getArg("name"),
        Quicky::session()->get($request->getArg("name")));
 });
+
+Quicky::get("/form", function(Request $request, Response $response) {
+    $session = DynamicLoader::getLoader()->getInstance(Session::class);
+    if ($session instanceof Session) {
+        $response->render("form", array("TOKEN" => $session->generateCSRFToken()));
+    }
+});
+
+Quicky::post("/form/post", function(Request $request, Response $response) {
+    Quicky::session()->set("postName", $request->getField("name"));
+    $response->send("hi, %s!", $request->getField("name"));
+}, new CSRFMiddleware());
 
 Quicky::post("/", function(Request $request, Response $response) {
    print_r($request->getData());

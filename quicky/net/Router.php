@@ -80,7 +80,7 @@ class Router implements IDispatching
      * @param callable $callback
      * @param array $middleware
      */
-    public function get(string $pattern, callable $callback, array $middleware = []): void
+    public function get(string $pattern, callable $callback, ...$middleware): void
     {
         $route = new Route("GET", $pattern, $callback, $middleware);
 
@@ -96,7 +96,7 @@ class Router implements IDispatching
      * @param callable $callback
      * @param array $middleware
      */
-    public function post(string $pattern, callable $callback, array $middleware = []): void
+    public function post(string $pattern, callable $callback,  ...$middleware): void
     {
         $route = new Route("POST", $pattern, $callback, $middleware);
 
@@ -112,7 +112,7 @@ class Router implements IDispatching
      * @param callable $callback
      * @param array $middleware
      */
-    public function put(string $pattern, callable $callback, array $middleware = []): void
+    public function put(string $pattern, callable $callback, ...$middleware): void
     {
         $route = new Route("PUT", $pattern, $callback, $middleware);
 
@@ -128,7 +128,7 @@ class Router implements IDispatching
      * @param callable $callback
      * @param array $middleware
      */
-    public function update(string $pattern, callable $callback, array $middleware = []): void
+    public function update(string $pattern, callable $callback, ...$middleware): void
     {
         $route = new Route("UPDATE", $pattern, $callback, $middleware);
 
@@ -144,7 +144,7 @@ class Router implements IDispatching
      * @param callable $callback
      * @param array $middleware
      */
-    public function delete(string $pattern, callable $callback, array $middleware = []): void
+    public function delete(string $pattern, callable $callback, ...$middleware): void
     {
         $route = new Route("DELETE", $pattern, $callback, $middleware);
 
@@ -160,7 +160,7 @@ class Router implements IDispatching
      * @param callable $callback
      * @param array $middleware
      */
-    public function patch(string $pattern, callable $callback, array $middleware = []): void
+    public function patch(string $pattern, callable $callback, ...$middleware): void
     {
         $route = new Route("PATCH", $pattern, $callback, $middleware);
 

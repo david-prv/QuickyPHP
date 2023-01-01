@@ -13,12 +13,12 @@ declare(strict_types=1);
  * Class Quicky
  *
  * Routes:
- * @method static get(string $pattern, callable $callback, array $middleware = [])
- * @method static post(string $pattern, callable $callback, array $middleware = [])
- * @method static put(string $pattern, callable $callback, array $middleware = [])
- * @method static update(string $pattern, callable $callback, array $middleware = [])
- * @method static delete(string $pattern, callable $callback, array $middleware = [])
- * @method static patch(string $pattern, callable $callback, array $middleware = [])
+ * @method static get(string $pattern, callable $callback, ...$middleware)
+ * @method static post(string $pattern, callable $callback, ...$middleware)
+ * @method static put(string $pattern, callable $callback, ...$middleware)
+ * @method static update(string $pattern, callable $callback, ...$middleware)
+ * @method static delete(string $pattern, callable $callback, ...$middleware)
+ * @method static patch(string $pattern, callable $callback, ...$middleware)
  *
  * Views:
  * @method static view()
@@ -100,8 +100,6 @@ class Quicky
      */
     public function stop(int $code = 0): void
     {
-        $session = DynamicLoader::getLoader()->getInstance(Session::class);
-        if ($session instanceof Session && $session->isActive()) $session->__destruct();
         exit($code);
     }
 

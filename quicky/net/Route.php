@@ -50,12 +50,12 @@ class Route
      * @param callable $callback
      * @param array $middleware
      */
-    public function __construct(string $method, string $pattern, callable $callback, array $middleware = [])
+    public function __construct(string $method, string $pattern, callable $callback, array $middleware)
     {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
-        $this->middleware = $middleware;
+        $this->middleware = (is_null($middleware)) ? [] : $middleware;
     }
 
     /**

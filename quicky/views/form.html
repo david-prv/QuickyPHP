@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formular</title>
+    <style>
+        .hidden { display: none!important; }
+    </style>
+</head>
+<body>
+    <form method="POST" action="http://localhost/form/post">
+        <input class="hidden" name="csrf_token" value="%TOKEN%">
+        <label>
+            Dein Name: <br>
+            <input name="name" placeholder="name">
+        </label>
+        <br>
+        <label>
+            Dein Alter: <br>
+            <input name="alter" placeholder="alter">
+        </label>
+        <br>
+        <button type="submit" name="submit">Submit</button>
+    </form>
+</body>
+</html>

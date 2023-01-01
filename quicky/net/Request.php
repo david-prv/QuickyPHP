@@ -276,6 +276,18 @@ class Request
     }
 
     /**
+     * Returns a single data field
+     * of sent data
+     *
+     * @param string $name
+     * @return string|null
+     */
+    public function getField(string $name): ?string
+    {
+        return (isset($this->getData()[$name])) ? $this->getData()[$name] : null;
+    }
+
+    /**
      * Returns whether a token is provided
      *
      * @return bool
