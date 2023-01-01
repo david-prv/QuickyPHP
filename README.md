@@ -200,6 +200,8 @@ Quicky::useMiddleware(new GreetingMiddleware(), new GreetingMiddleware());
 Quicky::get("/", function(Request $request, Response $response) {
     $response->send("You were greeted... TWICE!");
 });
+
+$app->run();
 ```
 
 ## Contributing
