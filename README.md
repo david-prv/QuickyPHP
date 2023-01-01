@@ -188,7 +188,19 @@ new GreetingMiddleware(), // will be executed first
 new GreetingMiddleware()); // this will be executed after that
 ```
 As you can see, you can add as many middlewares to the route as you want. Now, the headline "Greetings, stranger!"  
-will be displayed twice, before the default route answer is rendered.
+will be displayed twice, before the default route answer is rendered.  
+Now what? Let's greet everyone, everywhere... ok?
+```php
+require __DIR__ . "/quicky/autoload.php";
+
+$app = Quicky::create();
+
+Quicky::useMiddleware(new GreetingMiddleware(), new GreetingMiddleware());
+
+Quicky::get("/", function(Request $request, Response $response) {
+    $response->send("You were greeted... TWICE!");
+});
+```
 
 ## Contributing
 TBD
