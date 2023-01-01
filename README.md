@@ -75,6 +75,9 @@ composer install
 ```
 
 ## Get Started
+
+### First application
+
 First things first. Let's define a basic application:
 ```php
 require __DIR__ . "/quicky/autoload.php";
@@ -100,6 +103,92 @@ App::get("/", function(Request $request, Response $response) {
 
 $app->run();
 ```
+You can access the main components alternatively directly:
+```php
+/* $app creation as seen above */
+
+$router = Quicky::router();
+
+$router->get("/", function(Request $request, Response $response) {
+    $response->send("Welcome to this page!");
+});
+
+$app->run();
+```
+
+### More on components
+
+Here are all (currently) directly accessible components: 
+```php
+Quicky::view(); // Returns the view engine
+Quicky::config(); // Returns the config controller
+Quicky::router(); // Returns the routing engine
+Quicky::session(); // Returns the session controller
+```
+
+### Render a view
+
+To make the response of the server more beautiful, you could use html pages.  
+Add a html file to `/quicky/views` and name it following the scheme `[VIEW_NAME].html`.  
+In the html file, you can write usual html code. Quicky offers dynamic placeholders, which are  
+just variables that will be replaced by the callback function of a route. You denote a placeholder  
+by surrounding the placeholder name with `%`-symbols, e.g. `%USER_NAME%`.
+```php
+require __DIR__ . "/quicky/autoload.php";
+
+$app = Quicky::create();
+
+// The following code will start a Quicky-Session and
+// set the variables "userName" and "userNick"
+Quicky::session()->start();
+Quicky::session()->setRange(array("userName" => "User123", "userNick" => "Unicorn"));
+
+Quicky::get("/", function(Request $request, Response $response) {
+    // The following code will render the view "name_of_your_view.html"
+    // and replace "%USER_NAME%" by the session variable "userName"
+    $response->render("name_of_your_view", array("USER_NAME", Quicky::session()->get("userName")));
+});
+
+$app->run();
+```
+
+### Simple middleware 
+
+To add a valid middleware, navigate to `/quicky/middleware` and create a new class.  
+We will create and implement the Middleware "GreetingMiddleware", which will just greet  
+every visitor of our website, so we create the file `/quicky/middleware/GreetingMiddleware.php`.
+```php
+class GreetingMiddleware implements IMiddleware
+{
+    /**
+     * Run middleware
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param callable $next
+     * @return Response|null
+     */
+    public function run(Request $request, Response $response, callable $next): ?Response
+    {
+        $response->send("<h3>Greetings, stranger!</h3>");
+        return $next($request, $response);
+    }
+}
+```
+Pay attention, that your class implements the `IMiddleware` interface, which is important for it  
+to work. Now, let's use the middleware in a route:
+```php
+Quicky::get("/greetings/{name}", function(Request $request, Response $response) {
+    // Here, we send a default formatted text as response, which will be displayed
+    // after the greetings sent by our middleware. The middleware is always be executed first!
+    
+    $response->send("Oh, now I know who you are... You are %s!", $request->getArg("name"));
+},
+new GreetingMiddleware(), // will be executed first
+new GreetingMiddleware()); // this will be executed after that
+```
+As you can see, you can add as many middlewares to the route as you want. Now, the headline "Greetings, stranger!"  
+will be displayed twice, before the default route answer is rendered.
 
 ## Contributing
 TBD
