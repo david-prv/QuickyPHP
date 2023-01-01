@@ -13,25 +13,26 @@ declare(strict_types=1);
  * Class Quicky
  *
  * Routes:
- * @method static get(string $pattern, callable $callback, ...$middleware)
- * @method static post(string $pattern, callable $callback, ...$middleware)
- * @method static put(string $pattern, callable $callback, ...$middleware)
- * @method static update(string $pattern, callable $callback, ...$middleware)
- * @method static delete(string $pattern, callable $callback, ...$middleware)
- * @method static patch(string $pattern, callable $callback, ...$middleware)
+ * @method static void get(string $pattern, callable $callback, ...$middleware)
+ * @method static void post(string $pattern, callable $callback, ...$middleware)
+ * @method static void put(string $pattern, callable $callback, ...$middleware)
+ * @method static void update(string $pattern, callable $callback, ...$middleware)
+ * @method static void delete(string $pattern, callable $callback, ...$middleware)
+ * @method static void patch(string $pattern, callable $callback, ...$middleware)
  *
  * Views:
- * @method static view()
- * @method static render(string $viewName, ?array $params = null)
+ * @method static View view()
+ * @method static void render(string $viewName, ?array $params = null)
  *
  * Session:
- * @method static session()
+ * @method static Session session()
  *
  * Config:
- * @method static config()
+ * @method static Config config()
  *
  * Router:
- * @method static router()
+ * @method static Router router()
+ * @method static void useMiddleware(...$middleware)
  */
 class Quicky
 {

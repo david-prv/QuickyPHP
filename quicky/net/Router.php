@@ -42,7 +42,7 @@ class Router implements IDispatching
     public function __construct()
     {
         $this->routes = array();
-        $this->dispatching = array("router", "get", "post", "put", "update", "delete", "patch");
+        $this->dispatching = array("router", "get", "post", "put", "update", "delete", "patch", "useMiddleware");
         $this->middleware = array();
     }
 
