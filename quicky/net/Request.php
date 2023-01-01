@@ -64,6 +64,13 @@ class Request
     private string $ua;
 
     /**
+     * The CSRF token
+     *
+     * @var string|mixed|null
+     */
+    private ?string $csrfToken;
+
+    /**
      * HTTPS used
      *
      * @var bool|mixed
@@ -121,6 +128,9 @@ class Request
             $this->referrer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
             $this->data = (count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array());
             $this->args = array();
+            $this->csrfToken = (isset($this->data[Session::QUICKY_CSRF_TOKEN]))
+                ? $this->data[Session::QUICKY_CSRF_TOKEN]
+                : ((isset($this->headers["X-CSRF-TOKEN"])) ? $this->headers["X-CSRF-TOKEN"] : null);
         } else {
             $this->method = $data["method"];
             $this->url = $data["url"];
@@ -134,6 +144,7 @@ class Request
             $this->referrer = $data["referrer"];
             $this->data = $data["data"];
             $this->args = $data["args"];
+            $this->csrfToken = $data["csrfToken"];
         }
     }
 
@@ -262,6 +273,26 @@ class Request
     public function getData(): array
     {
         return $this->data;
+    }
+
+    /**
+     * Returns whether a token is provided
+     *
+     * @return bool
+     */
+    public function hasCSRFToken(): bool
+    {
+        return !is_null($this->csrfToken);
+    }
+
+    /**
+     * Returns the CSRF token
+     *
+     * @return string|null
+     */
+    public function getCSRFToken(): ?string
+    {
+        return $this->csrfToken;
     }
 
     /**

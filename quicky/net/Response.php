@@ -124,6 +124,28 @@ class Response
     }
 
     /**
+     * Sends a 403 - Forbidden Error
+     *
+     * @param string $message
+     */
+    public function forbidden(string $message): void
+    {
+        $this->status(403);
+        echo $message;
+    }
+
+    /**
+     * Stops/Halts HTTP Response
+     * e.g if an error occurred
+     *
+     * @param string $message
+     */
+    public function stop(string $message = ""): void
+    {
+        die($message);
+    }
+
+    /**
      * Initiates a HTTP redirection
      *
      * @param string $destination

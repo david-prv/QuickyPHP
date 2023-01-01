@@ -40,8 +40,8 @@ $app->run();
 - [x] ~~Response->toString() method~~  
 - [x] ~~Create composer package~~
 - [x] ~~Simple Middleware~~
+- [x] ~~In-built CSRF Tokens~~  
 - [ ] Create a logo  
-- [ ] In-built CSRF Tokens  
 - [ ] In-built Error Handling  
 - [ ] In-built Event Logging  
 - [ ] Write Tests!

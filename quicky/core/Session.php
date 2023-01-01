@@ -54,6 +54,7 @@ class Session implements IDispatching
      */
     const QUICKY_SESSION_ID = "quicky_session_id";
     const QUICKY_SESSION_CREATED_AT = "quicky_created_at";
+    const QUICKY_CSRF_TOKEN = "csrf_token";
 
     /**
      * Session constructor.
@@ -156,7 +157,8 @@ class Session implements IDispatching
         if ($this->secure) $this->regenerateId();
 
         if (strtolower($name) !== $this::QUICKY_SESSION_ID
-                && strtolower($name) !== $this::QUICKY_SESSION_CREATED_AT) {
+                && strtolower($name) !== $this::QUICKY_SESSION_CREATED_AT
+                && strtolower($name) !== $this::QUICKY_CSRF_TOKEN) {
             $_SESSION[$name] = $value;
         }
     }
@@ -228,5 +230,33 @@ class Session implements IDispatching
     public function dispatches(string $method): bool
     {
         return in_array($method, $this->dispatching);
+    }
+
+    /**
+     * Generates a Cross-Site-Request-Forgery (CSRF)
+     * Token for current session
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function generateCSRFToken(): string
+    {
+        if (!$this->isActive()) return "";
+
+        $token = bin2hex(random_bytes(32));
+        $_SESSION[$this::QUICKY_CSRF_TOKEN] = $token;
+        return $token;
+    }
+
+    /**
+     * Verification of a CSRF token
+     *
+     * @param string $token
+     * @return bool
+     */
+    public function verifyCSRF(string $token): bool
+    {
+        if (!$this->isActive()) return false;
+        return $_SESSION[$this::QUICKY_CSRF_TOKEN] === $token;
     }
 }
