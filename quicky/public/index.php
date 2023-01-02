@@ -1,33 +1,50 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Register Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides an automatically generated class loader for
+| this application. Own implementations always had flaws.
+|
+*/
 
 require __DIR__ . "/../../vendor/autoload.php";
 
-$app = Quicky::create();
+/*
+|--------------------------------------------------------------------------
+| Create QuickyPHP Application
+|--------------------------------------------------------------------------
+|
+| Create an singleton instance of QuickyPHP. We will use
+| Quicky with an active and secured session. Secure means, that the
+| SessionID will be regenerating over-and-over again, to protect
+| your application against basic Session-Hijacking.
+|
+*/
 
+$app = Quicky::create();
 Quicky::session()->start();
-Quicky::useMiddleware(new LoggingMiddleware());
+
+/*
+|--------------------------------------------------------------------------
+| Run Your Application
+|--------------------------------------------------------------------------
+|
+| To make your application working fine, you need
+| to register routes. Routes can contain RegEx patterns, named
+| variables and wildcards. Here, we just add the index route for
+| your application, such that https://your-domain.tld/ maps to your
+| defined callback behaviour.
+|
+| The last line then ignites the Core of QuickyPHP, where requests
+| are going to be routed and processed, middleware going to be
+| executed and the application will work.
+|
+*/
 
 Quicky::route("GET", "/", function (Request $request, Response $response) {
-    $response->render("index", array("placeholder1" => "Hello", "placeholder2" => "World"));
+    $response->render("index");
 });
-
-Quicky::route("GET","/greet/{name}/{age}", function (Request $request, Response $response) {
-    $response->send("Hello %s, you are %s years old.",
-        $request->getArg("name"),
-        $request->getArg("age"));
-});
-
-Quicky::route("GET","/static/{name}", function (Request $request, Response $response) {
-    $response->sendFile($request->getArg("name"));
-});
-
-Quicky::route("GET","/form", function (Request $request, Response $response) {
-    $response->render("form", array("TOKEN" => Quicky::session()->generateCSRFToken()));
-});
-
-Quicky::route("GET","/form/post", function (Request $request, Response $response) {
-    $response->send("hi, %s!", $request->getField("name"));
-}, new CSRFMiddleware());
-
 
 $app->run(true);
