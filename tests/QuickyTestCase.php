@@ -7,7 +7,8 @@ class QuickyTestCase extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        chdir(getcwd() . "/../");
+        echo getcwd();
+        chdir(getcwd() . "/../quicky/public");
 
         $_SERVER["REQUEST_METHOD"] = "GET";
         $_SERVER["REQUEST_URI"] = "/";
