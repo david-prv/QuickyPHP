@@ -83,7 +83,7 @@ class View implements IDispatching
      * @return object|View|null
      * @throws CoreException
      */
-    public function view()
+    public static function view()
     {
         $instance = DynamicLoader::getLoader()->getInstance(View::class);
 

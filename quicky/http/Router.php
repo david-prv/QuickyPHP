@@ -73,7 +73,7 @@ class Router implements IDispatching
      * @return object|Router|null
      * @throws NetworkException
      */
-    public function router()
+    public static function router()
     {
         $instance = DynamicLoader::getLoader()->getInstance(Router::class);
 

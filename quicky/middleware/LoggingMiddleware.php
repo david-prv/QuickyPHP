@@ -46,7 +46,8 @@ class LoggingMiddleware implements IMiddleware
      */
     public function __construct(?string $logFile = null)
     {
-        $this->logPath = $logFile ?? getcwd() . "/quicky/logs/access.log";
+        $config = DynamicLoader::getLoader()->getInstance(Config::class);
+        $this->logPath = $logFile ?? getcwd() . $config->getLogsPath() . "/access.log";
     }
 
     /**

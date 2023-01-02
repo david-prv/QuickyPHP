@@ -64,7 +64,8 @@ class ConfigParser
             "project" => getenv("project"),
             "cache" => getenv("cache"),
             "storage" => getenv("storage"),
-            "views" => getenv("views")
+            "views" => getenv("views"),
+            "logs" => getenv("logs")
         );
     }
 
@@ -87,7 +88,8 @@ class ConfigParser
                 "expires" => 3600
             ),
             "storage" => "/quicky/storage",
-            "views" => "/quicky/views"
+            "views" => "/quicky/views",
+            "logs" => "/quicky/logs"
         );
     }
 }

@@ -36,6 +36,13 @@ class Config implements IDispatching
     private string $storage;
 
     /**
+     * Logs path
+     *
+     * @var string
+     */
+    private string $logs;
+
+    /**
      * Views path
      *
      * @var string
@@ -78,7 +85,7 @@ class Config implements IDispatching
      * @return Config|object|null
      * @throws ConfigParserException
      */
-    public function config()
+    public static function config()
     {
         $instance = DynamicLoader::getLoader()->getInstance(Config::class);
 
@@ -99,6 +106,7 @@ class Config implements IDispatching
         $this->project = $config["project"];
         $this->storage = $config["storage"];
         $this->views = $config["views"];
+        $this->logs = $config["logs"];
     }
 
     /**
@@ -225,6 +233,16 @@ class Config implements IDispatching
     public function getViewsPath(): string
     {
         return $this->views;
+    }
+
+    /**
+     * Returns logs path
+     *
+     * @return string
+     */
+    public function getLogsPath(): string
+    {
+        return $this->logs;
     }
 
     /**
