@@ -55,6 +55,10 @@ class Dispatcher
      */
     public static function canDispatchMethod(string $className, string $methodName): bool
     {
+        // skip interfaces
+        if ($className[0] === "I") return false;
+
+        // check instance
         $instance = DynamicLoader::getLoader()->getInstance($className);
         if (method_exists($className, "dispatches")) {
             return $instance->dispatches($methodName);

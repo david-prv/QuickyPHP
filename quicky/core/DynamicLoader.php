@@ -99,9 +99,6 @@ class DynamicLoader
      */
     public function load(string $className): void
     {
-        $temp = explode('\\', $className);
-        $className = end($temp);
-
         if (!in_array($className, $this->classes)) throw new InvalidClassException($className);
         if (in_array($className, $this->loaded)) return;
 
