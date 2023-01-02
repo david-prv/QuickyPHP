@@ -62,7 +62,11 @@ Install the project via command-line:
 ```bash
 composer create-project david-prv/quickyphp
 ```
-  
+Install requirements:
+```bash
+composer install
+```
+
 ### Manual:
 
 Create a project folder:
@@ -78,11 +82,21 @@ Install requirements:
 composer install
 ```
 
+### Code Examples:
+I have written some basic examples [here](https://github.com/david-prv/QuickyPHP/tree/main/examples).
+
 ## Contributing
 TBD
 
 ## Support
-TBD
+If you like what I do, feel free to buy me a coffee for my work.  
+Programming early in the morning is hard without a good cup of this magical liquid.
+  
+Click here to support me:
+
+<a href="https://www.buymeacoffee.com/david.dewes">
+    <img src="https://media3.giphy.com/media/TDQOtnWgsBx99cNoyH/giphy.gif" height="80" alt="buy me a coffee!"/>
+</a>
 
 ## License
 Quicky is released under the [MIT](https://en.m.wikipedia.org/wiki/MIT_License) license.
