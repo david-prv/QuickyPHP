@@ -67,6 +67,8 @@ class DynamicLoader
      */
     private function __construct(?string $override = null)
     {
+        chdir(getcwd() . "/../../");
+
         $this->workingDir = $override ?? getcwd();
         $this->instances = array();
         $this->locations = array();
@@ -183,6 +185,9 @@ class DynamicLoader
      * Searches a certain method.
      * The method has to be dispatch-able
      * and should be named uniquely.
+     *
+     * TODO:    Implement this as BST to increase
+     *          performance against increasing class-maps
      *
      * @param string $name
      * @return string|null

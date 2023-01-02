@@ -105,17 +105,22 @@ class Quicky
 
     /**
      * Run application
-     *
-     * @throws UnknownRouteException
      */
     public function run(): void
     {
-        if ($this->config->isProd()) set_error_handler(function(string $errNo, string $errStr) {
-            return $this->catch($errNo, $errStr);
-        });
+        if ($this->config->isProd()) {
+            set_error_handler(function(string $errNo, string $errStr) {
+                return $this->catch($errNo, $errStr);
+            });
+        }
 
         $router = DynamicLoader::getLoader()->getInstance(Router::class);
-        if ($router instanceof Router) $router(new Request(), new Response());
+        if ($router instanceof Router) {
+            try {
+                $router(new Request(), new Response());
+            } catch (UnknownRouteException $e) {}
+        }
+
         else $this->stop(1);
     }
 

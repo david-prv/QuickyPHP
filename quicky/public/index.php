@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/vendor/autoload.php";
+require __DIR__ . "/../../vendor/autoload.php";
 
 $app = Quicky::create();
 
@@ -18,7 +18,7 @@ Quicky::get("/greet/{name}/{age}", function (Request $request, Response $respons
 });
 
 Quicky::get("/static/{name}", function(Request $request, Response $response) {
-   $response->sendFile($request->getArg("name"));
+    $response->sendFile($request->getArg("name"));
 });
 
 Quicky::get("/form", function(Request $request, Response $response) {
@@ -29,6 +29,5 @@ Quicky::post("/form/post", function(Request $request, Response $response) {
     $response->send("hi, %s!", $request->getField("name"));
 }, new CSRFMiddleware());
 
-try {
-    $app->run();
-} catch (Exception $e) {}
+
+$app->run();
