@@ -14,7 +14,7 @@ I got the idea of how a simple PHP framework works from other open source projec
 ## Sneak Peak
 A simple web application powered by this framework:
 ```php
-require __DIR__ . "/quicky/autoload.php";
+require __DIR__ . "/../../quicky/autoload.php";
 
 $app = Quicky::create();
 
@@ -84,8 +84,8 @@ composer install
 
 First things first. Let's define a basic application:
 ```php
-require __DIR__ . "/quicky/autoload.php";
-// require __DIR__ . "/vendor/autoload.php";
+require __DIR__ . "/../../quicky/autoload.php";
+// require __DIR__ . "/../../vendor/autoload.php";
 
 // The basic application
 $app = Quicky::create();
@@ -96,7 +96,7 @@ $app->run();
 By now, no route will be accepted. Let's start with the index page.  
 I will use the in-built autoloader in the following snippets.
 ```php
-require __DIR__ . "/quicky/autoload.php";
+require __DIR__ . "/../../quicky/autoload.php";
 
 $app = Quicky::create();
 
@@ -109,7 +109,7 @@ $app->run();
 ```
 You can access the main components alternatively directly:
 ```php
-require __DIR__ . "/quicky/autoload.php";
+require __DIR__ . "/../../quicky/autoload.php";
 
 $app = Quicky::create();
 $router = Quicky::router();
@@ -140,7 +140,7 @@ In the html file, you can write usual html code. Quicky offers dynamic placehold
 just variables that will be replaced by the callback function of a route. You denote a placeholder  
 by surrounding the placeholder name with `%`-symbols, e.g. `%USER_NAME%`.
 ```php
-require __DIR__ . "/quicky/autoload.php";
+require __DIR__ . "/../../quicky/autoload.php";
 
 $app = Quicky::create();
 
@@ -197,7 +197,7 @@ As you can see, you can add as many middlewares to the route as you want. Now, t
 will be displayed twice, before the default route answer is rendered.  
 Now what? Let's greet everyone, everywhere... ok?
 ```php
-require __DIR__ . "/quicky/autoload.php";
+require __DIR__ . "/../../quicky/autoload.php";
 
 $app = Quicky::create();
 
