@@ -63,7 +63,7 @@ Install the project via command-line:
 composer create-project david-prv/quickyphp
 ```
   
-### Manual
+### Manual:
 
 Create a project folder:
 ```bash
@@ -73,7 +73,7 @@ Download git repository:
 ```bash
 git clone https://github.com/david-prv/QuickyPHP.git
 ```
-If you want to use composer autoloader or unit-tests:
+Install requirements:
 ```bash
 composer install
 ```

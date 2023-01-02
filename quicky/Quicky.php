@@ -80,12 +80,15 @@ class Quicky
      *
      * @param string $mode
      * @return Quicky
-     * @throws ReflectionException
      */
     public static function create(string $mode = Config::LOAD_DEFAULT)
     {
         if (self::$instance === null) {
-            self::$instance = new Quicky($mode);
+            try {
+                self::$instance = new Quicky($mode);
+            } catch (ReflectionException $e) {
+                die("Could not create Quicky instance");
+            }
         }
         return self::$instance;
     }
@@ -106,8 +109,6 @@ class Quicky
      * Run application
      *
      * @param bool $catchAllErrors
-     * @throws UnknownRouteException
-     * @throws ReflectionException
      */
     public function run(bool $catchAllErrors = false): void
     {
@@ -122,11 +123,18 @@ class Quicky
             });
         }
 
-        // route request here
-        $router = DynamicLoader::getLoader()->getInstance(Router::class);
-        if ($router instanceof Router) {
-            $router(new Request(), new Response());
-        } else $this->stop(1);
+        try {
+            // route request here
+            $router = DynamicLoader::getLoader()->getInstance(Router::class);
+
+            if ($router instanceof Router) {
+                $router(new Request(), new Response());
+            } else $this->stop(1);
+
+        } catch (ReflectionException $e) {
+        } catch (UnknownRouteException $e) {
+            $this->catchException($e);
+        }
     }
 
     /**

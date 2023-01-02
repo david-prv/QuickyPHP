@@ -30,10 +30,4 @@ Quicky::route("GET","/form/post", function (Request $request, Response $response
 }, new CSRFMiddleware());
 
 
-try {
-    $app->run(true);
-} catch (ReflectionException $e) {
-    die($e->getMessage());
-} catch (UnknownRouteException $e) {
-    die($e->getMessage());
-}
+$app->run(true);
