@@ -34,11 +34,12 @@ class Dispatcher
             if (is_null($c)) throw new UnknownCallException($name);
             else return call_user_func(array($c, $name), ...$args);
         } else {
-            $cname = $loader->findMethod($name);
+            $className = $loader->findMethod($name);
+            if (!Dispatcher::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
 
-            if (is_null($cname)) throw new UnknownCallException($name);
+            if (is_null($className)) throw new UnknownCallException($name);
             else {
-                $c = $loader->getInstance($cname);
+                $c = $loader->getInstance($className);
                 if (is_null($c)) throw new UnknownCallException($name);
                 return call_user_func(array($c, $name), ...$args);
             }
@@ -59,12 +60,9 @@ class Dispatcher
         if ($className[0] === "I") return false;
 
         // check instance
-        try {
-            $instance = DynamicLoader::getLoader()->getInstance($className);
-            if (method_exists($className, "dispatches")) {
-                return $instance->dispatches($methodName);
-            }
-        } catch (ReflectionException $e) {
+        $instance = DynamicLoader::getLoader()->getInstance($className);
+        if (method_exists($className, "dispatches")) {
+            return $instance->dispatches($methodName);
         }
         return false;
     }

@@ -114,7 +114,7 @@ class Quicky
                 return $this->catchError($errNo, $errStr);
             });
             set_exception_handler(function (Throwable $e) {
-                $this->catchException($e);
+                return $this->catchException($e);
             });
         }
 
@@ -177,7 +177,6 @@ class Quicky
      * @param $arguments
      * @return mixed
      * @throws UnknownCallException
-     * @throws ReflectionException
      */
     public static function __callStatic($name, $arguments)
     {
