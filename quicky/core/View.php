@@ -36,7 +36,6 @@ class View implements IDispatching
      * @param array|null $variables
      * @param string|null $override
      * @throws ViewNotFoundException
-     * @throws ReflectionException
      */
     public static function render(string $viewName, ?array $variables = null, ?string $override = null)
     {

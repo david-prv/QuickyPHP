@@ -60,7 +60,6 @@ class Quicky
      * Quicky constructor.
      *
      * @param string $mode
-     * @throws ReflectionException
      */
     private function __construct(string $mode)
     {
@@ -84,11 +83,7 @@ class Quicky
     public static function create(string $mode = Config::LOAD_DEFAULT)
     {
         if (self::$instance === null) {
-            try {
-                self::$instance = new Quicky($mode);
-            } catch (ReflectionException $e) {
-                die("Could not create Quicky instance");
-            }
+            self::$instance = new Quicky($mode);
         }
         return self::$instance;
     }
@@ -131,7 +126,6 @@ class Quicky
                 $router(new Request(), new Response());
             } else $this->stop(1);
 
-        } catch (ReflectionException $e) {
         } catch (UnknownRouteException $e) {
             $this->catchException($e);
         }

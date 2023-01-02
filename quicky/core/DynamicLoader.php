@@ -71,7 +71,6 @@ class DynamicLoader
      * DynamicLoader constructor.
      *
      * @param string|null $override
-     * @throws ReflectionException
      */
     private function __construct(?string $override = null)
     {
@@ -84,8 +83,11 @@ class DynamicLoader
         $this->loaded = array(self::class);
         $this->methods = new BinarySearchTree();
         $this->registerInstance(DynamicLoader::class, $this);
-        $this->scan();
-        $this->buildBST();
+        try {
+            $this->scan();
+            $this->buildBST();
+        } catch (ReflectionException $e) {
+        }
     }
 
     /**
@@ -93,7 +95,6 @@ class DynamicLoader
      *
      * @param string|null $override
      * @return static
-     * @throws ReflectionException
      */
     public static function getLoader(?string $override = null): self
     {

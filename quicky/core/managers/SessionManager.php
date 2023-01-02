@@ -70,7 +70,6 @@ class SessionManager implements IDispatching, IManaging
      * Return session instance
      *
      * @throws InvalidSessionException
-     * @throws ReflectionException
      */
     public static function session()
     {

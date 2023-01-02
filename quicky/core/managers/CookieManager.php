@@ -33,7 +33,6 @@ class CookieManager implements IDispatching, IManaging
      * Return session instance
      *
      * @throws CoreException
-     * @throws ReflectionException
      */
     public static function cookies()
     {

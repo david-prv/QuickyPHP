@@ -22,7 +22,6 @@ class Dispatcher
      * @param array $args
      * @param string|null $className
      * @return mixed
-     * @throws ReflectionException
      * @throws UnknownCallException
      */
     public static function dispatch(string $name, array $args, ?string $className = null)
@@ -53,7 +52,6 @@ class Dispatcher
      * @param string $className
      * @param string $methodName
      * @return bool
-     * @throws ReflectionException
      */
     public static function canDispatchMethod(string $className, string $methodName): bool
     {
@@ -61,9 +59,13 @@ class Dispatcher
         if ($className[0] === "I") return false;
 
         // check instance
-        $instance = DynamicLoader::getLoader()->getInstance($className);
-        if (method_exists($className, "dispatches")) {
-            return $instance->dispatches($methodName);
-        } else return false;
+        try {
+            $instance = DynamicLoader::getLoader()->getInstance($className);
+            if (method_exists($className, "dispatches")) {
+                return $instance->dispatches($methodName);
+            }
+        } catch (ReflectionException $e) {
+        }
+        return false;
     }
 }

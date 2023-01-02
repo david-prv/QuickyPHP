@@ -72,7 +72,6 @@ class Router implements IDispatching
      *
      * @return object|Router|null
      * @throws NetworkException
-     * @throws ReflectionException
      */
     public function router()
     {
