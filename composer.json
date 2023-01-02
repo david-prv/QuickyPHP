@@ -23,7 +23,7 @@
         "classmap": [
             "quicky/",
             "quicky/core/",
-            "quicky/net/",
+            "quicky/http/",
             "quicky/storage/",
             "quicky/utils/",
             "quicky/views/",
