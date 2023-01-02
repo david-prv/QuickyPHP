@@ -21,12 +21,7 @@ declare(strict_types=1);
  * @link https://pear.php.net/package/PhpDocumentor/docs/latest/phpDocumentor/tutorial_tags.method.pkg.html
  *
  * Routes:
- * @method static void get(string $pattern, callable $callback, ...$middleware)
- * @method static void post(string $pattern, callable $callback, ...$middleware)
- * @method static void put(string $pattern, callable $callback, ...$middleware)
- * @method static void update(string $pattern, callable $callback, ...$middleware)
- * @method static void delete(string $pattern, callable $callback, ...$middleware)
- * @method static void patch(string $pattern, callable $callback, ...$middleware)
+ * @method static void route(string $method, string $pattern, callable $callback, ...$middleware)
  *
  * Views:
  * @method static View view()
@@ -65,6 +60,7 @@ class Quicky
      * Quicky constructor.
      *
      * @param string $mode
+     * @throws ReflectionException
      */
     private function __construct(string $mode)
     {
@@ -84,6 +80,7 @@ class Quicky
      *
      * @param string $mode
      * @return Quicky
+     * @throws ReflectionException
      */
     public static function create(string $mode = Config::LOAD_DEFAULT)
     {
@@ -110,6 +107,7 @@ class Quicky
      *
      * @param bool $catchAllErrors
      * @throws UnknownRouteException
+     * @throws ReflectionException
      */
     public function run(bool $catchAllErrors = false): void
     {
@@ -177,6 +175,7 @@ class Quicky
      * @param $arguments
      * @return mixed
      * @throws UnknownCallException
+     * @throws ReflectionException
      */
     public static function __callStatic($name, $arguments)
     {

@@ -13,7 +13,8 @@
     "require": {
         "php": ">=7.4",
         "ext-http": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-apache": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "9"

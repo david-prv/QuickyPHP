@@ -77,6 +77,7 @@ class Config implements IDispatching
      *
      * @return Config|object|null
      * @throws ConfigParserException
+     * @throws ReflectionException
      */
     public function config()
     {

@@ -21,8 +21,9 @@ class Dispatcher
      * @param string $name
      * @param array $args
      * @param string|null $className
-     * @throws UnknownCallException
      * @return mixed
+     * @throws ReflectionException
+     * @throws UnknownCallException
      */
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
@@ -52,6 +53,7 @@ class Dispatcher
      * @param string $className
      * @param string $methodName
      * @return bool
+     * @throws ReflectionException
      */
     public static function canDispatchMethod(string $className, string $methodName): bool
     {

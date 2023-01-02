@@ -54,6 +54,13 @@ class DynamicLoader
     private array $classes;
 
     /**
+     * Methods represented as BST
+     *
+     * @var BinarySearchTree
+     */
+    private BinarySearchTree $methods;
+
+    /**
      * All already included classes
      *
      * @var array
@@ -64,6 +71,7 @@ class DynamicLoader
      * DynamicLoader constructor.
      *
      * @param string|null $override
+     * @throws ReflectionException
      */
     private function __construct(?string $override = null)
     {
@@ -74,8 +82,10 @@ class DynamicLoader
         $this->locations = array();
         $this->classes = array();
         $this->loaded = array(self::class);
+        $this->methods = new BinarySearchTree();
         $this->registerInstance(DynamicLoader::class, $this);
         $this->scan();
+        $this->buildBST();
     }
 
     /**
@@ -83,6 +93,7 @@ class DynamicLoader
      *
      * @param string|null $override
      * @return static
+     * @throws ReflectionException
      */
     public static function getLoader(?string $override = null): self
     {
@@ -90,27 +101,6 @@ class DynamicLoader
             self::$instance = new DynamicLoader($override ?? null);
         }
         return self::$instance;
-    }
-
-    /**
-     * Load a class by classname
-     * using the classmap
-     *
-     * @param string $className
-     * @throws InvalidClassException
-     */
-    public function load(string $className): void
-    {
-        if (!in_array($className, $this->classes)) throw new InvalidClassException($className);
-        if (in_array($className, $this->loaded)) return;
-
-        foreach ($this->locations as $loc) {
-            $fileName = $this->workingDir . $loc . "/" . $className . ".php";
-            if (is_file($fileName)) {
-                array_push($this->loaded, $className);
-                require $fileName . "";
-            }
-        }
     }
 
     /**
@@ -134,6 +124,7 @@ class DynamicLoader
      */
     public function getInstance(string $className, ?array $params = null): ?object
     {
+        if (!in_array($className, $this->classes)) return null;
         if (isset($this->instances[$className])) return $this->instances[$className];
         else {
             try {
@@ -144,7 +135,8 @@ class DynamicLoader
                 $this->instances[$className] = $instance;
                 return $this->instances[$className];
             } catch (ArgumentCountError $e) {
-            } catch (ReflectionException $e) {}
+            } catch (ReflectionException $e) {
+            }
             return null;
         }
     }
@@ -158,6 +150,7 @@ class DynamicLoader
      *          their class names.
      *
      * @param string $current
+     * @throws ReflectionException
      */
     private function scan(string $current = "/quicky"): void
     {
@@ -165,19 +158,42 @@ class DynamicLoader
 
         $dirs = new DirectoryIterator($this->workingDir . $current);
         foreach ($dirs as $dir) {
-
             if ($dir->isFile()) {
                 $file = $dir->getFilename();
                 $temp = explode(".", $file);
                 $ext = $temp[count($temp) - 1];
                 $name = $temp[0];
-                if ($ext === "php" && $name !== "autoload") array_push($this->classes, $name);
+                if ($ext === "php" && $name !== "autoload" && $name !== "index") array_push($this->classes, $name);
             }
 
             if ($dir->isDir() && !$dir->isDot()) {
                 $this->scan($current . "/" . $dir->getFilename());
             }
+        }
+    }
 
+    /**
+     * Build method BST
+     *
+     * @throws ReflectionException
+     */
+    private function buildBST(): void
+    {
+        // Initialize a new binary search tree to store the methods
+        $methodTree = $this->methods;
+
+        // For each class in $this->classes...
+        foreach ($this->classes as $class) {
+            if (!method_exists($class, "dispatches") || $class[0] === "I") continue;
+            // Use reflection to get a list of the class's methods
+            $reflectionClass = new ReflectionClass($class);
+            $methods = $reflectionClass->getMethods();
+
+            // For each method...
+            foreach ($methods as $method) {
+                // Insert a string "MethodName.OriginClass" into the method tree
+                $methodTree->insert($method->getName() . '.' . $class);
+            }
         }
     }
 
@@ -186,18 +202,19 @@ class DynamicLoader
      * The method has to be dispatch-able
      * and should be named uniquely.
      *
-     * TODO:    Implement this as BST to increase
-     *          performance against increasing class-maps
-     *
-     * @param string $name
+     * @param string $methodName
      * @return string|null
      */
-    public function findMethod(string $name): ?string
+    public function findMethod(string $methodName): ?string
     {
-        foreach ($this->classes as $class) {
-            if (method_exists($class, $name)
-                && Dispatcher::canDispatchMethod($class, $name)) return $class;
+        // Search the method tree for a string matching the format "MethodName.OriginClass"
+        $className = $this->methods->find($methodName);
+        if (!is_null($className)) {
+            // Extract the class name from the string and return it
+            return $className;
+        } else {
+            // If no matching string is found, return null
+            return null;
         }
-        return null;
     }
 }

@@ -74,7 +74,7 @@ class Route
      *
      * @return bool
      */
-    private function useMiddleware(): bool
+    private function usesMiddleware(): bool
     {
         return (count($this->middleware) >= 1);
     }

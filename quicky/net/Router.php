@@ -72,6 +72,7 @@ class Router implements IDispatching
      *
      * @return object|Router|null
      * @throws NetworkException
+     * @throws ReflectionException
      */
     public function router()
     {
@@ -94,99 +95,15 @@ class Router implements IDispatching
     /**
      * Add GET route
      *
+     * @param string $method
      * @param string $pattern
      * @param callable $callback
      * @param array $middleware
      */
-    public function get(string $pattern, callable $callback, ...$middleware): void
+    public function route(string $method, string $pattern, callable $callback, ...$middleware): void
     {
         $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("GET", $pattern, $callback, $middleware);
-
-        if (!$this->isRoute($route)) {
-            $this->routes[$route->hashCode()] = $route;
-        }
-    }
-
-    /**
-     * Add POST route
-     *
-     * @param string $pattern
-     * @param callable $callback
-     * @param array $middleware
-     */
-    public function post(string $pattern, callable $callback,  ...$middleware): void
-    {
-        $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("POST", $pattern, $callback, $middleware);
-
-        if (!$this->isRoute($route)) {
-            $this->routes[$route->hashCode()] = $route;
-        }
-    }
-
-    /**
-     * Add PUT route
-     *
-     * @param string $pattern
-     * @param callable $callback
-     * @param array $middleware
-     */
-    public function put(string $pattern, callable $callback, ...$middleware): void
-    {
-        $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("PUT", $pattern, $callback, $middleware);
-
-        if (!$this->isRoute($route)) {
-            $this->routes[$route->hashCode()] = $route;
-        }
-    }
-
-    /**
-     * Add UPDATE route
-     *
-     * @param string $pattern
-     * @param callable $callback
-     * @param array $middleware
-     */
-    public function update(string $pattern, callable $callback, ...$middleware): void
-    {
-        $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("UPDATE", $pattern, $callback, $middleware);
-
-        if (!$this->isRoute($route)) {
-            $this->routes[$route->hashCode()] = $route;
-        }
-    }
-
-    /**
-     * Add DELETE route
-     *
-     * @param string $pattern
-     * @param callable $callback
-     * @param array $middleware
-     */
-    public function delete(string $pattern, callable $callback, ...$middleware): void
-    {
-        $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("DELETE", $pattern, $callback, $middleware);
-
-        if (!$this->isRoute($route)) {
-            $this->routes[$route->hashCode()] = $route;
-        }
-    }
-
-    /**
-     * Add PATCH route
-     *
-     * @param string $pattern
-     * @param callable $callback
-     * @param array $middleware
-     */
-    public function patch(string $pattern, callable $callback, ...$middleware): void
-    {
-        $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("PATCH", $pattern, $callback, $middleware);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
