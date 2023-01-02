@@ -127,7 +127,8 @@ Here are all (currently) directly accessible components:
 Quicky::view(); // Returns the view engine
 Quicky::config(); // Returns the config controller
 Quicky::router(); // Returns the routing engine
-Quicky::session(); // Returns the session controller
+Quicky::session(); // Returns the session manager
+Quicky::cookies(); // Returns the cookie manager
 ```
 
 ### Render a view
@@ -142,7 +143,7 @@ require __DIR__ . "/quicky/autoload.php";
 
 $app = Quicky::create();
 
-// The following code will start a Quicky-Session and
+// The following code will start a Quicky-SessionManager and
 // set the variables "userName" and "userNick"
 Quicky::session()->start();
 Quicky::session()->setRange(array("userName" => "User123", "userNick" => "Unicorn"));

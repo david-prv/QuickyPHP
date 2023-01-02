@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class Session
+ * Class SessionManager
  */
-class Session implements IDispatching
+class SessionManager implements IDispatching, IManaging
 {
     /**
      * In-built sessionId
@@ -36,7 +36,7 @@ class Session implements IDispatching
     private bool $secure;
 
     /**
-     * Session is active
+     * SessionManager is active
      *
      * @var bool
      */
@@ -57,7 +57,7 @@ class Session implements IDispatching
     const QUICKY_CSRF_TOKEN = "csrf_token";
 
     /**
-     * Session constructor.
+     * SessionManager constructor.
      */
     public function __construct()
     {
@@ -73,9 +73,9 @@ class Session implements IDispatching
      */
     public static function session()
     {
-        $instance = DynamicLoader::getLoader()->getInstance(Session::class);
+        $instance = DynamicLoader::getLoader()->getInstance(SessionManager::class);
 
-        if ($instance instanceof Session) return $instance;
+        if ($instance instanceof SessionManager) return $instance;
         else throw new InvalidSessionException();
     }
 
@@ -101,7 +101,7 @@ class Session implements IDispatching
 
     /**
      * Is this session secure against
-     * Session Hijacking?
+     * SessionManager Hijacking?
      *
      * @return bool
      */
@@ -184,6 +184,16 @@ class Session implements IDispatching
     }
 
     /**
+     * Unset a variable
+     *
+     * @param string $name
+     */
+    public function unset(string $name): void
+    {
+        if (isset($_SESSION[$name])) unset($_SESSION[$name]);
+    }
+
+    /**
      * Returns the activation state
      *
      * @return bool
@@ -251,4 +261,5 @@ class Session implements IDispatching
         if (!$this->isActive()) return false;
         return $_SESSION[$this::QUICKY_CSRF_TOKEN] === $token;
     }
+
 }

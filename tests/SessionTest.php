@@ -9,7 +9,7 @@ class SessionTest extends QuickyTestCase
         $app = Quicky::create();
         $session = Quicky::session();
 
-        if ($session instanceof Session) {
+        if ($session instanceof SessionManager) {
             $this->assertNull($session->getId());
             $session->start();
 

@@ -8,7 +8,7 @@ class DispatcherTest extends QuickyTestCase
     {
         $instance = Quicky::create();
         $this->assertInstanceOf(
-            Session::class,
+            SessionManager::class,
             $instance::session()
         );
     }

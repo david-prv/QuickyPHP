@@ -32,8 +32,11 @@ declare(strict_types=1);
  * @method static View view()
  * @method static void render(string $viewName, ?array $params = null)
  *
- * Session:
- * @method static Session session()
+ * SessionManager:
+ * @method static SessionManager session()
+ *
+ * CookieManager:
+ * @method static CookieManager cookies()
  *
  * Config:
  * @method static Config config()

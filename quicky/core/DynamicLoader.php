@@ -92,7 +92,7 @@ class DynamicLoader
 
     /**
      * Load a class by classname
-     * using the PSR-4 standard
+     * using the classmap
      *
      * @param string $className
      * @throws InvalidClassException

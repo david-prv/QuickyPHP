@@ -24,8 +24,8 @@ class CSRFMiddleware implements IMiddleware
      */
     public function run(Request $request, Response $response, callable $next): ?Response
     {
-        $session = DynamicLoader::getLoader()->getInstance(Session::class);
-        if ($session instanceof Session) {
+        $session = DynamicLoader::getLoader()->getInstance(SessionManager::class);
+        if ($session instanceof SessionManager) {
             if (!$request->hasCSRFToken() || !$session->verifyCSRF($request->getCSRFToken())) {
                 // send forbidden message and error code
                 $response->forbidden($response->getErrorMessage(403));
