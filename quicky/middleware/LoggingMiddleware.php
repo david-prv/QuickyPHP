@@ -46,7 +46,7 @@ class LoggingMiddleware implements IMiddleware
      */
     public function __construct(?string $logFile = null)
     {
-        $this->logPath = $logFile ?? getcwd() . "/quicky.log";
+        $this->logPath = $logFile ?? getcwd() . "/quicky/logs/access.log";
     }
 
     /**
