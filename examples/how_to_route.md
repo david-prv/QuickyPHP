@@ -1,4 +1,4 @@
-# Routing Types
+# How to use Routes
 
 ```php
 require __DIR__ . "/../../vendor/autoload.php";
@@ -54,3 +54,11 @@ the route will not match the requested url.
 url, like "/question/874729/report" or "/question/136725/report". Be aware, that with a wildcard
 asterix, you are not able to get the passed question-ID here via the Request object.
 
+## Callbacks
+Any method that has the following signature:
+```
+anyMethodName(Request $request, Response $response): void;
+```
+
+## Middleware
+Read more about middleware [here](https://github.com/david-prv/QuickyPHP/blob/main/examples/csrf_middleware.md).
