@@ -44,7 +44,8 @@ Quicky::session()->start();
 */
 
 Quicky::route("GET", "/", function (Request $request, Response $response) {
-    $response->render("index");
+    $delay = round(microtime(true) - Quicky::session()->getCreatedAt(), 5);
+    $response->render("index", array("P_MS" => $delay));
 });
 
 $app->run(true);

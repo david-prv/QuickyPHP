@@ -24,9 +24,9 @@ class SessionManager implements IDispatching, IManaging
     /**
      * Creation timestamp
      *
-     * @var int|null
+     * @var float|null
      */
-    private ?int $createdAt = null;
+    private ?float $createdAt = null;
 
     /**
      * Secure flag
@@ -93,7 +93,7 @@ class SessionManager implements IDispatching, IManaging
         $this->id = uniqid();
         $this->active = true;
         $this->secure = $secure;
-        $this->createdAt = time();
+        $this->createdAt = microtime(true);
 
         $_SESSION[$this::QUICKY_SESSION_ID] = $this->id;
         $_SESSION[$this::QUICKY_SESSION_CREATED_AT] = $this->createdAt;
@@ -216,9 +216,9 @@ class SessionManager implements IDispatching, IManaging
     /**
      * Returns quicky-in-built creation time
      *
-     * @return int|null
+     * @return float|null
      */
-    public function getCreatedAt(): ?int
+    public function getCreatedAt(): ?float
     {
         return $this->createdAt;
     }
