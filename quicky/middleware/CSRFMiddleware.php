@@ -34,6 +34,6 @@ class CSRFMiddleware implements IMiddleware
                 $response->stop();
             }
         }
-        return $next($request, $response);;
+        return $next($request, $response);
     }
 }
