@@ -31,8 +31,8 @@ $app->run();
 - [ ] Write tests
 - [ ] Write documentation
 - [ ] Host a website
-- [ ] Implement DynamicLoader->findMethod() as BST
 #### Done:
+- [x] ~~Implement DynamicLoader->findMethod() as BST~~
 - [x] ~~Find a project name~~  
 - [x] ~~Buy domain: quickyphp.de~~
 - [x] ~~In-built Sessions~~  
