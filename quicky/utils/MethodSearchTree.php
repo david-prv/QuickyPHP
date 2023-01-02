@@ -15,11 +15,11 @@ declare(strict_types=1);
 class MethodSearchTree
 {
     /**
-     * Root MethodNode
+     * Root MSTNode
      *
-     * @var MethodNode|null
+     * @var MSTNode|null
      */
-    private ?MethodNode $root;
+    private ?MSTNode $root;
 
     /**
      * MethodSearchTree constructor.
@@ -37,7 +37,7 @@ class MethodSearchTree
     public function insert(string $methodName)
     {
         if (strpos($methodName, "__") !== false) return;
-        $node = new MethodNode($methodName);
+        $node = new MSTNode($methodName);
 
         if ($this->root === null) {
             $this->root = $node;

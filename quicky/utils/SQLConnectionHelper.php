@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class SQLConnection
+ * Class SQLConnectionHelper
  */
-class SQLConnection
+class SQLConnectionHelper
 {
     /**
      * Connection info
@@ -24,7 +24,7 @@ class SQLConnection
     private object $conn;
 
     /**
-     * SQLConnection constructor.
+     * SQLConnectionHelper constructor.
      *
      * @param string $host
      * @param string $user
