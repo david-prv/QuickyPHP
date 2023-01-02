@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class Router
  */
-class Router implements IDispatching
+class Router implements DispatchingInterface
 {
     /**
      * All existing routes

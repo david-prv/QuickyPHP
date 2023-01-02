@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class CSRFMiddleware
+ * Class CSRFMiddlewareInterface
  */
-class CSRFMiddleware implements IMiddleware
+class CSRFMiddlewareInterface implements MiddlewareInterface
 {
     /**
      * Run middleware

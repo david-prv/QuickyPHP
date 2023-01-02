@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class LoggingMiddleware
+ * Class LoggingMiddlewareInterface
  */
-class LoggingMiddleware implements IMiddleware
+class LoggingMiddlewareInterface implements MiddlewareInterface
 {
     /**
      * Error Level
@@ -40,7 +40,7 @@ class LoggingMiddleware implements IMiddleware
     const ERROR = "[Error] %s | %s" . PHP_EOL;
 
     /**
-     * LoggingMiddleware constructor.
+     * LoggingMiddlewareInterface constructor.
      *
      * @param string|null $logFile
      */

@@ -21,7 +21,7 @@ Quicky::route("POST", "/login", function(Request $request, Response $response) {
     } else {
         $response->forbidden("Wrong credentials");
     }
-}, new CSRFMiddleware());
+}, new CSRFMiddlewareInterface());
 
 $app->run();
 ```

@@ -39,11 +39,11 @@ $app->run();
 For instance: "/something/1337/cool/" or "/something/42/cool/"
 
 ### Variables
-**NOTE**: Names variables have to be surrounded by brackets: "`{`" and "`}`"
+**NOTE**: Named variables have to be surrounded by brackets: "`{`" and "`}`"
 
 ``/api/v2/users/{userName}/game/{gameID}``    
 
-**Allows**: Providing an username and a game-ID, which then can be accessed throught the Request object
+**Allows**: Providing an username and a game-ID, which then can be accessed through the Request object
 in the callback method: ``$request->getArg("userName");``, ... . They have to be present, otherwise
 the route will not match the requested url.
 
@@ -52,7 +52,7 @@ the route will not match the requested url.
 
 **Allows**: An universal report page for questions, by just appending "/report" to *any* question
 url, like "/question/874729/report" or "/question/136725/report". Be aware, that with a wildcard
-asterix, you are not able to get the passed question-ID here via the Request object.
+star, you are not able to get the passed question-ID here via the Request object.
 
 ## Callbacks
 Any method that has the following signature:

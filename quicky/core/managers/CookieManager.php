@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class CookieManager
  */
-class CookieManager implements IDispatching, IManaging
+class CookieManager implements DispatchingInterface, ManagingInterface
 {
     /**
      * Dispatching methods

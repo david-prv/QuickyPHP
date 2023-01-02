@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class Config
  */
-class Config implements IDispatching
+class Config implements DispatchingInterface
 {
     /**
      * Project info

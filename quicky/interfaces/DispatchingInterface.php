@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Interface IDispatching
+ * Interface DispatchingInterface
  */
-interface IDispatching
+interface DispatchingInterface
 {
     /**
      * Check if class is dispatching the

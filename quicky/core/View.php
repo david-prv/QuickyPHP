@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class View
  */
-class View implements IDispatching
+class View implements DispatchingInterface
 {
     /**
      * Dispatching methods

@@ -203,8 +203,8 @@ class DynamicLoader
     {
         $methodTree = $this->methods;
         foreach ($this->classes as $class) {
-            // skip non-dispatching classes and interfaces
-            if (!method_exists($class, "dispatches") || $class[0] === "I") continue;
+            // skip non-dispatching classes, interfaces
+            if (!Dispatcher::canDispatch($class)) continue;
 
             // Use reflection to get a list of the class's methods
             $reflectionClass = new ReflectionClass($class);

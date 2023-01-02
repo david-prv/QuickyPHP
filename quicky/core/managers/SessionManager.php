@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Class SessionManager
  */
-class SessionManager implements IDispatching, IManaging
+class SessionManager implements DispatchingInterface, ManagingInterface
 {
     /**
      * In-built sessionId

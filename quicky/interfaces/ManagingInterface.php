@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Interface IManaging
+ * Interface ManagingInterface
  */
-interface IManaging
+interface ManagingInterface
 {
     /**
      * Get a variable

@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Interface IMiddleware
+ * Interface MiddlewareInterface
  */
-interface IMiddleware
+interface MiddlewareInterface
 {
     /**
      * Execute middleware
