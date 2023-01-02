@@ -1,6 +1,9 @@
 # QuickyPHP
 A php micro-framework for simple and quick web-applications
 
+## Work in progress...
+This project is still in *heavy* development. Methods will change or be removed entirely. Please do not implement any production systems with QuickyPHP yet! Wait until the first alpha releases are published and stable enough for production software. In any other case, feel free to play around with QuickyPHP!
+
 ## Motivation
 I started this project because I wanted to procrastinate important work for university. No joke. But it turned into a slight obsession that has been with me for a few days now. I found developing my own PHP micro-framework so interesting that I kept reading up on documentation and articles and watching tutorial after tutorial.
 
@@ -24,32 +27,6 @@ Quicky::route("GET", "/", function(Request $request, Response $response) {
 
 $app->run();
 ```
-
-## Work in progress
-#### ToDo:
-- [ ] Create a logo  
-- [ ] Write tests
-- [ ] Write documentation
-- [ ] Host a website
-#### Done:
-- [x] ~~Implement DynamicLoader->findMethod() as BST~~
-- [x] ~~Find a project name~~  
-- [x] ~~Buy domain: quickyphp.de~~
-- [x] ~~In-built Sessions~~  
-- [x] ~~In-built Global Variables~~  
-- [x] ~~In-built Caching~~
-- [x] ~~Response->sendFile method~~  
-- [x] ~~Config Parser~~  
-- [x] ~~Route Wildcards~~ 
-- [x] ~~Route RegEx~~ 
-- [x] ~~Support .env files~~
-- [x] ~~Add support for DELETE, UPDATE, PUT, ... methods~~
-- [x] ~~Response->toString() method~~  
-- [x] ~~Create composer package~~
-- [x] ~~Simple Middleware~~
-- [x] ~~In-built CSRF Tokens~~  
-- [x] ~~In-built Access Logging~~  
-- [x] ~~In-built Error Handling~~  
 
 ## Requirements
 QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.  
