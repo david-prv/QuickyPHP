@@ -180,17 +180,15 @@ class DynamicLoader
      */
     private function buildBST(): void
     {
-        // Initialize a new binary search tree to store the methods
         $methodTree = $this->methods;
-
-        // For each class in $this->classes...
         foreach ($this->classes as $class) {
+            // skip non-dispatching classes and interfaces
             if (!method_exists($class, "dispatches") || $class[0] === "I") continue;
+
             // Use reflection to get a list of the class's methods
             $reflectionClass = new ReflectionClass($class);
             $methods = $reflectionClass->getMethods();
 
-            // For each method...
             foreach ($methods as $method) {
                 // Insert a string "MethodName.OriginClass" into the method tree
                 $methodTree->insert($method->getName() . '.' . $class);
@@ -208,13 +206,10 @@ class DynamicLoader
      */
     public function findMethod(string $methodName): ?string
     {
-        // Search the method tree for a string matching the format "MethodName.OriginClass"
         $className = $this->methods->find($methodName);
         if (!is_null($className)) {
-            // Extract the class name from the string and return it
             return $className;
         } else {
-            // If no matching string is found, return null
             return null;
         }
     }
