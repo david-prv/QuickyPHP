@@ -96,32 +96,39 @@ class Quicky
     /**
      * Override/Set error handler
      *
-     * @param callable $errorHandler
+     * @param callable|null $errorHandler
+     * @param callable|null $exceptionHandler
      */
-    public static function error(callable $errorHandler): void
+    public static function error(?callable $errorHandler = null, ?callable $exceptionHandler = null): void
     {
-        set_error_handler($errorHandler);
+        if (!is_null($errorHandler)) set_error_handler($errorHandler);
+        if (!is_null($exceptionHandler)) set_exception_handler($exceptionHandler);
     }
 
     /**
      * Run application
+     *
+     * @param bool $catchAllErrors
+     * @throws UnknownRouteException
      */
-    public function run(): void
+    public function run(bool $catchAllErrors = false): void
     {
-        if ($this->config->isProd()) {
-            set_error_handler(function(string $errNo, string $errStr) {
-                return $this->catch($errNo, $errStr);
+        // enable error catching for production or
+        // iff parameter is set
+        if ($this->config->isProd() || $catchAllErrors) {
+            set_error_handler(function (string $errNo, string $errStr) {
+                return $this->catchError($errNo, $errStr);
+            });
+            set_exception_handler(function (Throwable $e) {
+                $this->catchException($e);
             });
         }
 
+        // route request here
         $router = DynamicLoader::getLoader()->getInstance(Router::class);
         if ($router instanceof Router) {
-            try {
-                $router(new Request(), new Response());
-            } catch (UnknownRouteException $e) {}
-        }
-
-        else $this->stop(1);
+            $router(new Request(), new Response());
+        } else $this->stop(1);
     }
 
     /**
@@ -142,9 +149,22 @@ class Quicky
      * @param string $errStr
      * @return callable|null ?callable
      */
-    private function catch(string $errNo, string $errStr): ?callable
+    private function catchError(string $errNo, string $errStr): ?callable
     {
         View::error($errNo, $errStr);
+        return null;
+    }
+
+    /**
+     * Basic exception handler for production.
+     * Catches all types of exceptions.
+     *
+     * @param Throwable $e
+     * @return callable|null ?callable
+     */
+    private function catchException(Throwable $e): ?callable
+    {
+        View::except($e->getMessage());
         return null;
     }
 

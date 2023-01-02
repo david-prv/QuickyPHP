@@ -64,7 +64,17 @@ class View implements IDispatching
      */
     public static function error(string $errNo, string $errStr): void
     {
-        echo "$errNo - Error: $errStr\n";
+        echo "<strong>Error</strong>: $errNo - $errStr" . PHP_EOL;
+    }
+
+    /**
+     * Render a basic exception message
+     *
+     * @param string $message
+     */
+    public static function except(string $message): void
+    {
+        echo "<strong>Exception:</strong> $message" . PHP_EOL;
     }
 
     /**

@@ -70,8 +70,11 @@ class LoggingMiddleware implements IMiddleware
     private function writeLog(string $message, ?int $errLevel = null): void
     {
         $level = $errLevel ?? $this->errorLevel;
-        $file = (file_exists($this->logPath)) ? $this->logPath : null;
-        if (is_null($file)) throw new InvalidArgumentException();
+        $file = $this->logPath;
+
+        if (!file_exists($file)) {
+            @fopen($file, "w");
+        }
 
         $template = $this->getTemplate($level);
 

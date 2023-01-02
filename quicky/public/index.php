@@ -17,17 +17,17 @@ Quicky::get("/greet/{name}/{age}", function (Request $request, Response $respons
         $request->getArg("age"));
 });
 
-Quicky::get("/static/{name}", function(Request $request, Response $response) {
+Quicky::get("/static/{name}", function (Request $request, Response $response) {
     $response->sendFile($request->getArg("name"));
 });
 
-Quicky::get("/form", function(Request $request, Response $response) {
+Quicky::get("/form", function (Request $request, Response $response) {
     $response->render("form", array("TOKEN" => Quicky::session()->generateCSRFToken()));
 });
 
-Quicky::post("/form/post", function(Request $request, Response $response) {
+Quicky::post("/form/post", function (Request $request, Response $response) {
     $response->send("hi, %s!", $request->getField("name"));
 }, new CSRFMiddleware());
 
 
-$app->run();
+$app->run(true);
