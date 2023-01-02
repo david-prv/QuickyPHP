@@ -10,19 +10,19 @@
 declare(strict_types=1);
 
 /**
- * Class BinarySearchTree
+ * Class MethodSearchTree
  */
-class BinarySearchTree
+class MethodSearchTree
 {
     /**
-     * Root Node
+     * Root MethodNode
      *
-     * @var Node|null
+     * @var MethodNode|null
      */
-    private ?Node $root;
+    private ?MethodNode $root;
 
     /**
-     * BinarySearchTree constructor.
+     * MethodSearchTree constructor.
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class BinarySearchTree
     public function insert(string $methodName)
     {
         if (strpos($methodName, "__") !== false) return;
-        $node = new Node($methodName);
+        $node = new MethodNode($methodName);
 
         if ($this->root === null) {
             $this->root = $node;

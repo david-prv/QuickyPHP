@@ -56,9 +56,9 @@ class DynamicLoader
     /**
      * Methods represented as BST
      *
-     * @var BinarySearchTree
+     * @var MethodSearchTree
      */
-    private BinarySearchTree $methods;
+    private MethodSearchTree $methods;
 
     /**
      * All already included classes
@@ -74,18 +74,27 @@ class DynamicLoader
      */
     private function __construct(?string $override = null)
     {
+        // current working directory should be
+        // the project's ROOT folder, not the HTTP docs folder
         chdir(getcwd() . "/../../");
 
+        // load internal vars
         $this->workingDir = $override ?? getcwd();
         $this->instances = array();
         $this->locations = array();
         $this->classes = array();
         $this->loaded = array(self::class);
-        $this->methods = new BinarySearchTree();
+        $this->methods = new MethodSearchTree();
+
+        // since this class has already an instance
         $this->registerInstance(DynamicLoader::class, $this);
+
+        // scan the project structure + classes
+        $this->scan();
+
         try {
-            $this->scan();
-            $this->buildBST();
+            // build the MST (binary search tree with methods)
+            $this->buildMST();
         } catch (ReflectionException $e) {
         }
     }
@@ -125,14 +134,20 @@ class DynamicLoader
      */
     public function getInstance(string $className, ?array $params = null): ?object
     {
+        // if it is not an existing class...
         if (!in_array($className, $this->classes)) return null;
+
+        // if the instance is already instantiated...
         if (isset($this->instances[$className])) return $this->instances[$className];
         else {
             try {
+                // instantiate the class either with instance args
+                // or without any arguments
                 $instance = (is_null($params))
                     ? new $className()
                     : (new ReflectionClass($className))->newInstanceArgs($params);
 
+                // add it to the local list
                 $this->instances[$className] = $instance;
                 return $this->instances[$className];
             } catch (ArgumentCountError $e) {
@@ -151,34 +166,40 @@ class DynamicLoader
      *          their class names.
      *
      * @param string $current
-     * @throws ReflectionException
      */
     private function scan(string $current = "/quicky"): void
     {
+        // add the current location to the locations list
         array_push($this->locations, $current);
 
-        $dirs = new DirectoryIterator($this->workingDir . $current);
-        foreach ($dirs as $dir) {
-            if ($dir->isFile()) {
-                $file = $dir->getFilename();
+        // we use directory iterators to do the job
+        $iterator = new DirectoryIterator($this->workingDir . $current);
+
+        // for all file-infos
+        foreach ($iterator as $info) {
+
+            // it is is a file
+            if ($info->isFile()) {
+                $file = $info->getFilename();
                 $temp = explode(".", $file);
                 $ext = $temp[count($temp) - 1];
                 $name = $temp[0];
                 if ($ext === "php" && $name !== "autoload" && $name !== "index") array_push($this->classes, $name);
             }
 
-            if ($dir->isDir() && !$dir->isDot()) {
-                $this->scan($current . "/" . $dir->getFilename());
+            // if it is a (visible) directory
+            if ($info->isDir() && !$info->isDot()) {
+                $this->scan($current . "/" . $info->getFilename());
             }
         }
     }
 
     /**
-     * Build method BST
+     * Build method search tree
      *
      * @throws ReflectionException
      */
-    private function buildBST(): void
+    private function buildMST(): void
     {
         $methodTree = $this->methods;
         foreach ($this->classes as $class) {
@@ -206,11 +227,7 @@ class DynamicLoader
      */
     public function findMethod(string $methodName): ?string
     {
-        $className = $this->methods->find($methodName);
-        if (!is_null($className)) {
-            return $className;
-        } else {
-            return null;
-        }
+        // use MST to find the method very quickly
+        return $this->methods->find($methodName);
     }
 }

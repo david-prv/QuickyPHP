@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class Node
+ * Class MethodNode
  */
-class Node {
+class MethodNode {
     /**
      * Data
      *
@@ -23,19 +23,19 @@ class Node {
     /**
      * Left child node
      *
-     * @var Node|null
+     * @var MethodNode|null
      */
-    public ?Node $left;
+    public ?MethodNode $left;
 
     /**
      * Right child node
      *
-     * @var Node|null
+     * @var MethodNode|null
      */
-    public ?Node $right;
+    public ?MethodNode $right;
 
     /**
-     * Node constructor.
+     * MethodNode constructor.
      *
      * @param string $data
      */
