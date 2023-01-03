@@ -57,7 +57,7 @@ star, you are not able to get the passed question-ID here via the Request object
 ## Callbacks
 Any method that has the following signature:
 ```
-anyMethodName(Request $request, Response $response): void;
+anyMethodName(Request $request, Response $response): ?Response;
 ```
 
 ## Middleware
