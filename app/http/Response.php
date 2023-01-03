@@ -233,7 +233,9 @@ class Response
      */
     private function getMIMEType(string $fileName): string
     {
-        return $this->mimeTypes[strtolower(substr($fileName, strrpos($fileName, '.') + 1))];
+        return (isset($this->mimeTypes[strtolower(substr($fileName, strrpos($fileName, '.') + 1))]))
+            ? $this->mimeTypes[strtolower(substr($fileName, strrpos($fileName, '.') + 1))]
+            : "application/octet-stream";
     }
 
     /**
