@@ -17,7 +17,7 @@ I got the idea of how a simple PHP framework works from other open source projec
 ## Sneak Peak
 A simple web application powered by this framework:
 ```php
-require __DIR__ . "/../../vendor/autoload.php";
+require __DIR__ . "/../vendor/autoload.php";
 
 $app = Quicky::create();
 
