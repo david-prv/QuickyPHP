@@ -48,15 +48,27 @@ class Response
         'json' => 'application/json',
         'png' => 'image/png',
         'jpg' => 'image/jpg',
+        'jpeg' => 'image/jpeg',
         'gif' => 'image/gif',
         'pdf' => 'application/pdf',
         'zip' => 'application/zip',
+        'gzip' => 'application/gzip',
+        'tar' => 'application/x-tar',
         'mp3' => 'audio/mpeg',
         'wav' => 'audio/x-wav',
+        'aac' => 'audio/aac',
+        'ogg' => 'audio/ogg',
+        'mp4' => 'video/mp4',
+        'webm' => 'video/webm',
+        'avi' => 'video/x-msvideo',
         'ico' => 'image/x-icon',
         'csv' => 'text/csv',
         'txt' => 'text/plain',
-        'xml' => 'text/xml'
+        'xml' => 'text/xml',
+        'ttf' => 'font/ttf',
+        'otf' => 'font/otf',
+        'woff' => 'font/woff',
+        'woff2' => 'font/woff2'
     ];
 
     /**
