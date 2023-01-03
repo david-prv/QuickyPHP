@@ -60,7 +60,7 @@ composer install
 ```
 
 ### Code Examples:
-I have written some basic examples [here](https://github.com/david-prv/QuickyPHP/tree/main/examples).
+I have written some basic examples [here](https://gist.github.com/david-prv/9e322ccaa67eb1698ed35551233aee47).
 
 ## Contributing
 TBD

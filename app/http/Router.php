@@ -44,6 +44,13 @@ class Router implements DispatchingInterface
     private array $cache;
 
     /**
+     * Array of all allowed methods
+     *
+     * @var array
+     */
+    private array $methods;
+
+    /**
      * Local cache file
      *
      * @var string
@@ -58,7 +65,8 @@ class Router implements DispatchingInterface
         $this->routes = array();
         $this->dispatching = array("router", "route", "useMiddleware");
         $this->middleware = array();
-        $this->cacheFile = getcwd() . "/quicky/http/" . $this->cacheFile;
+        $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
+        $this->cacheFile = getcwd() . "/app/http/" . $this->cacheFile;
         $this->cache = $this->loadCache();
     }
 
@@ -123,6 +131,16 @@ class Router implements DispatchingInterface
     }
 
     /**
+     * Returns route count
+     *
+     * @return int
+     */
+    public function countRoutes(): int
+    {
+        return count($this->routes);
+    }
+
+    /**
      * Set universal middleware
      *
      * @param mixed ...$middleware
@@ -142,6 +160,9 @@ class Router implements DispatchingInterface
      */
     public function route(string $method, string $pattern, callable $callback, ...$middleware): void
     {
+        $method = strtoupper($method);
+        if (!in_array($method, $this->methods)) new UnknownMethodException($method);
+
         $middleware = array_merge($middleware, $this->middleware);
         $route = new Route("GET", $pattern, $callback, $middleware);
 

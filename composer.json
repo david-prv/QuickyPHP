@@ -22,14 +22,14 @@
     },
     "autoload": {
         "classmap": [
-            "quicky/",
-            "quicky/core/",
-            "quicky/http/",
-            "quicky/storage/",
-            "quicky/utils/",
-            "quicky/views/",
-            "quicky/interfaces",
-            "quicky/middleware"
+            "app/",
+            "app/core/",
+            "app/http/",
+            "app/storage/",
+            "app/utils/",
+            "app/views/",
+            "app/interfaces",
+            "app/middleware"
         ]
     }
 }

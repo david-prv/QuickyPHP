@@ -40,6 +40,7 @@ class Dispatcher
             // Because of the use of our cache, we even improve that running time
             // for every further call to constant time O(1).
             $className = $loader->findMethod($name);
+            if (is_null($className)) throw new UnknownCallException($name);
 
             if (!self::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
 

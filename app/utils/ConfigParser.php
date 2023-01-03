@@ -42,7 +42,7 @@ class ConfigParser
      */
     public function loadFromJSON(): array
     {
-        $expectedPath = getcwd() . "/quicky/config.json";
+        $expectedPath = getcwd() . "/app/config.json";
         if (is_file($expectedPath)) {
             $json = (array)json_decode(file_get_contents($expectedPath), true);
             if (is_null($json) || $json === false) throw new ConfigParserException();
@@ -87,9 +87,9 @@ class ConfigParser
                 "enabled"=> true,
                 "expires" => 3600
             ),
-            "storage" => "/quicky/storage",
-            "views" => "/quicky/views",
-            "logs" => "/quicky/logs"
+            "storage" => "/app/storage",
+            "views" => "/app/views",
+            "logs" => "/app/logs"
         );
     }
 }

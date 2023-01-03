@@ -76,7 +76,7 @@ class DynamicLoader
     {
         // current working directory should be
         // the project's ROOT folder, not the HTTP docs folder
-        chdir(getcwd() . "/../../");
+        chdir(getcwd() . "/../");
 
         // load internal vars
         $this->workingDir = $override ?? getcwd();
@@ -167,7 +167,7 @@ class DynamicLoader
      *
      * @param string $current
      */
-    private function scan(string $current = "/quicky"): void
+    private function scan(string $current = "/app"): void
     {
         // add the current location to the locations list
         array_push($this->locations, $current);

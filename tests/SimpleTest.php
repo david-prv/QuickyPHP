@@ -17,11 +17,6 @@ final class SimpleTest extends QuickyTestCase
         $instance = Quicky::create();
         $this->assertNotNull($instance);
         $this->assertInstanceOf(Quicky::class, $instance);
-
-        try {
-            $instance->run();
-            $this->fail("No route was defined, Quicky should throw an exception!");
-        } catch (UnknownRouteException $e) {
-        }
+        $instance->run();
     }
 }

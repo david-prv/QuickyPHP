@@ -9,7 +9,7 @@
 |
 */
 
-require __DIR__ . "/../../vendor/autoload.php";
+require __DIR__ . "/../vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +46,8 @@ Quicky::session()->start();
 Quicky::route("GET", "/", function (Request $request, Response $response) {
     $delay = round(microtime(true) - Quicky::session()->getCreatedAt(), 5);
     $response->render("index", array("P_MS" => $delay));
+
+    return $response;
 });
 
 $app->run(true);

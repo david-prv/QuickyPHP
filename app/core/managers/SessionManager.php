@@ -204,7 +204,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     }
 
     /**
-     * Returns quicky-in-built sessionId
+     * Returns app-in-built sessionId
      *
      * @return string|null
      */
@@ -214,7 +214,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     }
 
     /**
-     * Returns quicky-in-built creation time
+     * Returns app-in-built creation time
      *
      * @return float|null
      */
