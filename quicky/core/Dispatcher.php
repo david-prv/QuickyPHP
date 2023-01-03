@@ -34,7 +34,13 @@ class Dispatcher
             if (is_null($c)) throw new UnknownCallException($name);
             else return call_user_func(array($c, $name), ...$args);
         } else {
+            // the following method will use a MST (method search tree),
+            // which is implemented as binary search tree. Because of that,
+            // the running time for the first search is in average O(log n).
+            // Because of the use of our cache, we even improve that running time
+            // for every further call to constant time O(1).
             $className = $loader->findMethod($name);
+
             if (!self::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
 
             if (is_null($className)) throw new UnknownCallException($name);
