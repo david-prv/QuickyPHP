@@ -17,7 +17,7 @@ I got the idea of how a simple PHP framework works from other open source projec
 ## Sneak Peak
 A simple web application powered by this framework:
 ```php
-require __DIR__ . "/../../vendor/autoload.php";
+require __DIR__ . "/../vendor/autoload.php";
 
 $app = Quicky::create();
 
@@ -63,7 +63,8 @@ composer install
 I have written some basic examples [here](https://gist.github.com/david-prv/9e322ccaa67eb1698ed35551233aee47).
 
 ## Contributing
-TBD
+Please feel free to contribute to this project. I am always happy to see new and fresh ideas.  
+If you contribute to QuickyPHP, make sure, that you follow the rules as stated in our [code of conduct](https://github.com/david-prv/QuickyPHP/blob/main/CODE_OF_CONDUCT.md).
 
 ## Support
 If you like what I do, feel free to buy me a coffee for my work.  
