@@ -22,6 +22,14 @@ class MethodSearchTree
     private ?MSTNode $root;
 
     /**
+     * Cached methods, mapped to their
+     * origin classes
+     *
+     * @var array
+     */
+    private array $cache;
+
+    /**
      * MethodSearchTree constructor.
      */
     public function __construct()
@@ -69,6 +77,10 @@ class MethodSearchTree
      */
     public function find(string $methodName): ?string
     {
+        if (isset($this->cache[$methodName])) {
+            return $this->cache[$methodName];
+        }
+
         $current = $this->root;
 
         while ($current !== null) {
@@ -76,6 +88,7 @@ class MethodSearchTree
             $className = explode(".", $current->data)[1];
 
             if ($methodName === $compareWith) {
+                $this->cache[$methodName] = $className;
                 return $className;
             } else if ($methodName < $current->data) {
                 $current = $current->left;

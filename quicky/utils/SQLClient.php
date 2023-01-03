@@ -21,7 +21,7 @@ class SQLClient
     private string $user;
     private string $password;
     private string $dbname;
-    private object $conn;
+    private $conn;
 
     /**
      * SQLClient constructor.

@@ -47,19 +47,20 @@ class Dispatcher
     }
 
     /**
-     * Checks whether a className ends with
-     * a certain substring
+     * Checks whether a className has a
+     * certain type (nomenclature: "[name][type]",
+     * e.g. "ManagerInterface")
      *
      * @param string $className
-     * @param string $substr
+     * @param string $classType
      * @return bool
      */
-    public static function classEndsWith(string $className, string $substr): bool
+    public static function classIsTypeOf(string $className, string $classType): bool
     {
-        $length = strlen($substr);
+        $length = strlen($classType);
         if (!$length) return true;
 
-        return substr($className, -$length) === $substr;
+        return substr($className, -$length) === $classType;
     }
 
     /**
@@ -70,7 +71,7 @@ class Dispatcher
      */
     public static function isInterface(string $className): bool
     {
-        return self::classEndsWith($className, "Interface");
+        return self::classIsTypeOf($className, "Interface");
     }
 
     /**
@@ -81,7 +82,7 @@ class Dispatcher
      */
     public static function isException(string $className): bool
     {
-        return self::classEndsWith($className, "Exception");
+        return self::classIsTypeOf($className, "Exception");
     }
 
     /**
