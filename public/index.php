@@ -37,17 +37,16 @@ Quicky::session()->start();
 | your application, such that https://your-domain.tld/ maps to your
 | defined callback behaviour.
 |
+| To do so, we import a pre-defined default bootstrap.
+| Feel free to discover all available bootstraps in /bootstrap.
+| I am also always happy to see new proposals for new ones.
+|
 | The last line then ignites the Core of QuickyPHP, where requests
 | are going to be routed and processed, middleware going to be
 | executed and the application will work.
 |
 */
 
-Quicky::route("GET", "/", function (Request $request, Response $response) {
-    $delay = round(microtime(true) - Quicky::session()->getCreatedAt(), 5);
-    $response->render("index", array("P_MS" => $delay));
-
-    return $response;
-});
+require_once __DIR__ . "/../bootstrap/default.php";
 
 $app->run(true);

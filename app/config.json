@@ -9,7 +9,7 @@
     "enabled": true,
     "expires": 3600
   },
-  "storage": "/quicky/storage",
-  "views": "/quicky/views",
-  "logs": "/quicky/logs"
+  "storage": "/app/storage",
+  "views": "/app/views",
+  "logs": "/app/logs"
 }

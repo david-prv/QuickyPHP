@@ -55,7 +55,7 @@ class Router implements DispatchingInterface
      *
      * @var string
      */
-    private string $cacheFile = 'routes.cache';
+    private string $cacheFile = '.quicky.routes.cache';
 
     /**
      * Router constructor.
@@ -215,8 +215,17 @@ class Router implements DispatchingInterface
 
         // search cache for non-trivial routes
         if (isset($this->cache["$method.$url"])) {
-            echo "was cached";
-            return $this->routes[$this->cache["$method.$url"]];
+            if (isset($this->routes[$this->cache["$method.$url"]])) {
+                $route = $this->routes[$this->cache["$method.$url"]];
+                if ($route instanceof Route) {
+                    if ($route->match($url, $request)) {
+                        return $route;
+                    }
+                }
+                return null;
+            } else {
+                return null;
+            }
         }
 
         // find matching route
