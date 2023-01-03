@@ -27,6 +27,9 @@ declare(strict_types=1);
  * @method static View view()
  * @method static void render(string $viewName, ?array $params = null)
  *
+ * SQLManager:
+ * @method static SQLManager sql()
+ *
  * SessionManager:
  * @method static SessionManager session()
  *

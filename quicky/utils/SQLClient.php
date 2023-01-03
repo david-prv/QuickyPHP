@@ -10,9 +10,9 @@
 declare(strict_types=1);
 
 /**
- * Class SQLConnectionHelper
+ * Class SQLClient
  */
-class SQLConnectionHelper
+class SQLClient
 {
     /**
      * Connection info
@@ -24,7 +24,7 @@ class SQLConnectionHelper
     private object $conn;
 
     /**
-     * SQLConnectionHelper constructor.
+     * SQLClient constructor.
      *
      * @param string $host
      * @param string $user
@@ -32,7 +32,8 @@ class SQLConnectionHelper
      * @param string $dbname
      * @throws MySQLConnException
      */
-    public function __construct(string $host, string $user, string $password, string $dbname) {
+    public function __construct(string $host, string $user, string $password, string $dbname)
+    {
         $this->host = $host;
         $this->user = $user;
         $this->password = $password;
@@ -47,12 +48,13 @@ class SQLConnectionHelper
     /**
      * Select Operation
      *
-     * @param $table
+     * @param string $table
      * @param string $columns
      * @param string $where
      * @return array|bool
      */
-    public function select($table, $columns = '*', $where = '') {
+    public function select(string $table, string $columns = '*', string $where = ''): ?array
+    {
         $query = "SELECT $columns FROM $table";
         if ($where != '') $query .= " WHERE $where";
         $stmt = mysqli_prepare($this->conn, $query);
@@ -66,18 +68,19 @@ class SQLConnectionHelper
             }
             return $results;
         } else {
-            return false;
+            return null;
         }
     }
 
     /**
      * Insert Operation
      *
-     * @param $table
-     * @param $data
+     * @param string $table
+     * @param array $data
      * @return bool
      */
-    public function insert($table, $data) {
+    public function insert(string $table, array $data): bool
+    {
         $columns = implode(',', array_keys($data));
         $placeholders = implode(',', array_fill(0, count($data), '?'));
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
@@ -94,7 +97,8 @@ class SQLConnectionHelper
      * @param $where
      * @return bool
      */
-    public function update($table, $data, $where) {
+    public function update(string $table, array $data, string $where): bool
+    {
         $set = '';
         $values = [];
         foreach ($data as $column => $value) {
@@ -115,7 +119,8 @@ class SQLConnectionHelper
      * @param $where
      * @return bool
      */
-    public function delete($table, $where) {
+    public function delete($table, $where): bool
+    {
         $query = "DELETE FROM $table WHERE $where";
         $stmt = mysqli_prepare($this->conn, $query);
         return mysqli_stmt_execute($stmt);
