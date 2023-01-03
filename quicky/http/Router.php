@@ -37,6 +37,20 @@ class Router implements DispatchingInterface
     private array $middleware;
 
     /**
+     * Router's cache
+     *
+     * @var array
+     */
+    private array $cache;
+
+    /**
+     * Local cache file
+     *
+     * @var string
+     */
+    private string $cacheFile = 'routes.cache';
+
+    /**
      * Router constructor.
      */
     public function __construct()
@@ -44,6 +58,33 @@ class Router implements DispatchingInterface
         $this->routes = array();
         $this->dispatching = array("router", "route", "useMiddleware");
         $this->middleware = array();
+        $this->cacheFile = getcwd() . "/quicky/http/" . $this->cacheFile;
+        $this->cache = $this->loadCache();
+    }
+
+    /**
+     * Loads cache from cache file
+     *
+     * @return array
+     */
+    private function loadCache(): array
+    {
+        if (!DynamicLoader::getLoader()->getInstance(Config::class)->isCacheActive()) return array();
+        if (!file_exists($this->cacheFile)) {
+            return [];
+        }
+        $cache = file_get_contents($this->cacheFile);
+        return unserialize($cache);
+    }
+
+    /**
+     * Saves cache to cache file
+     */
+    private function saveCache(): void
+    {
+        if (!DynamicLoader::getLoader()->getInstance(Config::class)->isCacheActive()) return;
+        $serializedCache = serialize($this->cache);
+        file_put_contents($this->cacheFile, $serializedCache);
     }
 
     /**
@@ -146,14 +187,25 @@ class Router implements DispatchingInterface
         $url = $request->getUrl();
         $method = $request->getMethod();
 
-        // Trivial route
+        // trivial route
         if ($url === "/") {
             return $this->findRouteByHash(sha1($url . $method));
         }
 
+        // search cache for non-trivial routes
+        if (isset($this->cache["$method.$url"])) {
+            echo "was cached";
+            return $this->routes[$this->cache["$method.$url"]];
+        }
+
+        // find matching route
         foreach ($this->routes as $route) {
             if ($route instanceof Route) {
-                if ($route->match($url, $request)) return $route;
+                if ($route->match($url, $request)) {
+                    $this->cache["$method.$url"] = $route->hashCode();
+                    $this->saveCache();
+                    return $route;
+                }
             }
         }
         return null;
