@@ -37,6 +37,29 @@ class Response
     private ?int $cacheExpires = null;
 
     /**
+     * All MIME Types
+     *
+     * @var array|string[]
+     */
+    private array $mimeTypes = [
+        'css' => 'text/css',
+        'html' => 'text/html',
+        'js' => 'text/javascript',
+        'json' => 'application/json',
+        'png' => 'image/png',
+        'jpg' => 'image/jpg',
+        'gif' => 'image/gif',
+        'pdf' => 'application/pdf',
+        'zip' => 'application/zip',
+        'mp3' => 'audio/mpeg',
+        'wav' => 'audio/x-wav',
+        'ico' => 'image/x-icon',
+        'csv' => 'text/csv',
+        'txt' => 'text/plain',
+        'xml' => 'text/xml'
+    ];
+
+    /**
      * All HTTP codes
      *
      * @var array|string[]
@@ -191,6 +214,17 @@ class Response
     }
 
     /**
+     * Resolve MIME Type
+     *
+     * @param string $fileName
+     * @return string
+     */
+    private function getMIMEType(string $fileName): string
+    {
+        return $this->mimeTypes[strtolower(substr($fileName, strrpos($fileName, '.') + 1))];
+    }
+
+    /**
      * Sends file-content as response
      *
      * @param string $fileName
@@ -206,9 +240,12 @@ class Response
         if (strpos($fullPath, $basePath) !== 0) throw new UnknownFileSentException($fileName);
         if (!file_exists($fullPath)) throw new UnknownFileSentException($fileName);
 
-        $contents = file_get_contents($fullPath);
+        $type = $this->getMIMEType($fileName);
 
-        echo $contents;
+        header('Content-Type: ' . $type);
+        header('Content-Length: ' . filesize($fullPath));
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        readfile($fullPath);
     }
 
     /**
