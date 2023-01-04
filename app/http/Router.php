@@ -209,10 +209,7 @@ class Router implements DispatchingInterface
      */
     private function isRoute(Route $route): bool
     {
-        foreach ($this->routes as $r) {
-            if ($route->hashCode() === $r->hashCode()) return true;
-        }
-        return false;
+        return (isset($this->routes[$route->hashCode()]));
     }
 
     /**
