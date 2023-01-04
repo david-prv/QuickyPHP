@@ -21,7 +21,7 @@ declare(strict_types=1);
  * @link https://pear.php.net/package/PhpDocumentor/docs/latest/phpDocumentor/tutorial_tags.method.pkg.html
  *
  * Routes:
- * @method static void route(string $method, string $pattern, callable $callback, bool $passThrough = false, ...$middleware)
+ * @method static void route(string $method, string $pattern, callable $callback, ...$middleware)
  * @method static void pass(string $pattern)
  *
  * Views:

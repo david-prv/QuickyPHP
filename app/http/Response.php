@@ -198,9 +198,10 @@ class Response
         if (is_null($this->cacheExpires) || !$this->useCache) return;
 
         $expire = time() + $this->cacheExpires;
-        header("Cache-Control: max-age=$expire");
-        header("Expires: " . gmdate("D, d M Y H:i:s", $expire) . " GMT");
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s", time()) . " GMT");
+
+        $this->withHeader("Cache-Control", "max-age=$expire");
+        $this->withHeader("Expires", gmdate("D, d M Y H:i:s", $expire) . " GMT");
+        $this->withHeader("Last-Modified", gmdate("D, d M Y H:i:s", time()) . " GMT");
     }
 
     /**
