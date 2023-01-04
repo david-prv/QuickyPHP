@@ -185,13 +185,11 @@ class Router implements DispatchingInterface
     /**
      * Add a passThrough route
      *
-     * @param string $method
      * @param string $pattern
      */
-    public function pass(string $method, string $pattern): void
+    public function pass(string $pattern): void
     {
-        if (!$this->isValidMethod($method)) new UnknownMethodException($method);
-
+        $method = "GET";
         $route = new Route(strtoupper($method), $pattern, function () { /* Empty callback */
         }, $this->middleware, true);
 
