@@ -190,6 +190,9 @@ class Response
         http_redirect($destination);
     }
 
+    /**
+     * Set headers to use cache
+     */
     private function setCacheHeaders(): void
     {
         if (is_null($this->cacheExpires) || !$this->useCache) return;
@@ -198,6 +201,17 @@ class Response
         header("Cache-Control: max-age=$expire");
         header("Expires: " . gmdate("D, d M Y H:i:s", $expire) . " GMT");
         header("Last-Modified: " . gmdate("D, d M Y H:i:s", time()) . " GMT");
+    }
+
+    /**
+     * Set a custom header
+     *
+     * @param string $headerName
+     * @param string $headerValue
+     */
+    public function withHeader(string $headerName, string $headerValue): void
+    {
+        header("$headerName: $headerValue");
     }
 
     /**

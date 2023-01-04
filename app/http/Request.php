@@ -180,7 +180,7 @@ class Request
      *
      * @return mixed|string
      */
-    public function getTime()
+    public function getTime(): string
     {
         return $this->time;
     }
@@ -190,7 +190,7 @@ class Request
      *
      * @return mixed|string
      */
-    public function getCookie()
+    public function getCookie(): string
     {
         return $this->cookie;
     }
@@ -200,7 +200,7 @@ class Request
      *
      * @return mixed|string
      */
-    public function getAccept()
+    public function getAccept(): string
     {
         return $this->accept;
     }
@@ -210,7 +210,7 @@ class Request
      *
      * @return mixed|string
      */
-    public function getReferrer()
+    public function getReferrer(): string
     {
         return $this->referrer;
     }
@@ -220,7 +220,7 @@ class Request
      *
      * @return mixed|string
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->ua;
     }
@@ -230,7 +230,7 @@ class Request
      *
      * @return bool|mixed
      */
-    public function getSecure()
+    public function isSecure(): bool
     {
         return $this->secure;
     }
@@ -240,9 +240,20 @@ class Request
      *
      * @return array|false|mixed
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    /**
+     * Returns whether a header is present
+     *
+     * @param string $headerName
+     * @return bool
+     */
+    public function hasHeader(string $headerName): bool
+    {
+        return (isset($this->headers[$headerName]));
     }
 
     /**
@@ -250,7 +261,7 @@ class Request
      *
      * @return array|mixed
      */
-    public function getRemote()
+    public function getRemote(): array
     {
         return $this->remote;
     }
