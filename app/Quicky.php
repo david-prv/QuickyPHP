@@ -64,6 +64,13 @@ class Quicky
     const QUICKY_ERROR_HANDLER = "error";
 
     /**
+     * Config loading modes
+     */
+    const QUICKY_CNF_JSON = "json";
+    const QUICKY_CNF_ENV = "env";
+    const QUICKY_CNF_DEFAULT = "default";
+
+    /**
      * Quicky constructor.
      *
      * @param string $mode
@@ -81,8 +88,8 @@ class Quicky
             // enable error catching for production or
             // iff parameter is set
             if ($this->config->isProd() || $catchErrors) {
-                set_error_handler(function (string $errNo, string $errStr) {
-                    return $this->catchError($errNo, $errStr);
+                set_error_handler(function (string $error_level, string $error_message, string $error_file, string $error_line) {
+                    return $this->catchError($error_level, $error_message, $error_file, $error_line);
                 });
                 set_exception_handler(function (Throwable $e) {
                     return $this->catchException($e);
@@ -100,7 +107,7 @@ class Quicky
      * @param bool $catchErrors
      * @return Quicky
      */
-    public static function create(string $mode = Config::LOAD_DEFAULT, bool $catchErrors = false): Quicky
+    public static function create(string $mode = Quicky::QUICKY_CNF_DEFAULT, bool $catchErrors = false): Quicky
     {
         if (self::$instance === null) {
             self::$instance = new Quicky($mode, $catchErrors);
@@ -160,13 +167,16 @@ class Quicky
      * Basic error handler for production.
      * Catches all types of errors.
      *
-     * @param string $errNo
-     * @param string $errStr
+     * @param string $error_level
+     * @param string $error_message
+     * @param string $error_file
+     * @param string $error_line
      * @return callable|null ?callable
      */
-    private function catchError(string $errNo, string $errStr): ?callable
+    private function catchError(string $error_level, string $error_message, string $error_file,
+                                string $error_line): ?callable
     {
-        View::error($errNo, $errStr);
+        View::error($error_level, $error_message, $error_file, $error_line);
         return null;
     }
 

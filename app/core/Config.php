@@ -64,13 +64,6 @@ class Config implements DispatchingInterface
     private array $dispatching;
 
     /**
-     * Constants
-     */
-    const LOAD_FROM_JSON = "json";
-    const LOAD_FROM_ENV = "env";
-    const LOAD_DEFAULT = "default";
-
-    /**
      * Config constructor.
      */
     public function __construct()
