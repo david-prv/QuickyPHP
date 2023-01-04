@@ -43,19 +43,29 @@ class Route
     private $callback;
 
     /**
+     * Pass-Through
+     *
+     * @var bool
+     */
+    private bool $passThrough;
+
+    /**
      * Route constructor.
      *
      * @param string $method
      * @param string $pattern
      * @param callable $callback
      * @param array $middleware
+     * @param bool $passThrough
      */
-    public function __construct(string $method, string $pattern, callable $callback, array $middleware)
+    public function __construct(string $method, string $pattern, callable $callback,
+                                array $middleware, bool $passThrough = false)
     {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
         $this->middleware = (is_null($middleware)) ? [] : $middleware;
+        $this->passThrough = $passThrough;
     }
 
     /**
@@ -77,6 +87,16 @@ class Route
     private function usesMiddleware(): bool
     {
         return (count($this->middleware) >= 1);
+    }
+
+    /**
+     * Checks whether this route is a pass-through
+     *
+     * @return bool
+     */
+    public function passesThrough(): bool
+    {
+        return $this->passThrough;
     }
 
     /**
@@ -147,19 +167,16 @@ class Route
             if (preg_match("/^{.*}$/", $pattern[$i])) {
                 $varName = str_replace(["{", "}"], "", $pattern[$i]);
                 $values[$varName] = $urlParts[$i];
-            }
-            // Check if the pattern is a regex
+            } // Check if the pattern is a regex
             elseif (preg_match("/^\(.*\)$/", $pattern[$i])) {
                 $pattern[$i] = str_replace(["(", ")"], "", $pattern[$i]);
                 if (!preg_match("/$pattern[$i]/", $urlParts[$i])) {
                     return false;
                 }
-            }
-            // Check if the pattern is a wildcard
+            } // Check if the pattern is a wildcard
             elseif ($pattern[$i] === "*") {
                 continue;
-            }
-            // If none of the above, check for an exact match
+            } // If none of the above, check for an exact match
             elseif ($pattern[$i] !== $urlParts[$i]) {
                 return false;
             }

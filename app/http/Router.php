@@ -110,7 +110,7 @@ class Router implements DispatchingInterface
         if (count($this->routes) === 0) throw new UnknownRouteException($request->getUrl());
         $route = $this->findRoute($request);
         if (is_null($route)) throw new UnknownRouteException($request->getUrl());
-
+        if ($route->passesThrough()) return;
         if (Quicky::session()->isSecure()) Quicky::session()->regenerateId();
 
         $route->execute($request, $response);
@@ -156,15 +156,17 @@ class Router implements DispatchingInterface
      * @param string $method
      * @param string $pattern
      * @param callable $callback
+     * @param bool $passThrough
      * @param array $middleware
      */
-    public function route(string $method, string $pattern, callable $callback, ...$middleware): void
+    public function route(string $method, string $pattern, callable $callback,
+                          bool $passThrough = false, ...$middleware): void
     {
         $method = strtoupper($method);
         if (!in_array($method, $this->methods)) new UnknownMethodException($method);
 
         $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("GET", $pattern, $callback, $middleware);
+        $route = new Route("GET", $pattern, $callback, $middleware, $passThrough);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;

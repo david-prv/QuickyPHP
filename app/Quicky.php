@@ -21,14 +21,11 @@ declare(strict_types=1);
  * @link https://pear.php.net/package/PhpDocumentor/docs/latest/phpDocumentor/tutorial_tags.method.pkg.html
  *
  * Routes:
- * @method static void route(string $method, string $pattern, callable $callback, ...$middleware)
+ * @method static void route(string $method, string $pattern, callable $callback, bool $passThrough = false, ...$middleware)
  *
  * Views:
  * @method static View view()
  * @method static void render(string $viewName, ?array $params = null)
- *
- * SQLManager:
- * @method static SQLManager sql()
  *
  * SessionManager:
  * @method static SessionManager session()
