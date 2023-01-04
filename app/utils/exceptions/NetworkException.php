@@ -15,7 +15,7 @@ declare(strict_types=1);
 class NetworkException extends Exception
 {
     protected string $default = "Critical Error! An error has occurred in a networking function. " .
-                                "Please report that to a maintainer or your system administrator.";
+    "Please report that to a maintainer or your system administrator.";
 
     public function __construct($message = null, $code = 0, Throwable $previous = null)
     {

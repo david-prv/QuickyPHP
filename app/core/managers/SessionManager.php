@@ -149,8 +149,8 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         if ($this->secure) $this->regenerateId();
 
         if (strtolower($name) !== $this::QUICKY_SESSION_ID
-                && strtolower($name) !== $this::QUICKY_SESSION_CREATED_AT
-                && strtolower($name) !== $this::QUICKY_CSRF_TOKEN) {
+            && strtolower($name) !== $this::QUICKY_SESSION_CREATED_AT
+            && strtolower($name) !== $this::QUICKY_CSRF_TOKEN) {
             $_SESSION[$name] = $value;
         }
     }

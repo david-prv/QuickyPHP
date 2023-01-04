@@ -22,4 +22,4 @@ interface DispatchingInterface
      * @return bool
      */
     public function dispatches(string $method): bool;
- }
+}

@@ -11,19 +11,30 @@
     <!-- Inline Style -->
     <style>
         body {
-            background:#ffffff;
+            background: #ffffff;
             font: 13px Helvetica, sans-serif;
             color: gray;
         }
+
         h1 {
             font-weight: normal;
+        }
+
+        .time {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
-    <!-- Text -->
-    <div style="margin: auto; width: 50%; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
-        <h1><i class="fas fa-stopwatch"></i> took %P_MS%ms</h1>
-    </div>
+<!-- Text -->
+<div class="time">
+    <h1><i class="fas fa-stopwatch"></i> took %P_MS%ms</h1>
+</div>
 </body>
 </html>

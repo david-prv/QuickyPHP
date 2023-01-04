@@ -84,7 +84,7 @@ class ConfigParser
                 "env" => "development"
             ),
             "cache" => array(
-                "enabled"=> true,
+                "enabled" => true,
                 "expires" => 3600
             ),
             "storage" => "/app/storage",

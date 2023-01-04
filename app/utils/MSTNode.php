@@ -12,7 +12,8 @@ declare(strict_types=1);
 /**
  * Class MSTNode
  */
-class MSTNode {
+class MSTNode
+{
     /**
      * Data
      *
@@ -39,7 +40,8 @@ class MSTNode {
      *
      * @param string $data
      */
-    public function __construct(string $data) {
+    public function __construct(string $data)
+    {
         $this->data = $data;
         $this->left = null;
         $this->right = null;
