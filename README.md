@@ -33,28 +33,32 @@ QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules
 Note: Composer 2+ is required to find the package.
 
 ## Installation
-### Composer:
-
+### Download files:
+#### Via Composer
 Install the project via command-line:
 ```bash
 composer create-project david-prv/quickyphp
 ```
-Install requirements:
-```bash
-composer install
-```
 
-### Manual:
+#### Via GitHub
 
 Create a project folder:
-```bash
-mkdir myProject && cd myProject
-```
 Download git repository:
 ```bash
 git clone https://github.com/david-prv/QuickyPHP.git
 ```
-Install requirements:
+### Install requirements
+Install without development requirements:
+```bash
+composer install --no-dev
+```
+
+Install without platform requirement check:
+```bash
+composer install --ignore-platform-reqs --no-dev
+```
+
+Install with development requirements:
 ```bash
 composer install
 ```
