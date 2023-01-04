@@ -90,23 +90,14 @@ class Quicky
     }
 
     /**
-     * Override/Set error handler
+     * Override/Set error handlers
      *
-     * @param callable|null $errorHandler
+     * @param callable $handler
      */
-    public static function useErrorHandler(callable $errorHandler): void
+    public static function useHandler(callable $handler): void
     {
-        set_error_handler($errorHandler);
-    }
-
-    /**
-     * Override/Set exception handler
-     *
-     * @param callable $exceptionHandler
-     */
-    public static function useExceptionHandler(callable $exceptionHandler): void
-    {
-        set_exception_handler($exceptionHandler);
+        set_exception_handler($handler);
+        set_error_handler($handler);
     }
 
     /**
