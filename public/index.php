@@ -49,4 +49,4 @@ Quicky::session()->start();
 
 require_once __DIR__ . "/../bootstrap/default.php";
 
-$app->run(true);
+$app->run();

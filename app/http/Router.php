@@ -63,7 +63,7 @@ class Router implements DispatchingInterface
     public function __construct()
     {
         $this->routes = array();
-        $this->dispatching = array("router", "route", "useMiddleware");
+        $this->dispatching = array("router", "route", "pass", "useMiddleware");
         $this->middleware = array();
         $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
         $this->cacheFile = getcwd() . "/app/http/" . $this->cacheFile;
@@ -151,22 +151,49 @@ class Router implements DispatchingInterface
     }
 
     /**
+     * Checks whether a method is valid
+     *
+     * @param string $method
+     * @return bool
+     */
+    private function isValidMethod(string $method): bool
+    {
+        $method = strtoupper($method);
+        return in_array($method, $this->methods);
+    }
+
+    /**
      * Add GET route
      *
      * @param string $method
      * @param string $pattern
      * @param callable $callback
-     * @param bool $passThrough
      * @param array $middleware
      */
-    public function route(string $method, string $pattern, callable $callback,
-                          bool $passThrough = false, ...$middleware): void
+    public function route(string $method, string $pattern, callable $callback, ...$middleware): void
     {
-        $method = strtoupper($method);
-        if (!in_array($method, $this->methods)) new UnknownMethodException($method);
+        if (!$this->isValidMethod($method)) new UnknownMethodException($method);
 
         $middleware = array_merge($middleware, $this->middleware);
-        $route = new Route("GET", $pattern, $callback, $middleware, $passThrough);
+        $route = new Route(strtoupper($method), $pattern, $callback, $middleware);
+
+        if (!$this->isRoute($route)) {
+            $this->routes[$route->hashCode()] = $route;
+        }
+    }
+
+    /**
+     * Add a passThrough route
+     *
+     * @param string $method
+     * @param string $pattern
+     */
+    public function pass(string $method, string $pattern): void
+    {
+        if (!$this->isValidMethod($method)) new UnknownMethodException($method);
+
+        $route = new Route(strtoupper($method), $pattern, function () { /* Empty callback */
+        }, $this->middleware, true);
 
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
