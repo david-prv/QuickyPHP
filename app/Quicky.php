@@ -81,7 +81,7 @@ class Quicky
      * @param string $mode
      * @return Quicky
      */
-    public static function create(string $mode = Config::LOAD_DEFAULT)
+    public static function create(string $mode = Config::LOAD_DEFAULT): Quicky
     {
         if (self::$instance === null) {
             self::$instance = new Quicky($mode);
