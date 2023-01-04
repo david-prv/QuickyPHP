@@ -22,7 +22,7 @@ declare(strict_types=1);
  *
  * Routes:
  * @method static void route(string $method, string $pattern, callable $callback, bool $passThrough = false, ...$middleware)
- * @method static void pass(string $method, string $pattern)
+ * @method static void pass(string $pattern)
  *
  * Views:
  * @method static View view()

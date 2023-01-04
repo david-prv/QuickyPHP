@@ -248,10 +248,12 @@ class Response
     {
         if ($this->useCache) $this->setCacheHeaders();
 
-        $basePath = $this->storagePath;
+        $basePath = str_replace('/', DIRECTORY_SEPARATOR, $this->storagePath);
         $fullPath = "$basePath/$fileName";
+        $realPath = realpath($fullPath);
 
         if (strpos($fullPath, $basePath) !== 0) throw new UnknownFileSentException($fileName);
+        if ($realPath === false || strpos($realPath, $basePath) !== 0) throw new UnknownFileSentException($fileName);
         if (!file_exists($fullPath)) throw new UnknownFileSentException($fileName);
 
         $type = $this->getMIMEType($fileName);
