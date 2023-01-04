@@ -58,11 +58,18 @@ class Quicky
     private Config $config;
 
     /**
+     * Handler types
+     */
+    const QUICKY_EXCEPTION_HANDLER = "exception";
+    const QUICKY_ERROR_HANDLER = "error";
+
+    /**
      * Quicky constructor.
      *
      * @param string $mode
+     * @param bool $catchErrors
      */
-    private function __construct(string $mode)
+    private function __construct(string $mode, bool $catchErrors)
     {
         DynamicLoader::getLoader()->registerInstance(Quicky::class, $this);
 
@@ -70,6 +77,17 @@ class Quicky
         if (!is_null($config) && $config instanceof Config) {
             $config->init($mode);
             $this->config = $config;
+
+            // enable error catching for production or
+            // iff parameter is set
+            if ($this->config->isProd() || $catchErrors) {
+                set_error_handler(function (string $errNo, string $errStr) {
+                    return $this->catchError($errNo, $errStr);
+                });
+                set_exception_handler(function (Throwable $e) {
+                    return $this->catchException($e);
+                });
+            }
         } else {
             $this->stop(1);
         }
@@ -79,12 +97,13 @@ class Quicky
      * Creates or returns an instance
      *
      * @param string $mode
+     * @param bool $catchErrors
      * @return Quicky
      */
-    public static function create(string $mode = Config::LOAD_DEFAULT): Quicky
+    public static function create(string $mode = Config::LOAD_DEFAULT, bool $catchErrors = false): Quicky
     {
         if (self::$instance === null) {
-            self::$instance = new Quicky($mode);
+            self::$instance = new Quicky($mode, $catchErrors);
         }
         return self::$instance;
     }
@@ -92,32 +111,28 @@ class Quicky
     /**
      * Override/Set error handlers
      *
+     * @param string $type
      * @param callable $handler
      */
-    public static function useHandler(callable $handler): void
+    public static function useHandler(string $type, callable $handler): void
     {
-        set_exception_handler($handler);
-        set_error_handler($handler);
+        switch ($type) {
+            case self::QUICKY_ERROR_HANDLER:
+                set_error_handler($handler);
+                break;
+            case self::QUICKY_EXCEPTION_HANDLER:
+                set_exception_handler($handler);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
      * Run application
-     *
-     * @param bool $catchAllErrors
      */
-    public function run(bool $catchAllErrors = false): void
+    public function run(): void
     {
-        // enable error catching for production or
-        // iff parameter is set
-        if ($this->config->isProd() || $catchAllErrors) {
-            set_error_handler(function (string $errNo, string $errStr) {
-                return $this->catchError($errNo, $errStr);
-            });
-            set_exception_handler(function (Throwable $e) {
-                return $this->catchException($e);
-            });
-        }
-
         try {
             // route request here
             $router = DynamicLoader::getLoader()->getInstance(Router::class);
