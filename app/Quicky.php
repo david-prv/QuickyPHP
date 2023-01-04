@@ -95,7 +95,7 @@ class Quicky
      * @param callable|null $errorHandler
      * @param callable|null $exceptionHandler
      */
-    public static function error(?callable $errorHandler = null, ?callable $exceptionHandler = null): void
+    public static function useHandlers(?callable $errorHandler = null, ?callable $exceptionHandler = null): void
     {
         if (!is_null($errorHandler)) set_error_handler($errorHandler);
         if (!is_null($exceptionHandler)) set_exception_handler($exceptionHandler);
