@@ -63,7 +63,7 @@ class Router implements DispatchingInterface
     public function __construct()
     {
         $this->routes = array();
-        $this->dispatching = array("router", "route", "pass", "useMiddleware");
+        $this->dispatching = array("router", "route", "pass");
         $this->middleware = array();
         $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
         $this->cacheFile = getcwd() . "/app/http/" . $this->cacheFile;

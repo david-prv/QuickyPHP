@@ -39,7 +39,6 @@ declare(strict_types=1);
  *
  * Router:
  * @method static Router router()
- * @method static void useMiddleware(...$middleware)
  */
 class Quicky
 {
@@ -56,12 +55,6 @@ class Quicky
      * @var Config
      */
     private Config $config;
-
-    /**
-     * Handler types
-     */
-    const QUICKY_HANDLER_EXCEPTIONS = "exception";
-    const QUICKY_HANDLER_ERRORS = "error";
 
     /**
      * Config loading modes
@@ -86,8 +79,10 @@ class Quicky
     private function __construct(string $mode, bool $catchErrors)
     {
         DynamicLoader::getLoader()->registerInstance(Quicky::class, $this);
-
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
+
+        if ($mode === "") $mode = "default";
+
         if (!is_null($config) && $config instanceof Config) {
             $config->init($mode);
             $this->config = $config;
@@ -114,7 +109,7 @@ class Quicky
      * @param bool $catchErrors
      * @return Quicky
      */
-    public static function create(string $mode = Quicky::QUICKY_CNF_MODE_DEFAULT, bool $catchErrors = false): Quicky
+    public static function create(string $mode = "", bool $catchErrors = false): Quicky
     {
         if (self::$instance === null) {
             self::$instance = new Quicky($mode, $catchErrors);
@@ -123,22 +118,23 @@ class Quicky
     }
 
     /**
-     * Override/Set error handlers
+     * Use custom settings
      *
-     * @param string $type
-     * @param callable $handler
+     * @param array $settings
      */
-    public static function useHandler(string $type, callable $handler): void
+    public static function use(array $settings): void
     {
-        switch ($type) {
-            case self::QUICKY_HANDLER_ERRORS:
-                set_error_handler($handler);
-                break;
-            case self::QUICKY_HANDLER_EXCEPTIONS:
-                set_exception_handler($handler);
-                break;
-            default:
-                break;
+        if (isset($settings["handlers"]) && isset($settings["handlers"]["error"])) {
+            set_error_handler($settings["handlers"]["error"]);
+        }
+        if (isset($settings["handlers"]) && isset($settings["handlers"]["exception"])) {
+            set_exception_handler($settings["handlers"]["exception"]);
+        }
+        if (isset($settings["middleware"])) {
+            $router = DynamicLoader::getLoader()->getInstance(Router::class);
+            if ($router instanceof Router) {
+                $router->useMiddleware(...$settings["middleware"]);
+            }
         }
     }
 
