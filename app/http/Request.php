@@ -128,8 +128,8 @@ class Request
             $this->referrer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
             $this->data = (count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array());
             $this->args = array();
-            $this->csrfToken = (isset($this->data[SessionManager::QUICKY_CSRF_TOKEN]))
-                ? $this->data[SessionManager::QUICKY_CSRF_TOKEN]
+            $this->csrfToken = (isset($this->data[Quicky::QUICKY_CSRF_TOKEN]))
+                ? $this->data[Quicky::QUICKY_CSRF_TOKEN]
                 : ((isset($this->headers["X-CSRF-TOKEN"])) ? $this->headers["X-CSRF-TOKEN"] : null);
         } else {
             $this->method = $data["method"];

@@ -50,13 +50,6 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     private array $dispatching;
 
     /**
-     * Field names for in-built session fields
-     */
-    const QUICKY_SESSION_ID = "quicky_session_id";
-    const QUICKY_SESSION_CREATED_AT = "quicky_created_at";
-    const QUICKY_CSRF_TOKEN = "csrf_token";
-
-    /**
      * SessionManager constructor.
      */
     public function __construct()
@@ -95,8 +88,8 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         $this->secure = $secure;
         $this->createdAt = microtime(true);
 
-        $_SESSION[$this::QUICKY_SESSION_ID] = $this->id;
-        $_SESSION[$this::QUICKY_SESSION_CREATED_AT] = $this->createdAt;
+        $_SESSION[Quicky::QUICKY_SESSION_ID] = $this->id;
+        $_SESSION[Quicky::QUICKY_SESSION_CREATED_AT] = $this->createdAt;
     }
 
     /**
@@ -148,9 +141,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         if (!$this->active) return;
         if ($this->secure) $this->regenerateId();
 
-        if (strtolower($name) !== $this::QUICKY_SESSION_ID
-            && strtolower($name) !== $this::QUICKY_SESSION_CREATED_AT
-            && strtolower($name) !== $this::QUICKY_CSRF_TOKEN) {
+        if (strtolower($name) !== Quicky::QUICKY_SESSION_ID
+            && strtolower($name) !== Quicky::QUICKY_SESSION_CREATED_AT
+            && strtolower($name) !== Quicky::QUICKY_CSRF_TOKEN) {
             $_SESSION[$name] = $value;
         }
     }
@@ -246,7 +239,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         if (!$this->isActive()) return "";
 
         $token = bin2hex(random_bytes(32));
-        $_SESSION[$this::QUICKY_CSRF_TOKEN] = $token;
+        $_SESSION[Quicky::QUICKY_CSRF_TOKEN] = $token;
         return $token;
     }
 
@@ -259,7 +252,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     public function verifyCSRF(string $token): bool
     {
         if (!$this->isActive()) return false;
-        return $_SESSION[$this::QUICKY_CSRF_TOKEN] === $token;
+        return $_SESSION[Quicky::QUICKY_CSRF_TOKEN] === $token;
     }
 
 }

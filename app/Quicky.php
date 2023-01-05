@@ -71,6 +71,13 @@ class Quicky
     const QUICKY_CNF_DEFAULT = "default";
 
     /**
+     * Session fields
+     */
+    const QUICKY_SESSION_ID = "quicky_session_id";
+    const QUICKY_SESSION_CREATED_AT = "quicky_created_at";
+    const QUICKY_CSRF_TOKEN = "csrf_token";
+
+    /**
      * Quicky constructor.
      *
      * @param string $mode
