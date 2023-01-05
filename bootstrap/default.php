@@ -6,8 +6,8 @@
  */
 
 Quicky::route("GET", "/", function (Request $request, Response $response) {
-    $delay = round(microtime(true) - Quicky::session()->getCreatedAt(), 5);
-    $response->render("index", array("P_MS" => $delay));
+    $delay = number_format(microtime(true) - Quicky::session()->getCreatedAt(), 4);
+    $response->render("index", array("P_TIME_S" => $delay));
 
     return $response;
 });
