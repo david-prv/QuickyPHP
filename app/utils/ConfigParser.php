@@ -24,11 +24,11 @@ class ConfigParser
     public function parse($mode): array
     {
         switch ($mode) {
-            case Quicky::QUICKY_CNF_ENV:
+            case Quicky::QUICKY_CNF_MODE_ENV:
                 return $this->loadFromEnv();
-            case Quicky::QUICKY_CNF_JSON:
+            case Quicky::QUICKY_CNF_MODE_JSON:
                 return $this->loadFromJSON();
-            case Quicky::QUICKY_CNF_DEFAULT:
+            case Quicky::QUICKY_CNF_MODE_DEFAULT:
             default:
                 return $this->loadDefault();
         }

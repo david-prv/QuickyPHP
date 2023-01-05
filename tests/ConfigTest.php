@@ -11,7 +11,7 @@ class ConfigTest extends QuickyTestCase
 
     public function testLoadByJSON(): void
     {
-        Quicky::create(Quicky::QUICKY_CNF_JSON);
+        Quicky::create(Quicky::QUICKY_CNF_MODE_JSON);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         $this->assertTrue($config instanceof Config);
@@ -20,7 +20,7 @@ class ConfigTest extends QuickyTestCase
 
     public function testLoadByDefault(): void
     {
-        Quicky::create(Quicky::QUICKY_CNF_DEFAULT);
+        Quicky::create(Quicky::QUICKY_CNF_MODE_DEFAULT);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         $this->assertTrue($config instanceof Config);

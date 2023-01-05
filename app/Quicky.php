@@ -60,22 +60,22 @@ class Quicky
     /**
      * Handler types
      */
-    const QUICKY_EXCEPTION_HANDLER = "exception";
-    const QUICKY_ERROR_HANDLER = "error";
+    const QUICKY_HANDLER_EXCEPTIONS = "exception";
+    const QUICKY_HANDLER_ERRORS = "error";
 
     /**
      * Config loading modes
      */
-    const QUICKY_CNF_JSON = "json";
-    const QUICKY_CNF_ENV = "env";
-    const QUICKY_CNF_DEFAULT = "default";
+    const QUICKY_CNF_MODE_JSON = "json";
+    const QUICKY_CNF_MODE_ENV = "env";
+    const QUICKY_CNF_MODE_DEFAULT = "default";
 
     /**
      * In-built session fields
      */
-    const QUICKY_SESSION_ID = "quicky_session_id";
-    const QUICKY_SESSION_CREATED_AT = "quicky_created_at";
-    const QUICKY_CSRF_TOKEN = "csrf_token";
+    const QUICKY_SESSION_FIELD_ID = "quicky_session_id";
+    const QUICKY_SESSION_FIELD_CREATED_AT = "quicky_created_at";
+    const QUICKY_SESSION_FIELD_CSRF_TOKEN = "csrf_token";
 
     /**
      * Quicky constructor.
@@ -114,7 +114,7 @@ class Quicky
      * @param bool $catchErrors
      * @return Quicky
      */
-    public static function create(string $mode = Quicky::QUICKY_CNF_DEFAULT, bool $catchErrors = false): Quicky
+    public static function create(string $mode = Quicky::QUICKY_CNF_MODE_DEFAULT, bool $catchErrors = false): Quicky
     {
         if (self::$instance === null) {
             self::$instance = new Quicky($mode, $catchErrors);
@@ -131,10 +131,10 @@ class Quicky
     public static function useHandler(string $type, callable $handler): void
     {
         switch ($type) {
-            case self::QUICKY_ERROR_HANDLER:
+            case self::QUICKY_HANDLER_ERRORS:
                 set_error_handler($handler);
                 break;
-            case self::QUICKY_EXCEPTION_HANDLER:
+            case self::QUICKY_HANDLER_EXCEPTIONS:
                 set_exception_handler($handler);
                 break;
             default:
