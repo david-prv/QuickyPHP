@@ -43,29 +43,20 @@ class Route
     private $callback;
 
     /**
-     * Pass-Through
-     *
-     * @var bool
-     */
-    private bool $passThrough;
-
-    /**
      * Route constructor.
      *
      * @param string $method
      * @param string $pattern
      * @param callable $callback
      * @param array $middleware
-     * @param bool $passThrough
      */
     public function __construct(string $method, string $pattern, callable $callback,
-                                array $middleware, bool $passThrough = false)
+                                array $middleware)
     {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
         $this->middleware = (is_null($middleware)) ? [] : $middleware;
-        $this->passThrough = $passThrough;
     }
 
     /**
@@ -87,16 +78,6 @@ class Route
     private function usesMiddleware(): bool
     {
         return (count($this->middleware) >= 1);
-    }
-
-    /**
-     * Checks whether this route is a pass-through
-     *
-     * @return bool
-     */
-    public function passesThrough(): bool
-    {
-        return $this->passThrough;
     }
 
     /**
