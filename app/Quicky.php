@@ -87,10 +87,10 @@ class Quicky
     /**
      * Quicky constructor.
      *
-     * @param string $mode
      * @param bool $catchErrors
+     * @param string $mode
      */
-    private function __construct(string $mode, bool $catchErrors)
+    private function __construct(bool $catchErrors, string $mode)
     {
         DynamicLoader::getLoader()->registerInstance(Quicky::class, $this);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
@@ -119,14 +119,14 @@ class Quicky
     /**
      * Creates or returns an instance
      *
-     * @param string $mode
      * @param bool $catchErrors
+     * @param string $mode
      * @return Quicky
      */
-    public static function create(string $mode = "", bool $catchErrors = false): Quicky
+    public static function create(bool $catchErrors = false, string $mode = ""): Quicky
     {
         if (self::$instance === null) {
-            self::$instance = new Quicky($mode, $catchErrors);
+            self::$instance = new Quicky($catchErrors, $mode);
         }
         return self::$instance;
     }
