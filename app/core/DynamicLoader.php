@@ -193,9 +193,9 @@ class DynamicLoader
                 $file = $info->getFilename();
                 $temp = explode(".", $file);
                 $ext = $temp[count($temp) - 1];
-                $namespace = str_replace('/', DIRECTORY_SEPARATOR,
-                    substr(str_replace("app", "App", $current), 1));;
-                $name = $namespace . DIRECTORY_SEPARATOR . $temp[0];
+                $namespace = str_replace('/', "\\",
+                    substr(str_replace("app", "App", $current), 1));
+                $name = $namespace . "\\" . $temp[0];
                 if ($ext === "php" && $name !== "autoload" && $name !== "index") array_push($this->classes, $name);
             }
 
