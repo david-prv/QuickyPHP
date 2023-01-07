@@ -19,6 +19,10 @@ A simple web application powered by this framework:
 ```php
 require __DIR__ . "/../vendor/autoload.php";
 
+use App\Http\Request;
+use App\Http\Response;
+use App\Quicky;
+
 $app = Quicky::create();
 
 Quicky::route("GET", "/", function(Request $request, Response $response) {
