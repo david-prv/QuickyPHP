@@ -17,15 +17,8 @@
         "phpunit/phpunit": "9"
     },
     "autoload": {
-        "classmap": [
-            "app/",
-            "app/core/",
-            "app/http/",
-            "app/storage/",
-            "app/utils/",
-            "app/views/",
-            "app/interfaces",
-            "app/middleware"
-        ]
+        "psr-4": {
+            "App\\": "app/"
+        }
     }
 }

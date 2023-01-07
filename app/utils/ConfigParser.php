@@ -9,6 +9,11 @@
 
 declare(strict_types=1);
 
+namespace App\Utils;
+
+use App\Quicky;
+use App\Utils\Exceptions\ConfigParserException;
+
 /**
  * Class ConfigParser
  */
@@ -87,9 +92,9 @@ class ConfigParser
                 "enabled" => true,
                 "expires" => 3600
             ),
-            "storage" => "/app/storage",
-            "views" => "/app/views",
-            "logs" => "/app/logs"
+            "storage" => "/app/Storage",
+            "views" => "/app/Views",
+            "logs" => "/app/Logs"
         );
     }
 }

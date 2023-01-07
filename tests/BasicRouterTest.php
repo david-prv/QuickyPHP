@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use App\Quicky;
+
 require __DIR__ . "/QuickyTestCase.php";
 
 class BasicRouterTest extends QuickyTestCase

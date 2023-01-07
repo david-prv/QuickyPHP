@@ -9,6 +9,14 @@
 
 declare(strict_types=1);
 
+namespace App\Http;
+
+use App\Core\Config;
+use App\Core\DynamicLoader;
+use App\Core\View;
+use App\Utils\Exceptions\UnknownFileSentException;
+use App\Utils\Exceptions\ViewNotFoundException;
+
 /**
  * Class Response
  */

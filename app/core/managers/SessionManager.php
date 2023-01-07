@@ -9,6 +9,15 @@
 
 declare(strict_types=1);
 
+namespace App\Core\Managers;
+
+use App\Core\DynamicLoader;
+use App\Interfaces\DispatchingInterface;
+use App\Interfaces\ManagingInterface;
+use App\Quicky;
+use App\Utils\Exceptions\InvalidSessionException;
+use Exception;
+
 /**
  * Class SessionManager
  */

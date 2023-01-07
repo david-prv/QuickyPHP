@@ -9,6 +9,16 @@
 
 declare(strict_types=1);
 
+namespace App\Http;
+
+use App\Core\Config;
+use App\Core\DynamicLoader;
+use App\Interfaces\DispatchingInterface;
+use App\Quicky;
+use App\Utils\Exceptions\NetworkException;
+use App\Utils\Exceptions\UnknownMethodException;
+use App\Utils\Exceptions\UnknownRouteException;
+
 /**
  * Class Router
  */
@@ -66,7 +76,7 @@ class Router implements DispatchingInterface
         $this->dispatching = array("router", "route");
         $this->middleware = array();
         $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
-        $this->cacheFile = getcwd() . "/app/http/" . $this->cacheFile;
+        $this->cacheFile = getcwd() . "/app/Http/" . $this->cacheFile;
         $this->cache = $this->loadCache();
     }
 

@@ -9,6 +9,11 @@
 
 declare(strict_types=1);
 
+namespace App\Http;
+
+use App\Quicky;
+use App\Utils\Exceptions\InvalidParametersException;
+
 /**
  * Class Request
  */

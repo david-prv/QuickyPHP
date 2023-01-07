@@ -23,8 +23,7 @@ require __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-$app = Quicky::create();
-Quicky::session()->start();
+require_once __DIR__ . "/../bootstrap/storage_delivery.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +45,5 @@ Quicky::session()->start();
 | executed and the application will work.
 |
 */
-
-require_once __DIR__ . "/../bootstrap/default.php";
 
 $app->run();

@@ -9,6 +9,14 @@
 
 declare(strict_types=1);
 
+namespace App\Core;
+
+use App\Utils\MethodSearchTree;
+use ArgumentCountError;
+use DirectoryIterator;
+use ReflectionClass;
+use ReflectionException;
+
 /**
  * Class DynamicLoader
  */
@@ -151,7 +159,9 @@ class DynamicLoader
                 $this->instances[$className] = $instance;
                 return $this->instances[$className];
             } catch (ArgumentCountError $e) {
+                echo $e->getMessage();
             } catch (ReflectionException $e) {
+                echo $e->getMessage();
             }
             return null;
         }
@@ -183,7 +193,9 @@ class DynamicLoader
                 $file = $info->getFilename();
                 $temp = explode(".", $file);
                 $ext = $temp[count($temp) - 1];
-                $name = $temp[0];
+                $namespace = str_replace('/', DIRECTORY_SEPARATOR,
+                    substr(str_replace("app", "App", $current), 1));;
+                $name = $namespace . DIRECTORY_SEPARATOR . $temp[0];
                 if ($ext === "php" && $name !== "autoload" && $name !== "index") array_push($this->classes, $name);
             }
 

@@ -9,6 +9,12 @@
 
 declare(strict_types=1);
 
+namespace App\Core;
+
+use App\Interfaces\DispatchingInterface;
+use App\Utils\Exceptions\CoreException;
+use App\Utils\Exceptions\ViewNotFoundException;
+
 /**
  * Class View
  */

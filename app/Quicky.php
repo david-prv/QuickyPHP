@@ -9,6 +9,21 @@
 
 declare(strict_types=1);
 
+namespace App;
+
+use App\Core\Config;
+use App\Core\Dispatcher;
+use App\Core\DynamicLoader;
+use App\Core\Managers\CookieManager;
+use App\Core\Managers\SessionManager;
+use App\Core\View;
+use App\Http\Request;
+use App\Http\Response;
+use App\Http\Router;
+use App\Utils\Exceptions\UnknownCallException;
+use App\Utils\Exceptions\UnknownRouteException;
+use Throwable;
+
 /**
  * Class Quicky
  *

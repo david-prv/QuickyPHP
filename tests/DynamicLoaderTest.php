@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 
+use App\Core\Config;
+use App\Core\DynamicLoader;
+
 require __DIR__ . "/QuickyTestCase.php";
 
 class DynamicLoaderTest extends QuickyTestCase

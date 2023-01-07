@@ -1,5 +1,12 @@
 <?php declare(strict_types=1);
 
+use App\Core\Config;
+use App\Core\Managers\SessionManager;
+use App\Core\View;
+use App\Http\Router;
+use App\Quicky;
+use App\Utils\Exceptions\UnknownCallException;
+
 require __DIR__ . "/QuickyTestCase.php";
 
 class DispatcherTest extends QuickyTestCase

@@ -1,5 +1,9 @@
 <?php declare(strict_types=1);
 
+use App\Core\Config;
+use App\Core\DynamicLoader;
+use App\Quicky;
+
 require __DIR__ . "/QuickyTestCase.php";
 
 class ConfigTest extends QuickyTestCase
@@ -36,8 +40,8 @@ class ConfigTest extends QuickyTestCase
             $this->assertEquals($this::CURRENT_ENV, $config->getEnv());
             $this->assertEquals($this::CURRENT_VERSION, $config->getVersion());
             $this->assertEquals(3600, $config->getCacheExpiration());
-            $this->assertEquals("/app/storage", $config->getStoragePath());
-            $this->assertEquals("/app/views", $config->getViewsPath());
+            $this->assertEquals("/app/Storage", $config->getStoragePath());
+            $this->assertEquals("/app/Views", $config->getViewsPath());
             $this->assertTrue($config->isCacheActive());
             $this->assertFalse($config->isProd());
             $this->assertTrue($config->isDev());
