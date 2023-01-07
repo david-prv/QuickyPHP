@@ -19,6 +19,10 @@ A simple web application powered by this framework:
 ```php
 require __DIR__ . "/../vendor/autoload.php";
 
+use App\Http\Request;
+use App\Http\Response;
+use App\Quicky;
+
 $app = Quicky::create();
 
 Quicky::route("GET", "/", function(Request $request, Response $response) {
@@ -50,18 +54,10 @@ git clone https://github.com/david-prv/QuickyPHP.git
 ### Install requirements
 Install without development requirements:
 ```bash
-composer install --no-dev
-```
-
-Install without platform requirement check:
-```bash
-composer install --ignore-platform-reqs --no-dev
-```
-
-Install with development requirements:
-```bash
 composer install
 ```
+
+Use the `--no-dev` tag, if you want to skip the development dependencies. If you also want to skip the platform requirement check, use the tag `--ignore-platform-reqs`, which is not recommended.
 
 ### Code Examples:
 I have written some basic examples [here](https://gist.github.com/david-prv/9e322ccaa67eb1698ed35551233aee47).
