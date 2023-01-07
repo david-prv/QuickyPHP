@@ -23,7 +23,7 @@ require __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-require_once __DIR__ . "/../bootstrap/storage_delivery.php";
+require_once __DIR__ . "/../bootstrap/default.php";
 
 /*
 |--------------------------------------------------------------------------
