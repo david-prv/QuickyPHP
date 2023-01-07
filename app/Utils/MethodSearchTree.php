@@ -100,4 +100,28 @@ class MethodSearchTree
         }
         return null;
     }
+
+    /**
+     * Dump the MST as HTML
+     */
+    public function dump(): void
+    {
+        $this->printNodes($this->root);
+    }
+
+    /**
+     * Print nodes starting from node v
+     * in HTML format
+     *
+     * @param MSTNode|null $node
+     * @param int $indent
+     */
+    private function printNodes(?MSTNode $node, int $indent = 0): void
+    {
+        if ($node !== null) {
+            echo str_repeat('|&nbsp;&nbsp;', $indent) . $node->data . "<br>";
+            $this->printNodes($node->left, $indent + 1);
+            $this->printNodes($node->right, $indent + 1);
+        }
+    }
 }

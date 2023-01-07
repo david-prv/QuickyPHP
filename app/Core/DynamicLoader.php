@@ -166,6 +166,17 @@ class DynamicLoader
     }
 
     /**
+     * Get all (dispatch-able) methods
+     * as MST object
+     *
+     * @return MethodSearchTree
+     */
+    public function getMethods(): MethodSearchTree
+    {
+        return $this->methods ?? new MethodSearchTree();
+    }
+
+    /**
      * Scans the framework working directory
      * to get an overview over all existing files
      * an classes.

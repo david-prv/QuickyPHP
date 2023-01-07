@@ -128,10 +128,10 @@ class Router implements DispatchingInterface
     /**
      * Return router instance
      *
-     * @return object|Router|null
+     * @return Router
      * @throws NetworkException
      */
-    public static function router()
+    public static function router(): Router
     {
         $instance = DynamicLoader::getLoader()->getInstance(Router::class);
 
@@ -192,7 +192,7 @@ class Router implements DispatchingInterface
     }
 
     /**
-     * Dumps all stored routes
+     * Dump stored nodes as HTML
      */
     public function dump(): void
     {

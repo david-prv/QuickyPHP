@@ -17,6 +17,7 @@ use App\Interfaces\ManagingInterface;
 use App\Quicky;
 use App\Utils\Exceptions\InvalidSessionException;
 use Exception;
+use MongoDB\Driver\Session;
 
 /**
  * Class SessionManager
@@ -71,9 +72,10 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     /**
      * Return session instance
      *
+     * @return SessionManager
      * @throws InvalidSessionException
      */
-    public static function session()
+    public static function session(): SessionManager
     {
         $instance = DynamicLoader::getLoader()->getInstance(SessionManager::class);
 

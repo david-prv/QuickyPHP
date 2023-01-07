@@ -81,10 +81,10 @@ class Config implements DispatchingInterface
     /**
      * Return config instance
      *
-     * @return Config|object|null
+     * @return Config
      * @throws ConfigParserException
      */
-    public static function config()
+    public static function config(): Config
     {
         $instance = DynamicLoader::getLoader()->getInstance(Config::class);
 
@@ -97,7 +97,7 @@ class Config implements DispatchingInterface
      *
      * @param string $mode
      */
-    public function init(string $mode)
+    public function init(string $mode): void
     {
         $config = $this->parser->parse($mode);
 
@@ -106,6 +106,17 @@ class Config implements DispatchingInterface
         $this->storage = $config["storage"];
         $this->views = $config["views"];
         $this->logs = $config["logs"];
+    }
+
+    /**
+     * Override environment
+     *
+     * @param string $override
+     */
+    public function setEnv(string $override): void
+    {
+        if ($override === "") return;
+        $this->project["env"] = $override;
     }
 
     /**

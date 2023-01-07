@@ -150,6 +150,12 @@ class Quicky
                 $router->useMiddleware(...$settings["middleware"]);
             }
         }
+        if (isset($settings["env"])) {
+            $config = DynamicLoader::getLoader()->getInstance(Config::class);
+            if ($config instanceof Config) {
+                $config->setEnv($settings["env"]);
+            }
+        }
     }
 
     /**

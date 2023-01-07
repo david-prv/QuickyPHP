@@ -7,7 +7,7 @@ use App\Quicky;
 $app = Quicky::create();
 Quicky::session()->start();
 
-Quicky::route("GET", "/", function (Request $request, Response $response) {
+Quicky::route("GET", "/", function (Request $_, Response $response) {
     $response->send("Hello, World!");
 });
 

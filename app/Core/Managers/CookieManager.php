@@ -39,9 +39,10 @@ class CookieManager implements DispatchingInterface, ManagingInterface
     /**
      * Return session instance
      *
+     * @return CookieManager
      * @throws CoreException
      */
-    public static function cookies()
+    public static function cookies(): CookieManager
     {
         $instance = DynamicLoader::getLoader()->getInstance(CookieManager::class);
 

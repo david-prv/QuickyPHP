@@ -89,10 +89,10 @@ class View implements DispatchingInterface
     /**
      * Return view instance
      *
-     * @return object|View|null
+     * @return View
      * @throws CoreException
      */
-    public static function view()
+    public static function view(): View
     {
         $instance = DynamicLoader::getLoader()->getInstance(View::class);
 
