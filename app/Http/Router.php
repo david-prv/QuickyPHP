@@ -192,6 +192,17 @@ class Router implements DispatchingInterface
     }
 
     /**
+     * Dumps all stored routes
+     */
+    public function dump(): void
+    {
+        echo "<strong>Router Dump: (total: " . $this->countRoutes() . ")</strong><br>";
+        foreach ($this->routes as $route) {
+            echo $route->toString() . "<br>";
+        }
+    }
+
+    /**
      * Checks if a route is contained in
      * the routes array
      *

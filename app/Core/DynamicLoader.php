@@ -159,9 +159,7 @@ class DynamicLoader
                 $this->instances[$className] = $instance;
                 return $this->instances[$className];
             } catch (ArgumentCountError $e) {
-                echo $e->getMessage();
             } catch (ReflectionException $e) {
-                echo $e->getMessage();
             }
             return null;
         }

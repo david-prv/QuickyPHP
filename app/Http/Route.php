@@ -119,7 +119,8 @@ class Route
      */
     public function toString(): string
     {
-        return $this->method . " - " . $this->pattern;
+        return $this->method . " - " . $this->pattern . " (uses middleware: " .
+            (($this->usesMiddleware()) ? "true" : "false") . ")";
     }
 
     /**

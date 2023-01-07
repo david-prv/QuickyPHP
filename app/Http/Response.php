@@ -281,9 +281,10 @@ class Response
 
         $type = $this->getMIMEType($fileName);
 
-        header('Content-Type: ' . $type);
-        header('Content-Length: ' . filesize($fullPath));
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        $this->withHeader("Content-Type", $type);
+        $this->withHeader("Content-Length", (string)filesize($fullPath));
+        $this->withHeader("Content-Disposition", 'attachment; filename="' . $fileName . '"');
+
         readfile($fullPath);
     }
 
