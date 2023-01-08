@@ -203,7 +203,9 @@ class Response
      */
     private function setCacheHeaders(): void
     {
-        if (is_null($this->cacheExpires) || !$this->useCache) return;
+        if (is_null($this->cacheExpires) || !$this->useCache) {
+            return;
+        }
 
         $expire = time() + $this->cacheExpires;
 
@@ -231,7 +233,9 @@ class Response
      */
     public function send(string $text, ...$formatters): void
     {
-        if ($this->useCache) $this->setCacheHeaders();
+        if ($this->useCache) {
+            $this->setCacheHeaders();
+        }
 
         printf($text, ...$formatters);
     }
@@ -269,15 +273,23 @@ class Response
      */
     public function sendFile(string $fileName): void
     {
-        if ($this->useCache) $this->setCacheHeaders();
+        if ($this->useCache) {
+            $this->setCacheHeaders();
+        }
 
         $basePath = str_replace('/', DIRECTORY_SEPARATOR, $this->storagePath);
         $fullPath = "$basePath/$fileName";
         $realPath = realpath($fullPath);
 
-        if (strpos($fullPath, $basePath) !== 0) throw new UnknownFileSentException($fileName);
-        if ($realPath === false || strpos($realPath, $basePath) !== 0) throw new UnknownFileSentException($fileName);
-        if (!file_exists($fullPath)) throw new UnknownFileSentException($fileName);
+        if (strpos($fullPath, $basePath) !== 0) {
+            throw new UnknownFileSentException($fileName);
+        }
+        if ($realPath === false || strpos($realPath, $basePath) !== 0) {
+            throw new UnknownFileSentException($fileName);
+        }
+        if (!file_exists($fullPath)) {
+            throw new UnknownFileSentException($fileName);
+        }
 
         $type = $this->getMIMEType($fileName);
 
@@ -298,7 +310,9 @@ class Response
      */
     public function render(string $viewName, ?array $variables = null, ?string $override = null): void
     {
-        if ($this->useCache) $this->setCacheHeaders();
+        if ($this->useCache) {
+            $this->setCacheHeaders();
+        }
 
         View::render($viewName, $variables, $override);
     }

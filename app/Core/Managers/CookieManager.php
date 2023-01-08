@@ -46,8 +46,11 @@ class CookieManager implements DispatchingInterface, ManagingInterface
     {
         $instance = DynamicLoader::getLoader()->getInstance(CookieManager::class);
 
-        if ($instance instanceof CookieManager) return $instance;
-        else throw new CoreException();
+        if ($instance instanceof CookieManager) {
+            return $instance;
+        } else {
+            throw new CoreException();
+        }
     }
 
     /**
@@ -69,7 +72,9 @@ class CookieManager implements DispatchingInterface, ManagingInterface
      */
     public function get(string $name): ?string
     {
-        if (isset($_COOKIE[$name])) return $_COOKIE[$name];
+        if (isset($_COOKIE[$name])) {
+            return $_COOKIE[$name];
+        }
         return null;
     }
 

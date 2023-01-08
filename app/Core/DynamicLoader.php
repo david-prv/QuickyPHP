@@ -129,7 +129,9 @@ class DynamicLoader
      */
     public function registerInstance(string $className, object $instance): void
     {
-        if (!isset($this->instances[$className])) $this->instances[$className] = $instance;
+        if (!isset($this->instances[$className])) {
+            $this->instances[$className] = $instance;
+        }
     }
 
     /**
@@ -143,11 +145,14 @@ class DynamicLoader
     public function getInstance(string $className, ?array $params = null): ?object
     {
         // if it is not an existing class...
-        if (!in_array($className, $this->classes)) return null;
+        if (!in_array($className, $this->classes)) {
+            return null;
+        }
 
         // if the instance is already instantiated...
-        if (isset($this->instances[$className])) return $this->instances[$className];
-        else {
+        if (isset($this->instances[$className])) {
+            return $this->instances[$className];
+        } else {
             try {
                 // instantiate the class either with instance args
                 // or without any arguments
@@ -196,16 +201,20 @@ class DynamicLoader
 
         // for all file-infos
         foreach ($iterator as $info) {
-
             // it is is a file
             if ($info->isFile()) {
                 $file = $info->getFilename();
                 $temp = explode(".", $file);
                 $ext = $temp[count($temp) - 1];
-                $namespace = str_replace('/', "\\",
-                    substr(str_replace("app", "App", $current), 1));
+                $namespace = str_replace(
+                    '/',
+                    "\\",
+                    substr(str_replace("app", "App", $current), 1)
+                );
                 $name = $namespace . "\\" . $temp[0];
-                if ($ext === "php" && $name !== "autoload" && $name !== "index") array_push($this->classes, $name);
+                if ($ext === "php" && $name !== "autoload" && $name !== "index") {
+                    array_push($this->classes, $name);
+                }
             }
 
             // if it is a (visible) directory
@@ -225,7 +234,9 @@ class DynamicLoader
         $methodTree = $this->methods;
         foreach ($this->classes as $class) {
             // skip non-dispatching classes, interfaces
-            if (!Dispatcher::canDispatch($class)) continue;
+            if (!Dispatcher::canDispatch($class)) {
+                continue;
+            }
 
             // Use reflection to get a list of the class's methods
             $reflectionClass = new ReflectionClass($class);

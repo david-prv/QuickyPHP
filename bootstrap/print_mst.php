@@ -7,6 +7,6 @@ use App\Quicky;
 $app = Quicky::create();
 Quicky::session()->start();
 
-Quicky::route("GET", "/", function() {
+Quicky::route("GET", "/", function () {
     \App\Core\DynamicLoader::getLoader()->getMethods()->dump();
 });

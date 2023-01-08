@@ -34,9 +34,14 @@ class Dispatcher
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
-            if (!self::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
-            if (is_null($c)) throw new UnknownCallException($name);
-            else return call_user_func(array($c, $name), ...$args);
+            if (!self::canDispatchMethod($className, $name)) {
+                throw new UnknownCallException($name);
+            }
+            if (is_null($c)) {
+                throw new UnknownCallException($name);
+            } else {
+                return call_user_func(array($c, $name), ...$args);
+            }
         } else {
             // the following method will use a MST (method search tree),
             // which is implemented as binary search tree. Because of that,
@@ -44,14 +49,21 @@ class Dispatcher
             // Because of the use of our cache, we even improve that running time
             // for every further call to constant time O(1).
             $className = $loader->findMethod($name);
-            if (is_null($className)) throw new UnknownCallException($name);
+            if (is_null($className)) {
+                throw new UnknownCallException($name);
+            }
 
-            if (!self::canDispatchMethod($className, $name)) throw new UnknownCallException($name);
+            if (!self::canDispatchMethod($className, $name)) {
+                throw new UnknownCallException($name);
+            }
 
-            if (is_null($className)) throw new UnknownCallException($name);
-            else {
+            if (is_null($className)) {
+                throw new UnknownCallException($name);
+            } else {
                 $c = $loader->getInstance($className);
-                if (is_null($c)) throw new UnknownCallException($name);
+                if (is_null($c)) {
+                    throw new UnknownCallException($name);
+                }
                 return call_user_func(array($c, $name), ...$args);
             }
         }
@@ -69,7 +81,9 @@ class Dispatcher
     public static function classIsTypeOf(string $className, string $classType): bool
     {
         $length = strlen($classType);
-        if (!$length) return true;
+        if (!$length) {
+            return true;
+        }
 
         return substr($className, -$length) === $classType;
     }
@@ -105,7 +119,9 @@ class Dispatcher
     public static function canDispatch(string $className): bool
     {
         // skip interfaces & exceptions
-        if (self::isInterface($className) || self::isException($className)) return false;
+        if (self::isInterface($className) || self::isException($className)) {
+            return false;
+        }
         return (method_exists($className, "dispatches"));
     }
 
@@ -119,7 +135,9 @@ class Dispatcher
      */
     public static function canDispatchMethod(string $className, string $methodName): bool
     {
-        if (!self::canDispatch($className)) return false;
+        if (!self::canDispatch($className)) {
+            return false;
+        }
 
         // check instance
         $instance = DynamicLoader::getLoader()->getInstance($className);

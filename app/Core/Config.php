@@ -88,8 +88,11 @@ class Config implements DispatchingInterface
     {
         $instance = DynamicLoader::getLoader()->getInstance(Config::class);
 
-        if ($instance instanceof Config) return $instance;
-        else throw new ConfigParserException();
+        if ($instance instanceof Config) {
+            return $instance;
+        } else {
+            throw new ConfigParserException();
+        }
     }
 
     /**
@@ -115,7 +118,9 @@ class Config implements DispatchingInterface
      */
     public function setEnv(string $override): void
     {
-        if ($override === "") return;
+        if ($override === "") {
+            return;
+        }
         $this->project["env"] = $override;
     }
 
@@ -136,7 +141,9 @@ class Config implements DispatchingInterface
      */
     public function getName(): string
     {
-        if (!isset($this->project["name"])) return "Quicky - PHP framework";
+        if (!isset($this->project["name"])) {
+            return "Quicky - PHP framework";
+        }
         return (string)$this->project["name"];
     }
 
@@ -147,7 +154,9 @@ class Config implements DispatchingInterface
      */
     public function getAuthor(): string
     {
-        if (!isset($this->project["author"])) return "David Dewes";
+        if (!isset($this->project["author"])) {
+            return "David Dewes";
+        }
         return (string)$this->project["author"];
     }
 
@@ -158,7 +167,9 @@ class Config implements DispatchingInterface
      */
     public function getVersion(): string
     {
-        if (!isset($this->project["version"])) return "0.0.1";
+        if (!isset($this->project["version"])) {
+            return "0.0.1";
+        }
         return (string)$this->project["version"];
     }
 
@@ -169,7 +180,9 @@ class Config implements DispatchingInterface
      */
     public function getEnv(): string
     {
-        if (!isset($this->project["env"])) return "development";
+        if (!isset($this->project["env"])) {
+            return "development";
+        }
         return (string)$this->project["env"];
     }
 
@@ -210,7 +223,9 @@ class Config implements DispatchingInterface
      */
     public function isCacheActive(): bool
     {
-        if (!isset($this->cache["enabled"])) return false;
+        if (!isset($this->cache["enabled"])) {
+            return false;
+        }
         return (bool)$this->cache["enabled"];
     }
 
@@ -221,7 +236,9 @@ class Config implements DispatchingInterface
      */
     public function getCacheExpiration(): int
     {
-        if (!isset($this->cache["expires"])) return -1;
+        if (!isset($this->cache["expires"])) {
+            return -1;
+        }
         return (int)$this->cache["expires"];
     }
 

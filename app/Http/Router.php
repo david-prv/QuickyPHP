@@ -87,7 +87,9 @@ class Router implements DispatchingInterface
      */
     private function loadCache(): array
     {
-        if (!DynamicLoader::getLoader()->getInstance(Config::class)->isCacheActive()) return array();
+        if (!DynamicLoader::getLoader()->getInstance(Config::class)->isCacheActive()) {
+            return array();
+        }
         if (!file_exists($this->cacheFile)) {
             return [];
         }
@@ -100,7 +102,9 @@ class Router implements DispatchingInterface
      */
     private function saveCache(): void
     {
-        if (!DynamicLoader::getLoader()->getInstance(Config::class)->isCacheActive()) return;
+        if (!DynamicLoader::getLoader()->getInstance(Config::class)->isCacheActive()) {
+            return;
+        }
         $serializedCache = serialize($this->cache);
         file_put_contents($this->cacheFile, $serializedCache);
     }
@@ -117,10 +121,16 @@ class Router implements DispatchingInterface
      */
     public function __invoke(Request $request, Response $response)
     {
-        if (count($this->routes) === 0) throw new UnknownRouteException($request->getUrl());
+        if (count($this->routes) === 0) {
+            throw new UnknownRouteException($request->getUrl());
+        }
         $route = $this->findRoute($request);
-        if (is_null($route)) throw new UnknownRouteException($request->getUrl());
-        if (Quicky::session()->isSecure()) Quicky::session()->regenerateId();
+        if (is_null($route)) {
+            throw new UnknownRouteException($request->getUrl());
+        }
+        if (Quicky::session()->isSecure()) {
+            Quicky::session()->regenerateId();
+        }
 
         $route->execute($request, $response);
     }
@@ -135,8 +145,11 @@ class Router implements DispatchingInterface
     {
         $instance = DynamicLoader::getLoader()->getInstance(Router::class);
 
-        if ($instance instanceof Router) return $instance;
-        else throw new NetworkException();
+        if ($instance instanceof Router) {
+            return $instance;
+        } else {
+            throw new NetworkException();
+        }
     }
 
     /**
@@ -181,7 +194,9 @@ class Router implements DispatchingInterface
      */
     public function route(string $method, string $pattern, callable $callback, ...$middleware): void
     {
-        if (!$this->isValidMethod($method)) new UnknownMethodException($method);
+        if (!$this->isValidMethod($method)) {
+            new UnknownMethodException($method);
+        }
 
         $middleware = array_merge($middleware, $this->middleware);
         $route = new Route(strtoupper($method), $pattern, $callback, $middleware);

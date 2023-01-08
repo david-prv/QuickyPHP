@@ -125,7 +125,8 @@ class Request
             $this->url = (string)parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $this->time = (string)$_SERVER["REQUEST_TIME"];
             $this->headers = (function_exists("getallheaders")) ? getallheaders() : $this->readRequestHeaders();
-            $this->remote = array($_SERVER["REMOTE_ADDR"], gethostbyaddr($_SERVER["REMOTE_ADDR"]), $_SERVER["REMOTE_PORT"]);
+            $this->remote = array($_SERVER["REMOTE_ADDR"],
+                gethostbyaddr($_SERVER["REMOTE_ADDR"]), $_SERVER["REMOTE_PORT"]);
             $this->cookie = $this->headers["Cookie"] ?? "";
             $this->accept = $this->headers["Accept"] ?? "";
             $this->ua = $this->headers["User-Agent"] ?? "";
@@ -354,8 +355,11 @@ class Request
      */
     public function getArg(string $argName, bool $decode = true): string
     {
-        if (isset($this->args[$argName])) return ($decode) ? urldecode($this->args[$argName]) : $this->args[$argName];
-        else throw new InvalidParametersException($argName);
+        if (isset($this->args[$argName])) {
+            return ($decode) ? urldecode($this->args[$argName]) : $this->args[$argName];
+        } else {
+            throw new InvalidParametersException($argName);
+        }
     }
 
     /**
@@ -367,8 +371,12 @@ class Request
     {
         $out = "";
         foreach ($this as $name => $value) {
-            if (!is_string($value) && !is_bool($value)) $value = "[" . gettype($value) . "]";
-            if (is_bool($value)) $value = ($value) ? "true" : "false";
+            if (!is_string($value) && !is_bool($value)) {
+                $value = "[" . gettype($value) . "]";
+            }
+            if (is_bool($value)) {
+                $value = ($value) ? "true" : "false";
+            }
             $out .= "$name => $value <br>";
         }
         return $out;

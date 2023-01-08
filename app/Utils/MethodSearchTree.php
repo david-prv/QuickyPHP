@@ -46,7 +46,9 @@ class MethodSearchTree
      */
     public function insert(string $methodName)
     {
-        if (strpos($methodName, "__") !== false) return;
+        if (strpos($methodName, "__") !== false) {
+            return;
+        }
         $node = new MSTNode($methodName);
 
         if ($this->root === null) {
@@ -92,7 +94,7 @@ class MethodSearchTree
             if ($methodName === $compareWith) {
                 $this->cache[$methodName] = $className;
                 return $className;
-            } else if ($methodName < $current->data) {
+            } elseif ($methodName < $current->data) {
                 $current = $current->left;
             } else {
                 $current = $current->right;

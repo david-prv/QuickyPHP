@@ -49,7 +49,9 @@ class View implements DispatchingInterface
         $workingDir = $override ?? getcwd() . $config->getViewsPath();
         $viewFile = "$workingDir/$viewName.html";
 
-        if (!is_dir($workingDir) || !is_file($viewFile)) throw new ViewNotFoundException($viewName);
+        if (!is_dir($workingDir) || !is_file($viewFile)) {
+            throw new ViewNotFoundException($viewName);
+        }
 
         $html = file_get_contents($viewFile);
 
@@ -70,9 +72,12 @@ class View implements DispatchingInterface
      * @param string $error_file
      * @param string $error_line
      */
-    public static function error(string $error_level, string $error_message, string $error_file,
-                                 string $error_line): void
-    {
+    public static function error(
+        string $error_level,
+        string $error_message,
+        string $error_file,
+        string $error_line
+    ): void {
         echo "<strong>Error</strong>: $error_message | $error_file in line $error_line" . PHP_EOL;
     }
 
@@ -96,8 +101,11 @@ class View implements DispatchingInterface
     {
         $instance = DynamicLoader::getLoader()->getInstance(View::class);
 
-        if ($instance instanceof View) return $instance;
-        else throw new CoreException();
+        if ($instance instanceof View) {
+            return $instance;
+        } else {
+            throw new CoreException();
+        }
     }
 
     /**

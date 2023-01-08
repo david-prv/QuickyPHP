@@ -17,7 +17,6 @@ use App\Interfaces\ManagingInterface;
 use App\Quicky;
 use App\Utils\Exceptions\InvalidSessionException;
 use Exception;
-use MongoDB\Driver\Session;
 
 /**
  * Class SessionManager
@@ -79,8 +78,11 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     {
         $instance = DynamicLoader::getLoader()->getInstance(SessionManager::class);
 
-        if ($instance instanceof SessionManager) return $instance;
-        else throw new InvalidSessionException();
+        if ($instance instanceof SessionManager) {
+            return $instance;
+        } else {
+            throw new InvalidSessionException();
+        }
     }
 
     /**
@@ -90,7 +92,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function start(bool $secure = true): void
     {
-        if ($this->active) return;
+        if ($this->active) {
+            return;
+        }
 
         session_start();
 
@@ -119,7 +123,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function destroy(): void
     {
-        if (!$this->active) return;
+        if (!$this->active) {
+            return;
+        }
 
         foreach ($_SESSION as $key => $value) {
             unset($_SESSION[$key]);
@@ -136,7 +142,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function regenerateId(): void
     {
-        if (!$this->active) return;
+        if (!$this->active) {
+            return;
+        }
 
         session_regenerate_id();
     }
@@ -149,8 +157,12 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function set(string $name, string $value): void
     {
-        if (!$this->active) return;
-        if ($this->secure) $this->regenerateId();
+        if (!$this->active) {
+            return;
+        }
+        if ($this->secure) {
+            $this->regenerateId();
+        }
 
         if (strtolower($name) !== Quicky::QUICKY_SESSION_FIELD_ID
             && strtolower($name) !== Quicky::QUICKY_SESSION_FIELD_CREATED_AT
@@ -166,7 +178,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function setRange(array $assoc): void
     {
-        if (!$this->active) return;
+        if (!$this->active) {
+            return;
+        }
 
         foreach ($assoc as $key => $value) {
             $this->set($key, $value);
@@ -181,8 +195,12 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function get(string $name): string
     {
-        if (!$this->active) return "";
-        if ($this->secure) $this->regenerateId();
+        if (!$this->active) {
+            return "";
+        }
+        if ($this->secure) {
+            $this->regenerateId();
+        }
 
         return (isset($_SESSION[$name])) ? $_SESSION[$name] : "";
     }
@@ -194,7 +212,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function unset(string $name): void
     {
-        if (isset($_SESSION[$name])) unset($_SESSION[$name]);
+        if (isset($_SESSION[$name])) {
+            unset($_SESSION[$name]);
+        }
     }
 
     /**
@@ -247,7 +267,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function generateCSRFToken(): string
     {
-        if (!$this->isActive()) return "";
+        if (!$this->isActive()) {
+            return "";
+        }
 
         $token = bin2hex(random_bytes(32));
         $_SESSION[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN] = $token;
@@ -262,8 +284,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      */
     public function verifyCSRF(string $token): bool
     {
-        if (!$this->isActive()) return false;
+        if (!$this->isActive()) {
+            return false;
+        }
         return $_SESSION[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN] === $token;
     }
-
 }
