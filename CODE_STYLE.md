@@ -74,7 +74,7 @@ class SomeNameMiddleware implements MiddlewareInterface;
 // managers
 class SomeNameManager implements ManagingInterface;
 
-//exceptions
+// exceptions
 class SomeNameException extends SomeParentException;
 ```
 
