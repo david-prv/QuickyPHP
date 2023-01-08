@@ -67,18 +67,18 @@ class View implements DispatchingInterface
     /**
      * Render a basic error message.
      *
-     * @param string $error_level
-     * @param string $error_message
-     * @param string $error_file
-     * @param string $error_line
+     * @param string $errorLevel
+     * @param string $errorMessage
+     * @param string $errorFile
+     * @param string $errorLine
      */
     public static function error(
-        string $error_level,
-        string $error_message,
-        string $error_file,
-        string $error_line
+        string $errorLevel,
+        string $errorMessage,
+        string $errorFile,
+        string $errorLine
     ): void {
-        echo "<strong>Error</strong>: $error_message | $error_file in line $error_line" . PHP_EOL;
+        echo "<strong>Error</strong>: $errorMessage | $errorFile in line $errorLine" . PHP_EOL;
     }
 
     /**

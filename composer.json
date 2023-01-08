@@ -16,7 +16,8 @@
     "require-dev": {
         "phpunit/phpunit": "9",
         "phpstan/phpstan": "1.9.x-dev",
-        "squizlabs/php_codesniffer": "4.0.x-dev"
+        "squizlabs/php_codesniffer": "4.0.x-dev",
+        "phpmd/phpmd": "dev-master"
     },
     "autoload": {
         "psr-4": {
