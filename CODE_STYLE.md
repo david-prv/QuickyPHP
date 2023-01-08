@@ -79,6 +79,7 @@ class SomeNameException extends SomeParentException;
 ```
 
 ### 3. Pass PHPStan Level 0 Analysis
+PHPStan already enforces most of the code style rules above. Your code has to pass it. 
 ```bash
 ./vendor/bin/phpstan analyze app
 ```
@@ -92,6 +93,13 @@ $ ./vendor/bin/phpstan analyze app
                                                                                                                         
 ```
 
-### 4. Use PHP_CodeSniffer
+### 4. Pass PHP_CodeSniffer static analysis 
 PHP_CodeSniffer already enforces most of the formatting rules above.
 Learn how to use it [here](https://github.com/squizlabs/PHP_CodeSniffer).
+
+### 5. Pass PHPMD static analysis
+Git will run a PHPMD codesize check for every commit. Your code has to pass it.  
+```bash
+./vendor/bin/phpmd app text codesize
+```
+Iff it returns nothing, your code has no issues.
