@@ -100,6 +100,6 @@ Learn how to use it [here](https://github.com/squizlabs/PHP_CodeSniffer).
 ### 5. Pass PHPMD static analysis
 Git will run a PHPMD codesize check for every commit. Your code has to pass it.  
 ```bash
-./vendor/bin/phpmd app text codesize
+./vendor/bin/phpmd app text codesize controversial
 ```
 Iff it returns nothing, your code has no issues.
