@@ -77,6 +77,8 @@ class SomeNameManager implements ManagingInterface;
 // exceptions
 class SomeNameException extends SomeParentException;
 ```
+You may use PHP_CodeSniffer, since it already enforces most of the formatting rules above.
+Learn how to use it [here](https://github.com/squizlabs/PHP_CodeSniffer).
 
 ### 3. Pass PHPStan Level 0 Analysis
 PHPStan already enforces most of the code style rules above. Your code has to pass it. 
@@ -92,14 +94,11 @@ $ ./vendor/bin/phpstan analyze app
  [OK] No errors                                                                                                         
                                                                                                                         
 ```
-
-### 4. Pass PHP_CodeSniffer static analysis 
-PHP_CodeSniffer already enforces most of the formatting rules above.
-Learn how to use it [here](https://github.com/squizlabs/PHP_CodeSniffer).
-
-### 5. Pass PHPMD static analysis
+### 4. Pass PHPMD static analysis
 Git will run a PHPMD codesize check for every commit. Your code has to pass it.  
 ```bash
 ./vendor/bin/phpmd app text codesize controversial
 ```
 Iff it returns nothing, your code has no issues.
+
+
