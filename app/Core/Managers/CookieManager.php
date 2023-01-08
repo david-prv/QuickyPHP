@@ -67,6 +67,7 @@ class CookieManager implements DispatchingInterface, ManagingInterface
     /**
      * Get a cookie by name
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param string $name
      * @return string|null
      */

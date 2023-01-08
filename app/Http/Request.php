@@ -131,6 +131,7 @@ class Request
     /**
      * Collect all info from provided array
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param array $data
      */
     private function parseDataFromArray(array $data): void
@@ -156,6 +157,8 @@ class Request
 
     /**
      * Collect all info from $_SERVER
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function collectServerData(): void
     {
@@ -181,6 +184,7 @@ class Request
      * Workaround for undefined
      * in-built function "getallheaders()"
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @return array
      */
     private function readRequestHeaders(): array

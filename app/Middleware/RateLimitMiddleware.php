@@ -52,6 +52,7 @@ class RateLimitMiddleware implements MiddlewareInterface
     /**
      * Run middleware
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param Request $request
      * @param Response $response
      * @param callable $next

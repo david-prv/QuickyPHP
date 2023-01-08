@@ -88,6 +88,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     /**
      * Start a session
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param bool $secure
      */
     public function start(bool $secure = true): void
@@ -120,6 +121,8 @@ class SessionManager implements DispatchingInterface, ManagingInterface
 
     /**
      * Destroys the session
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function destroy(): void
     {
@@ -152,6 +155,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     /**
      * Set a session variable
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param string $name
      * @param string $value
      */
@@ -190,6 +194,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     /**
      * Get a session variable
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param string $name
      * @return string
      */
@@ -208,6 +213,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     /**
      * Unset a variable
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param string $name
      */
     public function unset(string $name): void
@@ -262,6 +268,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
      * Generates a Cross-Site-Request-Forgery (CSRF)
      * Token for current session
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @return string
      * @throws Exception
      */
@@ -279,6 +286,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
     /**
      * Verification of a CSRF token
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @param string $token
      * @return bool
      */
