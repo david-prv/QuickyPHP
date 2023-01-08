@@ -22,77 +22,77 @@ class Request
     /**
      * The HTTP method
      *
-     * @var mixed|string
+     * @var string
      */
     private string $method;
 
     /**
      * The requested URL
      *
-     * @var mixed|string
+     * @var string
      */
     private string $url;
 
     /**
      * The time of request
      *
-     * @var mixed|string
+     * @var string
      */
     private string $time;
 
     /**
      * Sent cookies
      *
-     * @var mixed|string
+     * @var string
      */
     private string $cookie;
 
     /**
      * The Accept-Header
      *
-     * @var mixed|string
+     * @var string
      */
     private string $accept;
 
     /**
      * The HTTP referrer
      *
-     * @var mixed|string
+     * @var string
      */
     private string $referrer;
 
     /**
      * The user-agent
      *
-     * @var mixed|string
+     * @var string
      */
     private string $ua;
 
     /**
      * The CSRF token
      *
-     * @var string|mixed|null
+     * @var string|null
      */
     private ?string $csrfToken;
 
     /**
      * HTTPS used
      *
-     * @var bool|mixed
+     * @var bool
      */
     private bool $secure;
 
     /**
      * All headers, unsorted
      *
-     * @var array|false|mixed
+     * @var array
      */
     private array $headers;
 
     /**
      * All remote information
      *
-     * @var array|mixed
+     * @var array
      */
     private array $remote;
 
@@ -102,7 +102,7 @@ class Request
      * Priority:
      * $_POST > $_GET
      *
-     * @var array|mixed
+     * @var array
      */
     private array $data;
 
@@ -120,7 +120,7 @@ class Request
      */
     public function __construct(...$data)
     {
-        if (is_null($data) || count($data) === 0) {
+        if (count($data) === 0) {
             $this->method = strtoupper($_SERVER['REQUEST_METHOD']);
             $this->url = (string)parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $this->time = (string)$_SERVER["REQUEST_TIME"];
@@ -138,19 +138,23 @@ class Request
                 ? $this->data[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN]
                 : ((isset($this->headers["X-CSRF-TOKEN"])) ? $this->headers["X-CSRF-TOKEN"] : null);
         } else {
-            $this->method = $data["method"];
-            $this->url = $data["url"];
-            $this->time = $data["time"];
-            $this->headers = $data["headers"];
-            $this->remote = $data["remote"];
-            $this->cookie = $data["cookie"];
-            $this->accept = $data["accept"];
-            $this->ua = $data["ua"];
-            $this->secure = $data["secure"];
-            $this->referrer = $data["referrer"];
-            $this->data = $data["data"];
-            $this->args = $data["args"];
-            $this->csrfToken = $data["csrfToken"];
+            $this->method = $data["method"] ?? strtoupper($_SERVER['REQUEST_METHOD']);
+            $this->url = $data["url"] ?? (string)parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $this->time = $data["time"] ?? (string)$_SERVER["REQUEST_TIME"];
+            $this->headers = $data["headers"]
+                ?? ((function_exists("getallheaders")) ? getallheaders() : $this->readRequestHeaders());
+            $this->remote = $data["remote"] ?? array($_SERVER["REMOTE_ADDR"],
+                    gethostbyaddr($_SERVER["REMOTE_ADDR"]), $_SERVER["REMOTE_PORT"]);
+            $this->cookie = $data["cookie"] ?? ($this->headers["Cookie"] ?? "");
+            $this->accept = $data["accept"] ?? ($this->headers["Accept"] ?? "");
+            $this->ua = $data["ua"] ?? ($this->headers["User-Agent"] ?? "");
+            $this->secure = $data["secure"] ?? isset($_SERVER["HTTPS"]) && !is_null($_SERVER["HTTPS"]);
+            $this->referrer = $data["referrer"] ?? (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "");
+            $this->data = $data["data"] ?? ((count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array()));
+            $this->args = $data["args"] ?? array();
+            $this->csrfToken = $data["csrfToken"] ?? ((isset($this->data[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN]))
+                    ? $this->data[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN]
+                    : ((isset($this->headers["X-CSRF-TOKEN"])) ? $this->headers["X-CSRF-TOKEN"] : null));
         }
     }
 
@@ -184,7 +188,7 @@ class Request
     /**
      * Returns the time
      *
-     * @return mixed|string
+     * @return string
      */
     public function getTime(): string
     {
@@ -194,7 +198,7 @@ class Request
     /**
      * Returns the cookie
      *
-     * @return mixed|string
+     * @return string
      */
     public function getCookie(): string
     {
@@ -204,7 +208,7 @@ class Request
     /**
      * Returns the accept-header
      *
-     * @return mixed|string
+     * @return string
      */
     public function getAccept(): string
     {
@@ -214,7 +218,7 @@ class Request
     /**
      * Returns the referrer
      *
-     * @return mixed|string
+     * @return string
      */
     public function getReferrer(): string
     {
@@ -224,7 +228,7 @@ class Request
     /**
      * Returns the user-agent
      *
-     * @return mixed|string
+     * @return string
      */
     public function getUserAgent(): string
     {
@@ -234,7 +238,7 @@ class Request
     /**
      * Indicates whether HTTPS is used
      *
-     * @return bool|mixed
+     * @return mixed
      */
     public function isSecure(): bool
     {
@@ -244,7 +248,7 @@ class Request
     /**
      * Returns all headers
      *
-     * @return array|false|mixed
+     * @return array
      */
     public function getHeaders(): array
     {
@@ -265,7 +269,7 @@ class Request
     /**
      * Returns all remote details
      *
-     * @return array|mixed
+     * @return array
      */
     public function getRemote(): array
     {

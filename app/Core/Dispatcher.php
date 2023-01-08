@@ -57,15 +57,11 @@ class Dispatcher
                 throw new UnknownCallException($name);
             }
 
-            if (is_null($className)) {
+            $instance = $loader->getInstance($className);
+            if (is_null($instance)) {
                 throw new UnknownCallException($name);
-            } else {
-                $c = $loader->getInstance($className);
-                if (is_null($c)) {
-                    throw new UnknownCallException($name);
-                }
-                return call_user_func(array($c, $name), ...$args);
             }
+            return call_user_func(array($instance, $name), ...$args);
         }
     }
 

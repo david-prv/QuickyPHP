@@ -95,7 +95,9 @@ class Quicky
         DynamicLoader::getLoader()->registerInstance(Quicky::class, $this);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
-        if ($mode === "") $mode = "default";
+        if ($mode === "") {
+            $mode = "default";
+        }
 
         if (!is_null($config) && $config instanceof Config) {
             $config->init($mode);
@@ -169,8 +171,9 @@ class Quicky
 
             if ($router instanceof Router) {
                 $router(new Request(), new Response());
-            } else $this->stop(1);
-
+            } else {
+                $this->stop(1);
+            }
         } catch (UnknownRouteException $e) {
             $this->catchException($e);
         }
@@ -196,9 +199,12 @@ class Quicky
      * @param string $error_line
      * @return callable|null ?callable
      */
-    private function catchError(string $error_level, string $error_message, string $error_file,
-                                string $error_line): ?callable
-    {
+    private function catchError(
+        string $error_level,
+        string $error_message,
+        string $error_file,
+        string $error_line
+    ): ?callable {
         View::error($error_level, $error_message, $error_file, $error_line);
         return null;
     }

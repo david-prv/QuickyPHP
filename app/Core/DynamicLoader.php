@@ -32,7 +32,7 @@ class DynamicLoader
     /**
      * The current working directory
      *
-     * @var false|string
+     * @var string
      */
     private string $workingDir;
 
@@ -69,13 +69,6 @@ class DynamicLoader
     private MethodSearchTree $methods;
 
     /**
-     * All already included classes
-     *
-     * @var array
-     */
-    private array $loaded;
-
-    /**
      * DynamicLoader constructor.
      *
      * @param string|null $override
@@ -91,7 +84,6 @@ class DynamicLoader
         $this->instances = array();
         $this->locations = array();
         $this->classes = array();
-        $this->loaded = array(self::class);
         $this->methods = new MethodSearchTree();
 
         // since this class has already an instance
@@ -111,9 +103,9 @@ class DynamicLoader
      * Creates or returns the loader
      *
      * @param string|null $override
-     * @return static
+     * @return DynamicLoader
      */
-    public static function getLoader(?string $override = null): self
+    public static function getLoader(?string $override = null): DynamicLoader
     {
         if (self::$instance === null) {
             self::$instance = new DynamicLoader($override ?? null);

@@ -61,7 +61,7 @@ class Route
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
-        $this->middleware = (is_null($middleware)) ? [] : $middleware;
+        $this->middleware = $middleware;
     }
 
     /**

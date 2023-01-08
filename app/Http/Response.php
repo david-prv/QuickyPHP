@@ -42,7 +42,7 @@ class Response
      *
      * @var int|null
      */
-    private ?int $cacheExpires = null;
+    private ?int $cacheExpires;
 
     /**
      * All MIME Types

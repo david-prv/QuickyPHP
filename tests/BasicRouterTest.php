@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use App\Quicky;
 
@@ -10,7 +12,8 @@ class BasicRouterTest extends QuickyTestCase
     {
         $app = Quicky::create();
         $router = Quicky::router();
-        $router->route("GET", "/", function() {});
+        $router->route("GET", "/", function () {
+        });
 
         $this->assertEquals(1, $router->countRoutes());
 

@@ -15,7 +15,7 @@ class ConfigTest extends QuickyTestCase
 
     public function testLoadByJSON(): void
     {
-        Quicky::create(Quicky::QUICKY_CNF_MODE_JSON);
+        Quicky::create(false, Quicky::QUICKY_CNF_MODE_JSON);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         $this->assertTrue($config instanceof Config);
@@ -24,7 +24,7 @@ class ConfigTest extends QuickyTestCase
 
     public function testLoadByDefault(): void
     {
-        Quicky::create(Quicky::QUICKY_CNF_MODE_DEFAULT);
+        Quicky::create(false, Quicky::QUICKY_CNF_MODE_DEFAULT);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         $this->assertTrue($config instanceof Config);
@@ -34,7 +34,6 @@ class ConfigTest extends QuickyTestCase
     private function check(object $config)
     {
         if ($config instanceof Config) {
-
             $this->assertEquals($this::CURRENT_NAME, $config->getName());
             $this->assertEquals($this::CURRENT_AUTHOR, $config->getAuthor());
             $this->assertEquals($this::CURRENT_ENV, $config->getEnv());
@@ -45,7 +44,8 @@ class ConfigTest extends QuickyTestCase
             $this->assertTrue($config->isCacheActive());
             $this->assertFalse($config->isProd());
             $this->assertTrue($config->isDev());
-
-        } else { $this->fail(); }
+        } else {
+            $this->fail();
+        }
     }
 }
