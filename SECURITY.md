@@ -12,10 +12,10 @@ Please report any vulnerability or deadly bug to issue@quickyphp.de.
 Provide the following information:
 ### 1. Impact
 - Very Low: Not really a problem, just nice to have
-- Low: Could become a problem in the future or has to security impact
+- Low: Could become a problem in the future or has no security impact
 - Medium: Has a minor security impact, e.g. allows to slow-down a Quicky instance
 - High: Can lead to crashes, enumerations, allows HTML injection, ...
-- Very Hight: Allows database leaks, any code injection, ...
+- Very High: Allows database leaks, any code injection, ...
 
 ### 2. Short Description
 Describe the vulnerability shortly, such that the reader gets an idea of the nature of your issue.
