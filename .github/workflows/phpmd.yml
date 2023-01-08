@@ -46,13 +46,9 @@ jobs:
           coverage: none
           tools: phpmd
 
-      - name: Run PHPMD Codesize
+      - name: Run PHPMD
         run: phpmd . sarif codesize --reportfile phpmd-results.sarif
         continue-on-error: true
-
-      - name: Run PHPMD Controversial
-          run: phpmd . sarif controversial --reportfile phpmd-results.sarif
-          continue-on-error: true
 
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
