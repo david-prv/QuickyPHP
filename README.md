@@ -64,7 +64,9 @@ I have written some basic examples [here](https://gist.github.com/david-prv/9e32
 
 ## Contributing
 Please feel free to contribute to this project. I am always happy to see new and fresh ideas.  
-If you contribute to QuickyPHP, make sure, that you follow the rules as stated in our [code of conduct](https://github.com/david-prv/QuickyPHP/blob/main/CODE_OF_CONDUCT.md).
+If you contribute to QuickyPHP, make sure, that you follow the rules as stated in our [code of conduct](https://github.com/david-prv/QuickyPHP/blob/main/CODE_OF_CONDUCT.md).  
+
+To keep the code readable, please read and follow the [coding style rules](https://github.com/david-prv/QuickyPHP/blob/main/CODE_STYLE.md).
 
 ## Support
 If you like what I do, feel free to buy me a coffee for my work.  
