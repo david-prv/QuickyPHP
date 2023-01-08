@@ -4,14 +4,14 @@ on:
   push:
     paths:
       - "**.php"
-      - "phpcs.xml"
+      - "codesniff.xml"
       - ".github/workflows/codesniff.yml"
   pull_request:
     # The branches below must be a subset of the branches above
     paths:
       - "**.php"
-      - "phpcs.xml"
-      - ".github/workflows/phpcs.yml"
+      - "codesniff.xml"
+      - ".github/workflows/codesniff.yml"
 
 jobs:
   phpcs:
@@ -32,4 +32,4 @@ jobs:
         with:
           files: "**.php" # you may customize glob as needed
           phpcs_path: php phpcs.phar
-          standard: phpcs.xml
+          standard: codesniff.xml

@@ -111,7 +111,7 @@ class Quicky
                     string $errorMessage,
                     string $errorFile,
                     string $errorLine
-) {
+                ) {
                     return $this->catchError($errorLevel, $errorMessage, $errorFile, $errorLine);
                 });
                 set_exception_handler(function (Throwable $e) {
