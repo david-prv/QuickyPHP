@@ -10,6 +10,9 @@ We follow the standards, enforced by PHPStan. [Learn more](https://phpstan.org/w
 ### 2. Use proper Formatting
 - 4 spaces indent
 - `elseif` instead of `else if`
+- unused but necessary identifiers have to be called `$_` (compare: Swift, Python, Ruby, Rust, ...)
+- all files end with an empty line
+- follow the PSR-4 standard for namespaces
 - spaces before conditional parenthesises:
 ```php
 if (condition) {
@@ -26,6 +29,14 @@ while (condition) {
 
 // And so on. You got the idea, right?
 ```
+- for php8 support, always add parameter- and return-types:
+```php
+// good!
+function func(string $str, int $int, bool $bool, array $arr): void {}
+
+// bad!
+function func($str, $int, $bool, $arr) {}
+```
 - function brackets to the next line:
 ```php
 // good!
@@ -39,9 +50,6 @@ function myTestFunction(string $message): void {
     // do something
 }
 ```
-- for php8 support, always add typing to parameters
-- also always add return-types (see code example above)
-- all files end with an empty line
 - use camel-case for naming functions, parameters and properties:
 ```php
 // good!
@@ -62,7 +70,6 @@ if (condition) {
 // bad!
 if (condition) return something;
 ```
-- follow the PSR-4 standard
 - name your classes as follows, iff they belong to the corresponding type:
 ```php
 // interfaces
@@ -98,8 +105,11 @@ $ ./vendor/bin/phpstan analyze app
 Git will run a PHPMD codesize check for every commit. Your code has to pass it.  
 ```bash
 ./vendor/bin/phpmd app text codesize
-./vendor/bin/phpmd app text controversial
 ```
 Iff it returns nothing, your code has no issues.
 
+Optional:
+```bash
+./vendor/bin/phpmd app text controversial
+```
 
