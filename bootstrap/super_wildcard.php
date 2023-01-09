@@ -16,5 +16,5 @@ Quicky::route("GET", "/start/*/end/", function (Request $_, Response $response) 
 });
 
 Quicky::route("GET", "/start/**/end", function (Request $_, Response $response) {
-    $response->send("Double Wildcard matched!");
+    $response->send("Super-Wildcard matched!");
 });
