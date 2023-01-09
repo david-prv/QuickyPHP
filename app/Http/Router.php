@@ -229,20 +229,27 @@ class Router implements DispatchingInterface
         return (isset($this->routes[$route->hashCode()]));
     }
 
+    /**
+     * Asks router cache if the
+     * method-url-combination was already seen before
+     *
+     * @param Request $request
+     * @param $method
+     * @param string $url
+     * @return Route|null
+     */
     private function resolveRouteCache(Request $request, $method, string $url): ?Route
     {
-        // search cache for non-trivial routes
         if (isset($this->cache["$method.$url"])) {
+            // check whether the cached route is still existing
             if (isset($this->routes[$this->cache["$method.$url"]])) {
                 $route = $this->routes[$this->cache["$method.$url"]];
                 if ($route instanceof Route) {
+                    // check whether the cached route matches the url
                     if ($route->match($url, $request)) {
                         return $route;
                     }
                 }
-                return null;
-            } else {
-                return null;
             }
         }
         return null;
