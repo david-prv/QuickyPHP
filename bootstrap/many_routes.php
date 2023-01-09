@@ -12,7 +12,7 @@ for ($i = 0; $i < 1000; $i++) {
     try {
         Quicky::route(
             $usedMethods[random_int(0, 1)],
-            "/" . uniqid(),
+            "/" . (string)$i,
             function (Request $_, Response $response) use ($i) {
                 $response->send("This is random route nr. %s", "$i");
             }
