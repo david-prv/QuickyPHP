@@ -229,6 +229,25 @@ class Router implements DispatchingInterface
         return (isset($this->routes[$route->hashCode()]));
     }
 
+    private function resolveRouteCache(Request $request, $method, string $url): ?Route
+    {
+        // search cache for non-trivial routes
+        if (isset($this->cache["$method.$url"])) {
+            if (isset($this->routes[$this->cache["$method.$url"]])) {
+                $route = $this->routes[$this->cache["$method.$url"]];
+                if ($route instanceof Route) {
+                    if ($route->match($url, $request)) {
+                        return $route;
+                    }
+                }
+                return null;
+            } else {
+                return null;
+            }
+        }
+        return null;
+    }
+
     /**
      * Finds route by hash-code
      *
@@ -263,19 +282,10 @@ class Router implements DispatchingInterface
             }
         }
 
-        // search cache for non-trivial routes
-        if (isset($this->cache["$method.$url"])) {
-            if (isset($this->routes[$this->cache["$method.$url"]])) {
-                $route = $this->routes[$this->cache["$method.$url"]];
-                if ($route instanceof Route) {
-                    if ($route->match($url, $request)) {
-                        return $route;
-                    }
-                }
-                return null;
-            } else {
-                return null;
-            }
+        // ask cache first
+        $cacheResult = $this->resolveRouteCache($request, $method, $url);
+        if (!is_null($cacheResult)) {
+            return $cacheResult;
         }
 
         // find matching route
