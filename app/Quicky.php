@@ -119,7 +119,7 @@ class Quicky
                 });
             }
         } else {
-            $this->stop(1);
+            $this->stop();
         }
     }
 
@@ -166,7 +166,7 @@ class Quicky
     }
 
     /**
-     * Run application
+     * Starts the application
      */
     public function run(): void
     {
@@ -177,7 +177,7 @@ class Quicky
             if ($router instanceof Router) {
                 $router(new Request(), new Response());
             } else {
-                $this->stop(1);
+                $this->stop();
             }
         } catch (UnknownRouteException $e) {
             $this->catchException($e);
@@ -185,13 +185,26 @@ class Quicky
     }
 
     /**
-     * Stop application
+     * Stops the application abruptly
+     */
+    public function stop(): void
+    {
+        exit();
+    }
+
+    /**
+     * Halts the application with proper
+     * response
      *
      * @param int $code
+     * @param string $message
      */
-    public function stop(int $code = 0): void
+    public function halt(int $code = 200, string $message = ""): void
     {
-        exit($code);
+        $response = new Response();
+        $response->status($code);
+        $response->send($message);
+        exit();
     }
 
     /**

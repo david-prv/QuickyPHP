@@ -187,11 +187,11 @@ class Route
 
     /**
      * Checks if the route contains a special
-     * double-star wildcard
+     * double-star wildcard, called super-wildcards
      *
      * @return bool
      */
-    private function containsDoubleWildcard(): bool
+    private function containsSuperWildcard(): bool
     {
         return (strpos($this->pattern, "**") !== false);
     }
@@ -210,7 +210,7 @@ class Route
         $pattern = $this->getSanitizedPatternArray($this->pattern);
         $urlParts = $this->getSanitizedPatternArray($url);
 
-        if ((!$this->containsDoubleWildcard()) && (count($pattern) !== count($urlParts))) {
+        if ((!$this->containsSuperWildcard()) && (count($pattern) !== count($urlParts))) {
             return false;
         }
 

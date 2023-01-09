@@ -251,9 +251,16 @@ class Router implements DispatchingInterface
         $url = $request->getUrl();
         $method = $request->getMethod();
 
-        // trivial route
+        // trivial route can be matched by hash
         if ($url === "/") {
-            return $this->findRouteByHash(sha1($url . $method));
+            // it can happen that trivial routes are created by
+            // non-trivial patterns, like super-wildcards
+            $route = $this->findRouteByHash(sha1($url . $method));
+            if (!is_null($route)) {
+                // if it was really a trivial route,
+                // return the found route
+                return $route;
+            }
         }
 
         // search cache for non-trivial routes
