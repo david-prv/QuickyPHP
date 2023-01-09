@@ -157,6 +157,8 @@ class Route
                 $regex .= "\/$part";
             } elseif ($part === '*') {
                 $regex .= '\/.*';
+            } elseif ($part === '**') {
+                $regex .= '\/(.*)';
             } else {
                 $regex .= "\/$part";
             }
@@ -184,6 +186,17 @@ class Route
     }
 
     /**
+     * Checks if the route contains a special
+     * double-star wildcard
+     *
+     * @return bool
+     */
+    private function containsDoubleWildcard(): bool
+    {
+        return (strpos($this->pattern, "**") !== false);
+    }
+
+    /**
      * Checks if the requested url
      * matches this route and additionally parses
      * all arguments and updates the request, iff vars are present
@@ -197,7 +210,7 @@ class Route
         $pattern = $this->getSanitizedPatternArray($this->pattern);
         $urlParts = $this->getSanitizedPatternArray($url);
 
-        if (count($pattern) !== count($urlParts)) {
+        if ((!$this->containsDoubleWildcard()) && (count($pattern) !== count($urlParts))) {
             return false;
         }
 
