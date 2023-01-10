@@ -1,0 +1,15 @@
+{
+  "project": {
+    "name": "Quicky - PHP Framework",
+    "author": "David Dewes",
+    "version": "0.0.1",
+    "env": "production"
+  },
+  "cache": {
+    "enabled": true,
+    "expires": 3600
+  },
+  "storage": "/app/Storage",
+  "views": "/app/Views",
+  "logs": "/app/Logs"
+}

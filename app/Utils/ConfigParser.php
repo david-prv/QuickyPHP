@@ -47,7 +47,7 @@ class ConfigParser
      */
     public function loadFromJSON(): array
     {
-        $expectedPath = getcwd() . "/app/config.json";
+        $expectedPath = getcwd() . "/app/Config/config.json";
         if (is_file($expectedPath)) {
             $json = json_decode(file_get_contents($expectedPath), true);
             if (is_null($json) || $json === false) {
@@ -80,23 +80,20 @@ class ConfigParser
      * Loads default config
      *
      * @return array
+     * @throws ConfigParserException
      */
     private function loadDefault(): array
     {
-        return array(
-            "project" => array(
-                "name" => "Quicky - PHP Framework",
-                "author" => "David Dewes",
-                "version" => "0.0.1",
-                "env" => "development"
-            ),
-            "cache" => array(
-                "enabled" => true,
-                "expires" => 3600
-            ),
-            "storage" => "/app/Storage",
-            "views" => "/app/Views",
-            "logs" => "/app/Logs"
-        );
+        $expectedPath = getcwd() . "/app/Config/default.json";
+        if (is_file($expectedPath)) {
+            $json = json_decode(file_get_contents($expectedPath), true);
+            if (is_null($json) || $json === false) {
+                throw new ConfigParserException();
+            }
+
+            return $json;
+        } else {
+            throw new ConfigParserException();
+        }
     }
 }

@@ -60,6 +60,13 @@ class Response
     private bool $isSent;
 
     /**
+     * Response headers
+     *
+     * @var array
+     */
+    private array $headers;
+
+    /**
      * All MIME Types
      *
      * @var array|string[]
@@ -269,6 +276,7 @@ class Response
         $this->useCache = $config->isCacheActive();
         $this->cacheExpires = ($this->useCache) ? $config->getCacheExpiration() : null;
         $this->isSent = false;
+        $this->headers = array();
         $this->body = "";
     }
 
@@ -295,13 +303,10 @@ class Response
 
     /**
      * Sends a 403 - Forbidden Error
-     *
-     * @param string $message
      */
-    public function forbidden(string $message): void
+    public function forbidden(): void
     {
         $this->status(403);
-        echo $message;
     }
 
     /**
@@ -322,13 +327,13 @@ class Response
      */
     public function redirect(string $destination): void
     {
-        http_redirect($destination);
+        $this->withHeader("Location", $destination);
     }
 
     /**
      * Set headers to use cache
      */
-    private function setCacheHeaders(): void
+    private function withCacheHeaders(): void
     {
         if (is_null($this->cacheExpires) || !$this->useCache) {
             return;
@@ -349,7 +354,41 @@ class Response
      */
     public function withHeader(string $headerName, string $headerValue): void
     {
-        header("$headerName: $headerValue");
+        array_push($this->headers, array("name" => $headerName, "value" => $headerValue));
+    }
+
+    /**
+     * Apply all headers
+     */
+    private function applyHeaders(): void
+    {
+        if (count($this->headers) === 0 || $this->isSent()) {
+            return;
+        }
+
+        foreach ($this->headers as $header) {
+            header($header["name"]. ": " . $header["value"]);
+        }
+    }
+
+    /**
+     * Get current body size
+     *
+     * @return int
+     */
+    public function getContentLength(): int
+    {
+        return strlen($this->body);
+    }
+
+    /**
+     * Get current body
+     *
+     * @return string
+     */
+    public function getBody(): string
+    {
+        return $this->body;
     }
 
     /**
@@ -361,26 +400,10 @@ class Response
      */
     public function write(string $text, ...$formatters): void
     {
-        $this->body .= sprintf($text, ...$formatters) . PHP_EOL;
-    }
-
-    /**
-     * Send the body as HTTP response
-     */
-    public function send(): void
-    {
-        // cancel if already sent
         if ($this->isSent()) {
             return;
         }
-
-        if ($this->useCache) {
-            $this->setCacheHeaders();
-        }
-
-        $this->isSent = true;
-
-        echo $this->body;
+        $this->body .= sprintf($text, ...$formatters) . PHP_EOL;
     }
 
     /**
@@ -409,6 +432,25 @@ class Response
     }
 
     /**
+     * Send the body as HTTP response
+     */
+    public function send(): void
+    {
+        // cancel if already sent
+        if ($this->isSent()) {
+            return;
+        }
+
+        if ($this->useCache) {
+            $this->withCacheHeaders();
+        }
+
+        $this->applyHeaders();
+        $this->isSent = true;
+        echo $this->body;
+    }
+
+    /**
      * Sends file-content as response
      *
      * @param string $fileName
@@ -416,8 +458,13 @@ class Response
      */
     public function sendFile(string $fileName): void
     {
+        // cancel if already sent
+        if ($this->isSent()) {
+            return;
+        }
+
         if ($this->useCache) {
-            $this->setCacheHeaders();
+            $this->withCacheHeaders();
         }
 
         $basePath = str_replace('/', DIRECTORY_SEPARATOR, $this->storagePath);
@@ -440,6 +487,9 @@ class Response
         $this->withHeader("Content-Length", (string)filesize($fullPath));
         $this->withHeader("Content-Disposition", 'attachment; filename="' . $fileName . '"');
 
+        $this->applyHeaders();
+
+        $this->isSent = true;
         readfile($fullPath);
     }
 
@@ -454,8 +504,12 @@ class Response
     public function render(string $viewName, ?array $variables = null, ?string $override = null): void
     {
         if ($this->useCache) {
-            $this->setCacheHeaders();
+            $this->withCacheHeaders();
         }
+
+        $this->applyHeaders();
+
+        $this->isSent = true;
 
         View::render($viewName, $variables, $override);
     }

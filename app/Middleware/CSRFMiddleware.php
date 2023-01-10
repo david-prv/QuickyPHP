@@ -36,10 +36,10 @@ class CSRFMiddleware implements MiddlewareInterface
         if ($session instanceof SessionManager) {
             if (!$request->hasCSRFToken() || !$session->verifyCSRF($request->getCSRFToken())) {
                 // send forbidden message and error code
-                $response->forbidden($response->getErrorMessage(403));
+                $response->forbidden();
 
                 // break middleware execution
-                $response->stop();
+                $response->stop($response->getErrorMessage(403));
             }
         }
         return $next($request, $response);
