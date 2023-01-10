@@ -369,6 +369,7 @@ class Response
      */
     public function send(): void
     {
+        // cancel if already sent
         if ($this->isSent()) {
             return;
         }
