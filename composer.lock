@@ -822,12 +822,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "7be58e4cafe303ff3d9c53837d1d0251a2637786"
+                "reference": "94e6e466bfcc51865280c078cd2e8eda413489e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7be58e4cafe303ff3d9c53837d1d0251a2637786",
-                "reference": "7be58e4cafe303ff3d9c53837d1d0251a2637786",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/94e6e466bfcc51865280c078cd2e8eda413489e2",
+                "reference": "94e6e466bfcc51865280c078cd2e8eda413489e2",
                 "shasum": ""
             },
             "require": {
@@ -836,7 +836,6 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "default-branch": true,
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -874,7 +873,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-06T15:02:12+00:00"
+            "time": "2023-01-10T14:18:20+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2235,12 +2234,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "892d941b1074f4b6fe2bcb6b1f9302caa8bc941c"
+                "reference": "9bd60843443cda9638efdca7c41eb82ed0026179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/892d941b1074f4b6fe2bcb6b1f9302caa8bc941c",
-                "reference": "892d941b1074f4b6fe2bcb6b1f9302caa8bc941c",
+                "url": "https://api.github.com/repos/symfony/config/zipball/9bd60843443cda9638efdca7c41eb82ed0026179",
+                "reference": "9bd60843443cda9638efdca7c41eb82ed0026179",
                 "shasum": ""
             },
             "require": {
@@ -2306,7 +2305,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:32:19+00:00"
+            "time": "2023-01-08T13:23:55+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -2314,12 +2313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "c66e5d1febffd94401613347c59ef27092ccccee"
+                "reference": "e20cd836ad3aa37d69d4217efced028cc46f287e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/c66e5d1febffd94401613347c59ef27092ccccee",
-                "reference": "c66e5d1febffd94401613347c59ef27092ccccee",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/e20cd836ad3aa37d69d4217efced028cc46f287e",
+                "reference": "e20cd836ad3aa37d69d4217efced028cc46f287e",
                 "shasum": ""
             },
             "require": {
@@ -2395,7 +2394,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:32:19+00:00"
+            "time": "2023-01-09T19:26:12+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
