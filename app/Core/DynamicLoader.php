@@ -44,13 +44,6 @@ class DynamicLoader
     private array $instances;
 
     /**
-     * All directories in the project folder
-     *
-     * @var array
-     */
-    private array $locations;
-
-    /**
      * All available classes
      * Read more about the required naming
      * standards:
@@ -82,7 +75,6 @@ class DynamicLoader
         // load internal vars
         $this->workingDir = $override ?? getcwd();
         $this->instances = array();
-        $this->locations = array();
         $this->classes = array();
         $this->methods = new MethodSearchTree();
 
@@ -185,9 +177,6 @@ class DynamicLoader
      */
     private function scan(string $current = "/app"): void
     {
-        // add the current location to the locations list
-        array_push($this->locations, $current);
-
         // we use directory iterators to do the job
         $iterator = new DirectoryIterator($this->workingDir . $current);
 
