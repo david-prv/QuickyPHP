@@ -16,5 +16,5 @@ jobs:
       - name: PHPStan Static Analysis
         uses: php-actions/phpstan@v3
         with:
-          command: phpstan analyze -vvv --debug
+          args: --debug
           path: app/
