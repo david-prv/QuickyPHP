@@ -158,7 +158,7 @@ class Route
             } elseif ($part === '*') {
                 $regex .= '\/.*';
             } elseif ($part === '**') {
-                $regex .= '\/(.*)';
+                $regex .= '(.*)';
             } else {
                 $regex .= "\/$part";
             }
