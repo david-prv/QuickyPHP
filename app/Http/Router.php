@@ -16,8 +16,11 @@ use App\Core\DynamicLoader;
 use App\Interfaces\DispatchingInterface;
 use App\Quicky;
 use App\Utils\Exceptions\NetworkException;
+use App\Utils\Exceptions\NotAResponseException;
 use App\Utils\Exceptions\UnknownMethodException;
 use App\Utils\Exceptions\UnknownRouteException;
+use App\Http\Response;
+use Cassandra\FutureSession;
 
 /**
  * Class Router
@@ -118,6 +121,7 @@ class Router implements DispatchingInterface
      * @param Request $request
      * @param Response $response
      * @throws UnknownRouteException
+     * @throws NotAResponseException
      */
     public function __invoke(Request $request, Response $response)
     {
@@ -132,7 +136,13 @@ class Router implements DispatchingInterface
             Quicky::session()->regenerateId();
         }
 
-        $route->execute($request, $response);
+        $response = $route->execute($request, $response);
+
+        if ($response instanceof Response) {
+            $response->send();
+        } else {
+            throw new NotAResponseException();
+        }
     }
 
     /**

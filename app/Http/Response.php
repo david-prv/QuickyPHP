@@ -45,6 +45,21 @@ class Response
     private ?int $cacheExpires;
 
     /**
+     * Response body
+     *
+     * @var string
+     */
+    private string $body;
+
+    /**
+     * Flag that indicates,
+     * whether the send() method was called
+     *
+     * @var bool
+     */
+    private bool $isSent;
+
+    /**
      * All MIME Types
      *
      * @var array|string[]
@@ -253,6 +268,19 @@ class Response
         $this->storagePath = getcwd() . $config->getStoragePath();
         $this->useCache = $config->isCacheActive();
         $this->cacheExpires = ($this->useCache) ? $config->getCacheExpiration() : null;
+        $this->isSent = false;
+        $this->body = "";
+    }
+
+    /**
+     * Checks whether the response was
+     * already sent as HTTP response or not
+     *
+     * @return bool
+     */
+    public function isSent(): bool
+    {
+        return $this->isSent;
     }
 
     /**
@@ -325,18 +353,33 @@ class Response
     }
 
     /**
-     * Sends text/html with formatters
+     * Writes text/html with formatters
+     * to response body
      *
      * @param string $text
      * @param mixed ...$formatters
      */
-    public function send(string $text, ...$formatters): void
+    public function write(string $text, ...$formatters): void
     {
+        $this->body .= sprintf($text, ...$formatters) . PHP_EOL;
+    }
+
+    /**
+     * Send the body as HTTP response
+     */
+    public function send(): void
+    {
+        if ($this->isSent()) {
+            return;
+        }
+
         if ($this->useCache) {
             $this->setCacheHeaders();
         }
 
-        printf($text, ...$formatters);
+        $this->isSent = true;
+
+        echo $this->body;
     }
 
     /**

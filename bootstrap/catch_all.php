@@ -8,5 +8,7 @@ $app = Quicky::create();
 Quicky::session()->start();
 
 Quicky::route("GET", "/**", function (Request $_, Response $response) {
-    $response->send("Match!");
+    $response->write("Match!");
+
+    return $response;
 });

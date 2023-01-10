@@ -26,7 +26,7 @@ use App\Quicky;
 $app = Quicky::create();
 
 Quicky::route("GET", "/", function(Request $request, Response $response) {
-    $response->send("Hello World");
+    $response->write("Hello World");
 });
 
 $app->run();

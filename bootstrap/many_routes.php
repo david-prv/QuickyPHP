@@ -14,14 +14,18 @@ for ($i = 0; $i < 1000; $i++) {
             $usedMethods[random_int(0, 1)],
             "/" . (string)$i,
             function (Request $_, Response $response) use ($i) {
-                $response->send("This is random route nr. %s", "$i");
+                $response->write("This is random route nr. %s", "$i");
+
+                return $response;
             }
         );
     } catch (Exception $e) {
     }
 }
 
-Quicky::route("GET", "/", function () {
+Quicky::route("GET", "/", function (Request $_, Response $response) {
     $router = Quicky::router();
     $router->dump();
+
+    return $response;
 });

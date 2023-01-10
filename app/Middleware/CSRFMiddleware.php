@@ -30,7 +30,7 @@ class CSRFMiddleware implements MiddlewareInterface
      * @param callable $next
      * @return Response|null
      */
-    public function run(Request $request, Response $response, callable $next): ?Response
+    public function run(Request $request, Response $response, callable $next): Response
     {
         $session = DynamicLoader::getLoader()->getInstance(SessionManager::class);
         if ($session instanceof SessionManager) {

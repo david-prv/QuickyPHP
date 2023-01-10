@@ -58,7 +58,7 @@ class RateLimitMiddleware implements MiddlewareInterface
      * @param callable $next
      * @return Response|null
      */
-    public function run(Request $request, Response $response, callable $next): ?Response
+    public function run(Request $request, Response $response, callable $next): Response
     {
         // skip if session is inactive
         $session = DynamicLoader::getLoader()->getInstance(SessionManager::class);

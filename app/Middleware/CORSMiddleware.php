@@ -28,7 +28,7 @@ class CORSMiddleware implements MiddlewareInterface
      * @param callable $next
      * @return Response|null
      */
-    public function run(Request $request, Response $response, callable $next): ?Response
+    public function run(Request $request, Response $response, callable $next): Response
     {
         // Allow cross-origin requests from any domain
         $response->withHeader('Access-Control-Allow-Origin', '*');

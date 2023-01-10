@@ -117,7 +117,7 @@ class LoggingMiddleware implements MiddlewareInterface
      * @return Response|null
      * @throws Exception
      */
-    public function run(Request $request, Response $response, callable $next): ?Response
+    public function run(Request $request, Response $response, callable $next): Response
     {
         $this->errorLevel(0);
 

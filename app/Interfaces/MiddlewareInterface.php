@@ -27,5 +27,5 @@ interface MiddlewareInterface
      * @param callable $next
      * @return Response
      */
-    public function run(Request $request, Response $response, callable $next): ?Response;
+    public function run(Request $request, Response $response, callable $next): Response;
 }

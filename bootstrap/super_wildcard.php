@@ -8,13 +8,19 @@ $app = Quicky::create();
 Quicky::session()->start();
 
 Quicky::route("GET", "/", function (Request $_, Response $response) {
-    $response->send("Usage: /start/[Some Path]/end/");
+    $response->write("Usage: /start/[Some Path]/end/");
+
+    return $response;
 });
 
 Quicky::route("GET", "/start/*/end/", function (Request $_, Response $response) {
-    $response->send("Standard Wildcard matched!");
+    $response->write("Standard Wildcard matched!");
+
+    return $response;
 });
 
 Quicky::route("GET", "/start/**/end", function (Request $_, Response $response) {
-    $response->send("Super-Wildcard matched!");
+    $response->write("Super-Wildcard matched!");
+
+    return $response;
 });

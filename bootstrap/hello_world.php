@@ -8,9 +8,13 @@ $app = Quicky::create();
 Quicky::session()->start();
 
 Quicky::route("GET", "/", function (Request $_, Response $response) {
-    $response->send("Hello, World!");
+    $response->write("Hello, World!");
+
+    return $response;
 });
 
 Quicky::route("GET", "/{name}", function (Request $request, Response $response) {
-    $response->send("Hello, %s!", $request->getArg("name"));
+    $response->write("Hello, %s!", $request->getArg("name"));
+
+    return $response;
 });

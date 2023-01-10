@@ -20,6 +20,7 @@ use App\Core\View;
 use App\Http\Request;
 use App\Http\Response;
 use App\Http\Router;
+use App\Utils\Exceptions\NotAResponseException;
 use App\Utils\Exceptions\UnknownCallException;
 use App\Utils\Exceptions\UnknownRouteException;
 use Throwable;
@@ -181,6 +182,8 @@ class Quicky
             }
         } catch (UnknownRouteException $e) {
             $this->catchException($e);
+        } catch (NotAResponseException $e) {
+            $this->catchException($e);
         }
     }
 
@@ -203,7 +206,7 @@ class Quicky
     {
         $response = new Response();
         $response->status($code);
-        $response->send($message);
+        $response->write($message);
         exit();
     }
 
@@ -222,7 +225,8 @@ class Quicky
         string $errorMessage,
         string $errorFile,
         string $errorLine
-    ): ?callable {
+    ): ?callable
+    {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine);
         return null;
     }
