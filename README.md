@@ -29,6 +29,7 @@ $app = Quicky::create();
 
 Quicky::route("GET", "/", function(Request $request, Response $response) {
     $response->write("Hello World");
+    return $response;
 });
 
 $app->run();
