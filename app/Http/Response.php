@@ -406,6 +406,13 @@ class Response
         $this->body .= sprintf($text, ...$formatters) . PHP_EOL;
     }
 
+    /**
+     * Compress the response with gzencode.
+     * Should only be called as last statement in callback,
+     * before response is returned.
+     *
+     * @param int $level
+     */
     public function compress(int $level = 6): void
     {
         $this->body = gzencode($this->body, $level);
