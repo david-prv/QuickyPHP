@@ -408,10 +408,8 @@ class Response
 
     public function compress(int $level = 6): void
     {
-        // compress data
         $this->body = gzencode($this->body, $level);
 
-        // various headers, those with # are mandatory
         $this->withHeader("Content-Type", "application/x-download");
         $this->withHeader("Content-Encoding", "gzip");
         $this->withHeader("Content-Length", (string)$this->getContentLength());
