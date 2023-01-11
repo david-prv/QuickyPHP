@@ -367,7 +367,7 @@ class Response
         }
 
         foreach ($this->headers as $header) {
-            header($header["name"]. ": " . $header["value"]);
+            header($header["name"] . ": " . $header["value"]);
         }
     }
 
@@ -404,6 +404,20 @@ class Response
             return;
         }
         $this->body .= sprintf($text, ...$formatters) . PHP_EOL;
+    }
+
+    public function compress(int $level = 6): void
+    {
+        // compress data
+        $this->body = gzencode($this->body, $level);
+
+        // various headers, those with # are mandatory
+        $this->withHeader("Content-Type", "application/x-download");
+        $this->withHeader("Content-Encoding", "gzip");
+        $this->withHeader("Content-Length", (string)$this->getContentLength());
+        $this->withHeader("Content-Disposition", "attachment; filename='compressed.data.gz'");
+        $this->withHeader("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
+        $this->withHeader("Pragma", "no-cache");
     }
 
     /**

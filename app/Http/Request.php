@@ -324,11 +324,14 @@ class Request
      * of sent data
      *
      * @param string $name
+     * @param bool $htmlEscape
      * @return string|null
      */
-    public function getField(string $name): ?string
+    public function getField(string $name, bool $htmlEscape = true): ?string
     {
-        return (isset($this->getData()[$name])) ? $this->getData()[$name] : null;
+        return (isset($this->getData()[$name]))
+            ? (($htmlEscape) ? htmlspecialchars($this->getData()[$name]) : $this->getData()[$name])
+            : null;
     }
 
     /**
@@ -377,13 +380,17 @@ class Request
      *
      * @param string $argName
      * @param bool $decode
+     * @param bool $htmlEscape
      * @return string
      * @throws InvalidParametersException
      */
-    public function getArg(string $argName, bool $decode = true): string
+    public function getArg(string $argName, bool $decode = true, bool $htmlEscape = true): string
     {
         if (isset($this->args[$argName])) {
-            return ($decode) ? urldecode($this->args[$argName]) : $this->args[$argName];
+            return ($decode)
+                ? (($htmlEscape) ? htmlspecialchars(urldecode($this->args[$argName]))
+                    : urldecode($this->args[$argName]))
+                : (($htmlEscape) ? htmlspecialchars($this->args[$argName]) : $this->args[$argName]);
         } else {
             throw new InvalidParametersException($argName);
         }
