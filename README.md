@@ -1,7 +1,10 @@
 # QuickyPHP
 [![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  
 
-A php micro-framework for simple and quick web-applications
+A php micro-framework for simple and quick web-applications  
+
+🌐 Website: [https://quickyphp.de/](https://quickyphp.de/)  
+📖 Documentation: [https://quickyphp.de/docs/](https://quickyphp.de/docs/)
 
 ## Work in progress...
 This project is still in *heavy* development. Methods will change or be removed entirely. Please do not implement any production systems with QuickyPHP yet! Wait until the first alpha releases are published and stable enough for production software. In any other case, feel free to play around with QuickyPHP!
