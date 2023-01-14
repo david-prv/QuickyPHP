@@ -116,43 +116,10 @@ class Request
 
     /**
      * Request constructor.
-     *
-     * @param array $data
      */
-    public function __construct(...$data)
+    public function __construct()
     {
-        if (count($data) === 0) {
-            $this->collectServerData();
-        } else {
-            $this->parseDataFromArray($data);
-        }
-    }
-
-    /**
-     * Collect all info from provided array
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @param array $data
-     */
-    private function parseDataFromArray(array $data): void
-    {
-        $this->method = $data["method"] ?? strtoupper($_SERVER['REQUEST_METHOD']);
-        $this->url = $data["url"] ?? (string)parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->time = $data["time"] ?? (string)$_SERVER["REQUEST_TIME"];
-        $this->headers = $data["headers"]
-            ?? ((function_exists("getallheaders")) ? getallheaders() : $this->readRequestHeaders());
-        $this->remote = $data["remote"] ?? array($_SERVER["REMOTE_ADDR"],
-                gethostbyaddr($_SERVER["REMOTE_ADDR"]), $_SERVER["REMOTE_PORT"]);
-        $this->cookie = $data["cookie"] ?? ($this->headers["Cookie"] ?? "");
-        $this->accept = $data["accept"] ?? ($this->headers["Accept"] ?? "");
-        $this->ua = $data["ua"] ?? ($this->headers["User-Agent"] ?? "");
-        $this->secure = $data["secure"] ?? isset($_SERVER["HTTPS"]) && !is_null($_SERVER["HTTPS"]);
-        $this->referrer = $data["referrer"] ?? (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "");
-        $this->data = $data["data"] ?? ((count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array()));
-        $this->args = $data["args"] ?? array();
-        $this->csrfToken = $data["csrfToken"] ?? ((isset($this->data[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN]))
-                ? $this->data[Quicky::QUICKY_SESSION_FIELD_CSRF_TOKEN]
-                : ((isset($this->headers["X-CSRF-TOKEN"])) ? $this->headers["X-CSRF-TOKEN"] : null));
+        $this->collectServerData();
     }
 
     /**

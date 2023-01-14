@@ -114,7 +114,7 @@ class Quicky
                     string $errorLine
                 ) {
                     return $this->catchError($errorLevel, $errorMessage, $errorFile, $errorLine);
-                });
+                }, E_ALL);
                 set_exception_handler(function (Throwable $e) {
                     return $this->catchException($e);
                 });
@@ -147,7 +147,7 @@ class Quicky
     public static function use(array $settings): void
     {
         if (isset($settings["handlers"]) && isset($settings["handlers"]["error"])) {
-            set_error_handler($settings["handlers"]["error"]);
+            set_error_handler($settings["handlers"]["error"], E_ALL);
         }
         if (isset($settings["handlers"]) && isset($settings["handlers"]["exception"])) {
             set_exception_handler($settings["handlers"]["exception"]);
@@ -168,22 +168,19 @@ class Quicky
 
     /**
      * Starts the application
+     *
+     * @throws UnknownRouteException
+     * @throws NotAResponseException
      */
     public function run(): void
     {
-        try {
-            // route request here
-            $router = DynamicLoader::getLoader()->getInstance(Router::class);
+        // route request here
+        $router = DynamicLoader::getLoader()->getInstance(Router::class);
 
-            if ($router instanceof Router) {
-                $router(new Request(), new Response());
-            } else {
-                $this->stop();
-            }
-        } catch (UnknownRouteException $e) {
-            $this->catchException($e);
-        } catch (NotAResponseException $e) {
-            $this->catchException($e);
+        if ($router instanceof Router) {
+            $router(new Request(), new Response());
+        } else {
+            $this->stop();
         }
     }
 
@@ -225,8 +222,7 @@ class Quicky
         string $errorMessage,
         string $errorFile,
         string $errorLine
-    ): ?callable
-    {
+    ): ?callable {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine);
         return null;
     }

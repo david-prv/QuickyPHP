@@ -302,22 +302,14 @@ class Response
     }
 
     /**
-     * Sends a 403 - Forbidden Error
-     */
-    public function forbidden(): void
-    {
-        $this->status(403);
-    }
-
-    /**
      * Stops/Halts HTTP Response
      * e.g if an error occurred
      *
-     * @param string $message
+     * @param int $code
      */
-    public function stop(string $message = ""): void
+    public function stop(int $code = 200): void
     {
-        die($message);
+        die($this->getErrorMessage($code));
     }
 
     /**
@@ -413,7 +405,7 @@ class Response
      *
      * @param int $level
      */
-    public function compress(int $level = 6): void
+    private function compress(int $level = 6): void
     {
         $this->body = gzencode($this->body, $level);
 
@@ -432,7 +424,7 @@ class Response
      * @param int $code
      * @return string
      */
-    public function getErrorMessage(int $code): string
+    private function getErrorMessage(int $code): string
     {
         return (isset($this->codes[$code])) ? $this->codes[$code] : "Strange HTTP Error";
     }
@@ -452,12 +444,19 @@ class Response
 
     /**
      * Send the body as HTTP response
+     *
+     * @param bool $compress
+     * @param int $compressLevel
      */
-    public function send(): void
+    public function send(bool $compress = false, int $compressLevel = 6): void
     {
         // cancel if already sent
         if ($this->isSent()) {
             return;
+        }
+
+        if ($compress) {
+            $this->compress($compressLevel);
         }
 
         if ($this->useCache) {

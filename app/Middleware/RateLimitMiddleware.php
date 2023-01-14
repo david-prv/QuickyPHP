@@ -92,8 +92,7 @@ class RateLimitMiddleware implements MiddlewareInterface
                 $rateLimit['count']++;
             } else {
                 // Return a response with an error message
-                $response->status(429);
-                $response->stop("Too many requests. Please slow down.");
+                $response->stop(429);
             }
 
             // Update the rate limit in the session
