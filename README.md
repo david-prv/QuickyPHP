@@ -1,5 +1,5 @@
 <p align="center">
-  <img idth="460" height="300" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
+  <img height="250" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
 </p>
 
 ------------------------------------
