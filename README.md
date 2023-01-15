@@ -1,4 +1,9 @@
-# QuickyPHP
+<p align="center">
+  <img idth="460" height="300" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
+</p>
+
+------------------------------------
+
 [![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  
 
 A php micro-framework for simple and quick web-applications  
