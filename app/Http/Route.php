@@ -163,7 +163,22 @@ class Route
                 $regex .= "\/$part";
             }
         }
-        return '/^' . $regex . '$/';
+        return '/^' . $regex . '(\/)?$/';
+    }
+
+    /**
+     * Verifies, if the passed variable value fits to the given
+     * restrictions
+     *
+     * @param string $regEx
+     * @param int $fixedSize
+     * @param string $variableValue
+     * @return bool
+     */
+    private function verifyVariable(string $regEx, int $fixedSize, string $variableValue): bool
+    {
+        return ((!is_null($regEx) && preg_match($regEx, $variableValue)) || is_null($regEx))
+            && (($fixedSize !== -1 && strlen($variableValue) === $fixedSize) || $fixedSize === -1);
     }
 
     /**
@@ -171,15 +186,31 @@ class Route
      *
      * @param array $pattern
      * @param array $urlParts
-     * @return array
+     * @return array|null
      */
-    private function getUrlVariableValues(array $pattern, array $urlParts): array
+    private function getUrlVariableValues(array $pattern, array $urlParts): ?array
     {
         $values = array();
         foreach ($pattern as $i => $part) {
             if (preg_match("/^{.*}$/", $part)) {
                 $varName = str_replace(["{", "}"], "", $part);
-                $values[$varName] = $urlParts[$i];
+                $regEx = null;
+                $fixedSize = -1;
+
+                $tmp = explode(":", $varName);
+                if (count($tmp) >= 2) {
+                    $varName = $tmp[0];
+                    $regEx = str_replace(["(", ")"], "", $tmp[1]);
+                    $regEx = "/^$regEx$/";
+                    $fixedSize = $tmp[2] ?? -1;
+                    $fixedSize = (int)$fixedSize;
+                }
+
+                if ($this->verifyVariable($regEx, $fixedSize, $urlParts[$i])) {
+                    $values[$varName] = $urlParts[$i];
+                } else {
+                    return null;
+                }
             }
         }
         return $values;
@@ -220,7 +251,10 @@ class Route
         }
 
         $values = $this->getUrlVariableValues($pattern, $urlParts);
-        $request->setArgs($values);
-        return true;
+        if (!is_null($values)) {
+            $request->setArgs($values);
+            return true;
+        }
+        return false;
     }
 }
