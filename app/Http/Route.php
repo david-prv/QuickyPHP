@@ -57,7 +57,8 @@ class Route
         string $pattern,
         callable $callback,
         array $middleware
-    ) {
+    )
+    {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
@@ -163,7 +164,7 @@ class Route
                 $regex .= "\/$part";
             }
         }
-        return '/^' . $regex . '$/';
+        return '/^' . $regex . '(\/)?$/';
     }
 
     /**
@@ -171,15 +172,28 @@ class Route
      *
      * @param array $pattern
      * @param array $urlParts
-     * @return array
+     * @return array|null
      */
-    private function getUrlVariableValues(array $pattern, array $urlParts): array
+    private function getUrlVariableValues(array $pattern, array $urlParts): ?array
     {
         $values = array();
         foreach ($pattern as $i => $part) {
             if (preg_match("/^{.*}$/", $part)) {
                 $varName = str_replace(["{", "}"], "", $part);
-                $values[$varName] = $urlParts[$i];
+                $regEx = null;
+
+                $tmp = explode(":", $varName);
+                if (count($tmp) === 2) {
+                    $regEx = str_replace(["(", ")"], "", $tmp[1]);
+                    $regEx = "/^$regEx$/";
+                    $varName = $tmp[0];
+                }
+
+                if ((!is_null($regEx) && preg_match($regEx, $urlParts[$i])) || is_null($regEx)) {
+                    $values[$varName] = $urlParts[$i];
+                } else {
+                    return null;
+                }
             }
         }
         return $values;
@@ -220,7 +234,10 @@ class Route
         }
 
         $values = $this->getUrlVariableValues($pattern, $urlParts);
-        $request->setArgs($values);
-        return true;
+        if (!is_null($values)) {
+            $request->setArgs($values);
+            return true;
+        }
+        return false;
     }
 }
