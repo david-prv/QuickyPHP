@@ -8,13 +8,20 @@ $app = Quicky::create();
 Quicky::session()->start();
 
 Quicky::route("GET", "/", function (Request $_, Response $response) {
-    $response->write("Usage: /[SOME NUMBER]");
+    $response->write("Usage: /[SOME NUMBER] OR /test/[ALPHANUM]/test " .
+        "OR /user/[6 CHAR STRING]/profile/");
 
     return $response;
 });
 
 Quicky::route("GET", "/test/(\w+)/test/", function (Request $request, Response $response) {
-    $response->write("<h1>Hallo</h1>");
+    $response->write("Yup, that's correct.");
+
+    return $response;
+});
+
+Quicky::route("GET", "/user/{username:([A-Z,a-z]*):6}/profile/", function (Request $request, Response $response) {
+    $response->write($request->getArg("username"));
 
     return $response;
 });

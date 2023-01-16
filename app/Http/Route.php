@@ -57,8 +57,7 @@ class Route
         string $pattern,
         callable $callback,
         array $middleware
-    )
-    {
+    ) {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
@@ -168,6 +167,21 @@ class Route
     }
 
     /**
+     * Verifies, if the passed variable value fits to the given
+     * restrictions
+     *
+     * @param string $regEx
+     * @param int $fixedSize
+     * @param string $variableValue
+     * @return bool
+     */
+    private function verifyVariable(string $regEx, int $fixedSize, string $variableValue): bool
+    {
+        return ((!is_null($regEx) && preg_match($regEx, $variableValue)) || is_null($regEx))
+            && (($fixedSize !== -1 && strlen($variableValue) === $fixedSize) || $fixedSize === -1);
+    }
+
+    /**
      * Parses all named variables from URL
      *
      * @param array $pattern
@@ -181,15 +195,18 @@ class Route
             if (preg_match("/^{.*}$/", $part)) {
                 $varName = str_replace(["{", "}"], "", $part);
                 $regEx = null;
+                $fixedSize = -1;
 
                 $tmp = explode(":", $varName);
-                if (count($tmp) === 2) {
+                if (count($tmp) >= 2) {
+                    $varName = $tmp[0];
                     $regEx = str_replace(["(", ")"], "", $tmp[1]);
                     $regEx = "/^$regEx$/";
-                    $varName = $tmp[0];
+                    $fixedSize = $tmp[2] ?? -1;
+                    $fixedSize = (int)$fixedSize;
                 }
 
-                if ((!is_null($regEx) && preg_match($regEx, $urlParts[$i])) || is_null($regEx)) {
+                if ($this->verifyVariable($regEx, $fixedSize, $urlParts[$i])) {
                     $values[$varName] = $urlParts[$i];
                 } else {
                     return null;
