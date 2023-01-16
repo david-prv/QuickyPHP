@@ -28,11 +28,40 @@ class View implements DispatchingInterface
     private array $dispatching;
 
     /**
+     * Globally assigned placeholders
+     *
+     * @var array
+     */
+    private array $globalPlaceholders;
+
+    /**
      * View constructor.
      */
     public function __construct()
     {
         $this->dispatching = array("view", "render");
+        $this->globalPlaceholders = array();
+    }
+
+    /**
+     * Sets new globally applied placeholders
+     *
+     * @param array $placeholders
+     */
+    public function usePlaceholders(array $placeholders): void
+    {
+        $this->globalPlaceholders = $placeholders;
+    }
+
+    /**
+     * Returns the currently saved globally
+     * applied placeholders
+     *
+     * @return array
+     */
+    public function getGlobalPlaceholders(): array
+    {
+        return $this->globalPlaceholders;
     }
 
     /**
@@ -46,8 +75,12 @@ class View implements DispatchingInterface
     public static function render(string $viewName, ?array $variables = null, ?string $override = null)
     {
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
+        $view = DynamicLoader::getLoader()->getInstance(View::class);
+
         $workingDir = $override ?? getcwd() . $config->getViewsPath();
         $viewFile = "$workingDir/$viewName.html";
+        $variables = ($variables !== null) ? array_merge($variables, $view->getGlobalPlaceholders())
+            : $view->getGlobalPlaceholders();
 
         if (!is_dir($workingDir) || !is_file($viewFile)) {
             throw new ViewNotFoundException($viewName);
@@ -78,7 +111,7 @@ class View implements DispatchingInterface
         string $errorFile,
         string $errorLine
     ): void {
-        echo "<strong>Error</strong>: $errorMessage | $errorFile in line $errorLine" . PHP_EOL;
+        echo "<strong>Error</strong>: $errorMessage ($errorLevel) | $errorFile in line $errorLine" . PHP_EOL;
     }
 
     /**

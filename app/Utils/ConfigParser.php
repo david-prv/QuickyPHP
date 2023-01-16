@@ -68,11 +68,11 @@ class ConfigParser
     private function loadFromEnv(): array
     {
         return array(
-            "project" => getenv("project"),
-            "cache" => getenv("cache"),
-            "storage" => getenv("storage"),
-            "views" => getenv("views"),
-            "logs" => getenv("logs")
+            "project" => explode(",", getenv("PROJECT_DETAILS")),
+            "cache" => explode(",", getenv("CACHE_INFO")),
+            "storage" => getenv("STORAGE_PATH"),
+            "views" => getenv("VIEWS_PATH"),
+            "logs" => getenv("LOGS_PATH")
         );
     }
 

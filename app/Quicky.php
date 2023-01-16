@@ -140,11 +140,11 @@ class Quicky
     }
 
     /**
-     * Use custom settings
+     * Applies error/exception handlers
      *
      * @param array $settings
      */
-    public static function use(array $settings): void
+    private function useHandlers(array $settings): void
     {
         if (isset($settings["handlers"]) && isset($settings["handlers"]["error"])) {
             set_error_handler($settings["handlers"]["error"], E_ALL);
@@ -152,18 +152,66 @@ class Quicky
         if (isset($settings["handlers"]) && isset($settings["handlers"]["exception"])) {
             set_exception_handler($settings["handlers"]["exception"]);
         }
+    }
+
+    /**
+     * Applies globally used middleware
+     *
+     * @param array $settings
+     */
+    private function useMiddleware(array $settings): void
+    {
         if (isset($settings["middleware"])) {
             $router = DynamicLoader::getLoader()->getInstance(Router::class);
             if ($router instanceof Router) {
                 $router->useMiddleware(...$settings["middleware"]);
             }
         }
+    }
+
+    /**
+     * Applies new environment state
+     *
+     * @param array $settings
+     */
+    private function useEnv(array $settings): void
+    {
         if (isset($settings["env"])) {
             $config = DynamicLoader::getLoader()->getInstance(Config::class);
             if ($config instanceof Config) {
                 $config->setEnv($settings["env"]);
             }
         }
+    }
+
+    /**
+     * Applies globally applied placeholders
+     *
+     * @param array $settings
+     */
+    private function usePlaceholders(array $settings): void
+    {
+        if (isset($settings["placeholders"])) {
+            $view = DynamicLoader::getLoader()->getInstance(View::class);
+            if ($view instanceof View) {
+                $view->usePlaceholders($settings["placeholders"]);
+            }
+        }
+    }
+
+    /**
+     * Use custom settings
+     *
+     * @param array $settings
+     */
+    public static function use(array $settings): void
+    {
+        $quicky = DynamicLoader::getLoader()->getInstance(Quicky::class);
+
+        $quicky->useHandlers($settings);
+        $quicky->useMiddleware($settings);
+        $quicky->useEnv($settings);
+        $quicky->usePlaceholders($settings);
     }
 
     /**
