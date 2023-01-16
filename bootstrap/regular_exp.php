@@ -31,3 +31,9 @@ Quicky::route("GET", "/{id:(\d+)}", function (Request $request, Response $respon
 
     return $response;
 });
+
+Quicky::route("GET", "/test2/{var::3-5}", function (Request $request, Response $response) {
+    $response->write($request->getArg("var"));
+
+    return $response;
+});

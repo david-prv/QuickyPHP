@@ -167,18 +167,56 @@ class Route
     }
 
     /**
-     * Verifies, if the passed variable value fits to the given
-     * restrictions
+     * Check if variable is in given boundaries
      *
-     * @param string $regEx
-     * @param int $fixedSize
+     * @param int $minSize
+     * @param int $maxSize
      * @param string $variableValue
      * @return bool
      */
-    private function verifyVariable(string $regEx, int $fixedSize, string $variableValue): bool
+    private function checkVarBoundaries(int $minSize, int $maxSize, string $variableValue): bool
     {
-        return ((!is_null($regEx) && preg_match($regEx, $variableValue)) || is_null($regEx))
-            && (($fixedSize !== -1 && strlen($variableValue) === $fixedSize) || $fixedSize === -1);
+        if ($minSize !== -1 && $maxSize !== -1
+            && (strlen($variableValue) > $maxSize || strlen($variableValue) < $minSize)) {
+            return false;
+        }
+
+        if ($minSize !== -1 && $maxSize === -1 && strlen($variableValue) !== $minSize) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if regular expression matches the value
+     *
+     * @param string|null $regEx
+     * @param string $variableValue
+     * @return bool
+     */
+    private function checkVarRegEx(?string $regEx, string $variableValue): bool
+    {
+        return ((!is_null($regEx) && preg_match($regEx, $variableValue)) || is_null($regEx));
+    }
+
+    /**
+     * Verifies, if the passed variable value fits to the given
+     * restrictions
+     *
+     * @param string|null $regEx
+     * @param int $minSize
+     * @param int $maxSize
+     * @param string $variableValue
+     * @return bool
+     */
+    private function verifyVariable(?string $regEx, int $minSize, int $maxSize, string $variableValue): bool
+    {
+        if (!$this->checkVarBoundaries($minSize, $maxSize, $variableValue)) {
+            return false;
+        }
+
+        return $this->checkVarRegEx($regEx, $variableValue);
     }
 
     /**
@@ -195,18 +233,23 @@ class Route
             if (preg_match("/^{.*}$/", $part)) {
                 $varName = str_replace(["{", "}"], "", $part);
                 $regEx = null;
-                $fixedSize = -1;
+                $minSize = -1;
+                $maxSize = -1;
 
                 $tmp = explode(":", $varName);
                 if (count($tmp) >= 2) {
                     $varName = $tmp[0];
-                    $regEx = str_replace(["(", ")"], "", $tmp[1]);
-                    $regEx = "/^$regEx$/";
-                    $fixedSize = $tmp[2] ?? -1;
-                    $fixedSize = (int)$fixedSize;
+                    $regEx = (!empty($tmp[1])) ? str_replace(["(", ")"], "", $tmp[1]) : null;
+                    $regEx = (!is_null($regEx)) ? "/^$regEx$/" : null;
+
+                    $sizes = (isset($tmp[2])) ? explode("-", $tmp[2]) : array();
+                    $minSize = $sizes[0] ?? -1;
+                    $maxSize = $sizes[1] ?? -1;
+                    $minSize = (int)$minSize;
+                    $maxSize = (int)$maxSize;
                 }
 
-                if ($this->verifyVariable($regEx, $fixedSize, $urlParts[$i])) {
+                if ($this->verifyVariable($regEx, $minSize, $maxSize, $urlParts[$i])) {
                     $values[$varName] = $urlParts[$i];
                 } else {
                     return null;
@@ -251,10 +294,10 @@ class Route
         }
 
         $values = $this->getUrlVariableValues($pattern, $urlParts);
-        if (!is_null($values)) {
-            $request->setArgs($values);
-            return true;
+        if (is_null($values)) {
+            return false;
         }
-        return false;
+        $request->setArgs($values);
+        return true;
     }
 }
