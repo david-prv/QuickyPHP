@@ -3,7 +3,7 @@
 ## Disclaimer
 
 We are not responsible for any damage that is caused by possible vulnerabilities contained in this project. Please always run your own security checks first, before
-you start implementing production systems with sensitive data. Also, use **strong** encryption algorithms (like: AES, RSA, SSH, ...) and secure hash functions
+you start implementing production systems with sensitive data. Also, use **strong** encryption algorithms (like: AES, RSA, SSL, ...) and secure hash functions
 (e.g. SHA256 is considered to be secure).
 
 ## Reporting a Vulnerability
