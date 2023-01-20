@@ -25,6 +25,6 @@ Any proposed pull request has to fullfill the requirements, as stated in our cod
 ## Security policy:
 
 You have found an issue or even a dangerous vulnerability? Thank you for choosing the light side of the force! That's also a way of contribution. You can report your issue
-by simply sending us an e-mail or opening an issue on github.
+by simply sending us an e-mail (do not open an issue on github for reporting vulnerabilities!).
 
 [Learn more](https://github.com/david-prv/QuickyPHP/security/policy)
