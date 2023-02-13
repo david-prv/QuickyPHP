@@ -150,7 +150,7 @@ class Route
     {
         $regex = '';
         foreach ($pattern as $part) {
-            if (preg_match("/^{.*}$/", $part)) {
+            if (preg_match("/^@.*$/", $part)) {
                 $regex .= '\/([^\/]+)';
             } elseif (preg_match("/^\(.*\)$/", $part)) {
                 $part = str_replace(["(", ")"], "", $part);
@@ -230,8 +230,8 @@ class Route
     {
         $values = array();
         foreach ($pattern as $i => $part) {
-            if (preg_match("/^{.*}$/", $part)) {
-                $varName = str_replace(["{", "}"], "", $part);
+            if (preg_match("/^@.*$/", $part)) {
+                $varName = str_replace("@", "", $part);
                 $regEx = null;
                 $minSize = -1;
                 $maxSize = -1;

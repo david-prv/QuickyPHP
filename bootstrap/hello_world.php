@@ -13,7 +13,7 @@ Quicky::route("GET", "/", function (Request $_, Response $response) {
     return $response;
 });
 
-Quicky::route("GET", "/{name}", function (Request $request, Response $response) {
+Quicky::route("GET", "/@name", function (Request $request, Response $response) {
     $response->write("Hello, %s!", $request->getArg("name"));
 
     return $response;
