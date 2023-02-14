@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Request;
-use App\Http\Response;
-use App\Quicky;
+use Quicky\App;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
 
-$app = Quicky::create();
-Quicky::session()->start();
+$app = App::create();
+App::session()->start();
 
-Quicky::route("GET", "/", function (Request $_, Response $response) {
-    $delay = number_format(microtime(true) - Quicky::session()->getCreatedAt(), 5);
+App::route("GET", "/", function (Request $_, Response $response) {
+    $delay = number_format(microtime(true) - App::session()->getCreatedAt(), 5);
     $response->render("index", array(
         "P_TIME_S" => $delay
     ));

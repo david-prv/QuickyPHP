@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Request;
-use App\Http\Response;
-use App\Middleware\LoggingMiddleware;
-use App\Middleware\RateLimitMiddleware;
-use App\Quicky;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
+use Quicky\Middleware\LoggingMiddleware;
+use Quicky\Middleware\RateLimitMiddleware;
+use Quicky\App;
 
-$app = Quicky::create();
-Quicky::session()->start();
+$app = App::create();
+App::session()->start();
 
-Quicky::route("GET", "/", function (Request $_, Response $response) {
+App::route("GET", "/", function (Request $_, Response $response) {
     $response->write("<h1>Test</h1>");
     $response->write("<p>Hallo Welt!</p>");
     return $response;

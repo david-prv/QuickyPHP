@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use App\Core\Config;
-use App\Core\DynamicLoader;
+use Quicky\Core\Config;
+use Quicky\Core\DynamicLoader;
 
 require __DIR__ . "/QuickyTestCase.php";
 

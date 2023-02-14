@@ -1,14 +1,14 @@
 <?php
 
-use App\Core\DynamicLoader;
-use App\Http\Request;
-use App\Http\Response;
-use App\Quicky;
+use Quicky\Core\DynamicLoader;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
+use Quicky\App;
 
-$app = Quicky::create();
-Quicky::session()->start();
+$app = App::create();
+App::session()->start();
 
-Quicky::route("GET", "/", function (Request $_, Response $response) {
+App::route("GET", "/", function (Request $_, Response $response) {
     DynamicLoader::getLoader()->getMethods()->dump();
 
     return $response;

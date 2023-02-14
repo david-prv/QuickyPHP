@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\Http\Route;
+use Quicky\Http\Route;
 
 require __DIR__ . "/QuickyTestCase.php";
 

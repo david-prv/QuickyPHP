@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Quicky;
+use Quicky\App;
 
 require __DIR__ . "/QuickyTestCase.php";
 
@@ -10,8 +10,8 @@ class BasicRouterTest extends QuickyTestCase
 {
     public function simpleRouteTest(): void
     {
-        $app = Quicky::create();
-        $router = Quicky::router();
+        $app = App::create();
+        $router = App::router();
         $router->route("GET", "/", function () {
         });
 

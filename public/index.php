@@ -17,7 +17,7 @@ require __DIR__ . "/../vendor/autoload.php";
 |--------------------------------------------------------------------------
 |
 | Create an singleton instance of QuickyPHP. We will use
-| Quicky with an active and secured session. Secure means, that the
+| App with an active and secured session. Secure means, that the
 | SessionID will be regenerating over-and-over again, to protect
 | your application against basic Session-Hijacking.
 |

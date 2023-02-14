@@ -2,23 +2,23 @@
 
 require __DIR__ . "/QuickyTestCase.php";
 
-use App\Quicky;
+use Quicky\App;
 
 final class SimpleTest extends QuickyTestCase
 {
     public function testCanBeInstantiated(): void
     {
         $this->assertInstanceOf(
-            Quicky::class,
-            Quicky::create()
+            App::class,
+            App::create()
         );
     }
 
     public function testCanBeStarted(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         $this->assertNotNull($instance);
-        $this->assertInstanceOf(Quicky::class, $instance);
+        $this->assertInstanceOf(App::class, $instance);
         $instance->run();
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Request;
-use App\Http\Response;
-use App\Quicky;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
+use Quicky\App;
 
-$app = Quicky::create();
-Quicky::session()->start();
+$app = App::create();
+App::session()->start();
 
 $usedMethods = array("GET", "POST");
 for ($i = 0; $i < 1000; $i++) {
     try {
-        Quicky::route(
+        App::route(
             $usedMethods[random_int(0, 1)],
             "/" . (string)$i,
             function (Request $_, Response $response) use ($i) {
@@ -23,8 +23,8 @@ for ($i = 0; $i < 1000; $i++) {
     }
 }
 
-Quicky::route("GET", "/", function (Request $_, Response $response) {
-    $router = Quicky::router();
+App::route("GET", "/", function (Request $_, Response $response) {
+    $router = App::router();
     $router->dump();
 
     return $response;

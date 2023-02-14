@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Request;
-use App\Http\Response;
-use App\Quicky;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
+use Quicky\App;
 
-$app = Quicky::create();
-Quicky::session()->start();
+$app = App::create();
+App::session()->start();
 
-Quicky::route("GET", "/**", function (Request $_, Response $response) {
+App::route("GET", "/**", function (Request $_, Response $response) {
     $response->write("Match!");
 
     return $response;

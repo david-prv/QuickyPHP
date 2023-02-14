@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-use App\Core\Config;
-use App\Core\Managers\SessionManager;
-use App\Core\View;
-use App\Http\Router;
-use App\Quicky;
-use App\Utils\Exceptions\UnknownCallException;
+use Quicky\Core\Config;
+use Quicky\Core\Managers\SessionManager;
+use Quicky\Core\View;
+use Quicky\Http\Router;
+use Quicky\App;
+use Quicky\Utils\Exceptions\UnknownCallException;
 
 require __DIR__ . "/QuickyTestCase.php";
 
@@ -13,7 +13,7 @@ class DispatcherTest extends QuickyTestCase
 {
     public function testSessionDispatch(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         $this->assertInstanceOf(
             SessionManager::class,
             $instance::session()
@@ -22,7 +22,7 @@ class DispatcherTest extends QuickyTestCase
 
     public function testViewDispatch(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         $this->assertInstanceOf(
             View::class,
             $instance::view()
@@ -31,7 +31,7 @@ class DispatcherTest extends QuickyTestCase
 
     public function testRouterDispatch(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         $this->assertInstanceOf(
             Router::class,
             $instance::router()
@@ -40,7 +40,7 @@ class DispatcherTest extends QuickyTestCase
 
     public function testConfigDispatch(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         $this->assertInstanceOf(
             Config::class,
             $instance::config()
@@ -49,7 +49,7 @@ class DispatcherTest extends QuickyTestCase
 
     public function testIllegalMethodDispatch(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         try {
             $instance::findRouteByHash("123abc");
             $this->fail("Method shouldn't be dispatching");
@@ -60,7 +60,7 @@ class DispatcherTest extends QuickyTestCase
 
     public function testUnknownMethodDispatch(): void
     {
-        $instance = Quicky::create();
+        $instance = App::create();
         try {
             $instance::unknownMethod();
             $this->fail("Unknown method called, should throw an exception!");

@@ -1,21 +1,21 @@
 <?php declare(strict_types=1);
 
-use App\Core\Config;
-use App\Core\DynamicLoader;
-use App\Quicky;
+use Quicky\Core\Config;
+use Quicky\Core\DynamicLoader;
+use Quicky\App;
 
 require __DIR__ . "/QuickyTestCase.php";
 
 class ConfigTest extends QuickyTestCase
 {
-    const CURRENT_NAME = "Quicky - PHP Framework";
+    const CURRENT_NAME = "App - PHP Framework";
     const CURRENT_VERSION = "0.0.1";
     const CURRENT_ENV = "development";
     const CURRENT_AUTHOR = "David Dewes";
 
     public function testLoadByJSON(): void
     {
-        Quicky::create(false, Quicky::QUICKY_CNF_MODE_JSON);
+        App::create(false, App::QUICKY_CNF_MODE_JSON);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         $this->assertTrue($config instanceof Config);
@@ -24,7 +24,7 @@ class ConfigTest extends QuickyTestCase
 
     public function testLoadByDefault(): void
     {
-        Quicky::create(false, Quicky::QUICKY_CNF_MODE_DEFAULT);
+        App::create(false, App::QUICKY_CNF_MODE_DEFAULT);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         $this->assertTrue($config instanceof Config);
