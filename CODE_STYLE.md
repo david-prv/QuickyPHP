@@ -90,11 +90,11 @@ Learn how to use it [here](https://github.com/squizlabs/PHP_CodeSniffer).
 ### 3. Pass PHPStan Level 0 Analysis
 PHPStan already enforces most of the code style rules above. Your code has to pass it. 
 ```bash
-./vendor/bin/phpstan analyze app
+./vendor/bin/phpstan analyze Quicky
 ```
 Should return:
 ```
-$ ./vendor/bin/phpstan analyze app
+$ ./vendor/bin/phpstan analyze Quicky
 
 32/32 [============================] 100%
                                                                                                           
@@ -104,12 +104,12 @@ $ ./vendor/bin/phpstan analyze app
 ### 4. Pass PHPMD static analysis
 Git will run a PHPMD codesize check for every commit. Your code has to pass it.  
 ```bash
-./vendor/bin/phpmd app text codesize
+./vendor/bin/phpmd Quicky text codesize
 ```
 Iff it returns nothing, your code has no issues.
 
 Optional:
 ```bash
-./vendor/bin/phpmd app text controversial
+./vendor/bin/phpmd Quicky text controversial
 ```
 
