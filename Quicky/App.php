@@ -24,6 +24,7 @@ use Quicky\Http\Router;
 use Quicky\Utils\Exceptions\NotAResponseException;
 use Quicky\Utils\Exceptions\UnknownCallException;
 use Quicky\Utils\Exceptions\UnknownRouteException;
+use Quicky\Utils\Exceptions\ViewNotFoundException;
 use Throwable;
 
 /**
@@ -76,6 +77,20 @@ class App
     private Config $config;
 
     /**
+     * Currently handled request
+     *
+     * @var Request
+     */
+    private Request $request;
+
+    /**
+     * Currently prepared response
+     *
+     * @var Response|null
+     */
+    private ?Response $response = null;
+
+    /**
      * Config loading modes
      */
     const QUICKY_CNF_MODE_JSON = "json";
@@ -97,6 +112,8 @@ class App
      */
     private function __construct(bool $catchErrors, string $mode)
     {
+        $this->request = new Request();
+
         DynamicLoader::getLoader()->registerInstance(App::class, $this);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
@@ -230,7 +247,7 @@ class App
         $router = DynamicLoader::getLoader()->getInstance(Router::class);
 
         if ($router instanceof Router) {
-            $router(new Request(), new Response());
+            $router($this->request, $this->response = new Response());
         } else {
             $this->stop();
         }
@@ -268,6 +285,7 @@ class App
      * @param string $errorFile
      * @param string $errorLine
      * @return callable|null ?callable
+     * @throws ViewNotFoundException
      */
     private function catchError(
         string $errorLevel,
@@ -275,7 +293,7 @@ class App
         string $errorFile,
         string $errorLine
     ): ?callable {
-        View::error($errorLevel, $errorMessage, $errorFile, $errorLine);
+        View::error($errorLevel, $errorMessage, $errorFile, $errorLine, $this->request);
         return null;
     }
 
@@ -285,10 +303,11 @@ class App
      *
      * @param Throwable $e
      * @return callable|null ?callable
+     * @throws ViewNotFoundException
      */
     private function catchException(Throwable $e): ?callable
     {
-        View::except($e->getMessage());
+        View::except($e->getMessage(), $this->request);
         return null;
     }
 

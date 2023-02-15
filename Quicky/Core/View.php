@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quicky\Core;
 
+use Quicky\Http\Request;
 use Quicky\Interfaces\DispatchingInterface;
 use Quicky\Utils\Exceptions\CoreException;
 use Quicky\Utils\Exceptions\ViewNotFoundException;
@@ -104,24 +105,39 @@ class View implements DispatchingInterface
      * @param string $errorMessage
      * @param string $errorFile
      * @param string $errorLine
+     * @param Request $request
+     * @throws ViewNotFoundException
      */
     public static function error(
         string $errorLevel,
         string $errorMessage,
         string $errorFile,
-        string $errorLine
+        string $errorLine,
+        Request $request
     ): void {
-        echo "<strong>Error</strong>: $errorMessage ($errorLevel) | $errorFile in line $errorLine" . PHP_EOL;
+        View::render("error", array(
+            "ERROR_TITLE" => "Oh no!",
+            "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
+            "REQ_REF_ID" => $request->getID()
+        ));
+        die();
     }
 
     /**
      * Render a basic exception message
      *
      * @param string $message
+     * @param Request $request
+     * @throws ViewNotFoundException
      */
-    public static function except(string $message): void
+    public static function except(string $message, Request $request): void
     {
-        echo "<strong>Exception:</strong> $message" . PHP_EOL;
+        View::render("error", array(
+            "ERROR_TITLE" => "Oh no!",
+            "ERROR_MESSAGE" => $message,
+            "REQ_REF_ID" => $request->getID()
+        ));
+        die();
     }
 
     /**

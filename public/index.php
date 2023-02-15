@@ -37,8 +37,4 @@ require_once __DIR__ . "/../bootstrap/default.php";
 |
 */
 
-try {
-    $app->run();
-} catch (\Quicky\Utils\Exceptions\NotAResponseException $e) {
-} catch (\Quicky\Utils\Exceptions\UnknownRouteException $e) {
-}
+$app->run();

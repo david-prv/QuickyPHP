@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Whoops...</title>
+
+    <style>
+        * {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font: 18px Helvetica, sans-serif;
+            color: gray;
+        }
+
+        .centered {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            font-family: 'Lato', sans-serif;
+            font-size: 50px;
+        }
+
+        .ref-id {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            position: absolute;
+            bottom: 15px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<section class="centered">
+    <h1>%ERROR_TITLE%</h1>
+    <div class="container">
+        <div>%ERROR_MESSAGE%</div>
+    </div>
+    <div class="ref-id">
+        (Ref: %REQ_REF_ID%)
+    </div>
+</section>
+</body>
+</html>

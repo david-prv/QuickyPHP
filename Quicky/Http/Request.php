@@ -20,6 +20,13 @@ use Quicky\Utils\Exceptions\InvalidParametersException;
 class Request
 {
     /**
+     * Request Ref-ID
+     *
+     * @var string
+     */
+    private string $id;
+
+    /**
      * The HTTP method
      *
      * @var string
@@ -119,6 +126,7 @@ class Request
      */
     public function __construct()
     {
+        $this->id = uniqid();
         $this->collectServerData();
     }
 
@@ -163,6 +171,16 @@ class Request
             }
         }
         return $headers;
+    }
+
+    /**
+     * Returns the refID
+     *
+     * @return string
+     */
+    public function getID(): string
+    {
+        return $this->id;
     }
 
     /**
