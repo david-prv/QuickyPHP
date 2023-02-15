@@ -1,4 +1,4 @@
-name: "CI"
+name: "PHPCS"
 
 on:
   pull_request:
