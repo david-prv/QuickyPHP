@@ -71,16 +71,16 @@ class Dispatcher
     }
 
     /**
-     * @param string $className
+     * @param string $methodName
      * @param mixed ...$args
      * @return mixed|null
      */
-    public static function unAlias(string $className, ...$args)
+    public static function unAlias(string $methodName, ...$args)
     {
         $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
 
-        if ($aliases instanceof Aliases && $aliases->isAlias($className)) {
-            return $aliases->evaluate($className, ...$args);
+        if ($aliases instanceof Aliases && $aliases->isAlias($methodName)) {
+            return $aliases->evaluate($methodName, ...$args);
         }
         return false;
     }

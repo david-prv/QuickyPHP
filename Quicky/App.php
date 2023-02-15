@@ -284,7 +284,6 @@ class App
      * @param string $errorMessage
      * @param string $errorFile
      * @param string $errorLine
-     * @return callable|null ?callable
      * @throws ViewNotFoundException
      */
     private function catchError(
@@ -292,9 +291,8 @@ class App
         string $errorMessage,
         string $errorFile,
         string $errorLine
-    ): ?callable {
+    ): void {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine, $this->request);
-        return null;
     }
 
     /**
