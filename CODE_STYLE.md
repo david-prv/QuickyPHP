@@ -113,3 +113,15 @@ Optional:
 ./vendor/bin/phpmd Quicky text controversial
 ```
 
+### 5. Pass PHPCS PHPCompatibility (php8) check
+```bash
+phpcs -p ./Quicky --standard=PHPCompatibility --runtime-set testVersion 8.2 -v
+```
+Should return:
+```
+Registering sniffs in the PHPCompatibility standard... DONE (117 sniffs registered)
+Creating file list... DONE (35 files in queue)
+(...)
+Time: 815ms; Memory: 10MB
+
+```

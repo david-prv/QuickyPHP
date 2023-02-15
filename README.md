@@ -44,8 +44,8 @@ $app->run();
 ```
 
 ## Requirements
-QuickyPHP requires PHP 7.4 or higher and a webserver that supports Rewrite Rules.  
-Note: Composer 2+ is required to find the package.
+QuickyPHP requires PHP 7.4+ or PHP 8 and a webserver that supports Rewrite Rules.  
+Note: Composer Version 2 is required to find and install the package.
 
 ## Installation
 ### Download files:
