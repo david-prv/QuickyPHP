@@ -31,22 +31,21 @@ class Dispatcher
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
         $loader = DynamicLoader::getLoader();
-        $a = $loader->getInstance(Aliases::class);
 
-        if ($a->isAlias($name)) {
-            return $a->evaluate($name, ...$args);
+        if ($x = self::unAlias($name, ...$args) !== false) {
+            return $x;
         }
 
         if (!is_null($className) && method_exists($className, $name)) {
-            $c = $loader->getInstance($className);
+            $instance = $loader->getInstance($className);
 
             if (!self::canDispatchMethod($className, $name)) {
                 throw new UnknownCallException($name);
             }
-            if (is_null($c)) {
+            if (is_null($instance)) {
                 throw new UnknownCallException($name);
             } else {
-                return call_user_func(array($c, $name), ...$args);
+                return call_user_func(array($instance, $name), ...$args);
             }
         } else {
             // the following method will use a MST (method search tree),
@@ -69,6 +68,21 @@ class Dispatcher
             }
             return call_user_func(array($instance, $name), ...$args);
         }
+    }
+
+    /**
+     * @param string $className
+     * @param mixed ...$args
+     * @return mixed|null
+     */
+    public static function unAlias(string $className, ...$args)
+    {
+        $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
+
+        if ($aliases instanceof Aliases && $aliases->isAlias($className)) {
+            return $aliases->evaluate($className, ...$args);
+        }
+        return false;
     }
 
     /**
