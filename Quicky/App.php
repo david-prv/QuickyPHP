@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quicky;
 
+use Quicky\Core\Aliases;
 use Quicky\Core\Config;
 use Quicky\Core\Dispatcher;
 use Quicky\Core\DynamicLoader;
@@ -54,6 +55,9 @@ use Throwable;
  *
  * Router:
  * @method static Router router()
+ *
+ * Aliases:
+ * @method static void alias(string $aliasName, ...$masterFunction)
  */
 class App
 {

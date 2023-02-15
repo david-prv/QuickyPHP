@@ -31,6 +31,12 @@ class Dispatcher
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
         $loader = DynamicLoader::getLoader();
+        $a = $loader->getInstance(Aliases::class);
+
+        if ($a->isAlias($name)) {
+            return $a->evaluate($name, ...$args);
+        }
+
         if (!is_null($className) && method_exists($className, $name)) {
             $c = $loader->getInstance($className);
 
