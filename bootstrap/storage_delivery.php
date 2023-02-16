@@ -7,7 +7,7 @@ use Quicky\App;
 $app = App::create();
 App::session()->start();
 
-App::route("GET", "/storage/{filename}/**", function (Request $request, Response $response) {
+App::route("GET", "/storage/@filename/**", function (Request $request, Response $response) {
     $response->sendFile($request->getArg("filename"));
 
     return $response;

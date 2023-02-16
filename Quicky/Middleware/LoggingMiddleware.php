@@ -122,8 +122,9 @@ class LoggingMiddleware implements MiddlewareInterface
         $this->errorLevel(0);
 
         $this->writeLog(
-            $request->getMethod() . " " . $request->getUrl() . " from " . $request->getRemote()[0] .
-            " | " . $request->getUserAgent() . " | " . json_encode($request->getData())
+            "(" . $request->getID() . ") " . $request->getMethod() . " "
+            . $request->getUrl() . " from " . $request->getRemote()[0]
+            . " | " . $request->getUserAgent() . " | " . json_encode($request->getData())
         );
 
         return $next($request, $response);

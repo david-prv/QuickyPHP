@@ -163,7 +163,7 @@ class Route
                 $regex .= "\/$part";
             }
         }
-        return '/^' . $regex . '(\/)?$/';
+        return '/^' . $regex . '(\/)*$/';
     }
 
     /**
