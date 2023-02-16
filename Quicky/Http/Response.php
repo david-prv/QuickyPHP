@@ -445,24 +445,35 @@ class Response
     /**
      * Send the body as HTTP response
      *
+     * @param bool $secure
      * @param bool $compress
      * @param int $compressLevel
      */
-    public function send(bool $compress = false, int $compressLevel = 6): void
+    public function send(bool $secure = true, bool $compress = false, int $compressLevel = 6): void
     {
         // cancel if already sent
         if ($this->isSent()) {
             return;
         }
 
+        // security headers
+        if ($secure) {
+            $this->withHeader("X-Frame-Options", "DENY");
+            $this->withHeader("X-XSS-Protection", "1; mode=block");
+            $this->withHeader("X-Content-Type-Options", "nosniff");
+        }
+
+        // response body compression
         if ($compress) {
             $this->compress($compressLevel);
         }
 
+        // enable cache
         if ($this->useCache) {
             $this->withCacheHeaders();
         }
 
+        // apply headers & send
         $this->applyHeaders();
         $this->isSent = true;
         echo $this->body;

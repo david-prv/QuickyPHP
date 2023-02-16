@@ -15,3 +15,9 @@ App::get("/", function (Request $_, Response $response) {
     $response->write("<h1>Hello World</h1>");
     return $response;
 });
+
+App::alias("render", function (string $message) {
+    echo $message;
+});
+
+App::render("error");
