@@ -339,6 +339,18 @@ class Response
     }
 
     /**
+     * Sets all security-relevant headers
+     *
+     * @return void
+     */
+    private function withSecurityHeaders(): void
+    {
+        $this->withHeader("X-Frame-Options", "DENY");
+        $this->withHeader("X-XSS-Protection", "1; mode=block");
+        $this->withHeader("X-Content-Type-Options", "nosniff");
+    }
+
+    /**
      * Set a custom header
      *
      * @param string $headerName
@@ -346,7 +358,7 @@ class Response
      */
     public function withHeader(string $headerName, string $headerValue): void
     {
-        array_push($this->headers, array("name" => $headerName, "value" => $headerValue));
+        $this->headers[] = array("name" => $headerName, "value" => $headerValue);
     }
 
     /**
@@ -445,11 +457,11 @@ class Response
     /**
      * Send the body as HTTP response
      *
-     * @param bool $secure
      * @param bool $compress
+     * @param bool $secure
      * @param int $compressLevel
      */
-    public function send(bool $secure = true, bool $compress = false, int $compressLevel = 6): void
+    public function send(bool $compress = false, bool $secure = true, int $compressLevel = 6): void
     {
         // cancel if already sent
         if ($this->isSent()) {
@@ -458,9 +470,7 @@ class Response
 
         // security headers
         if ($secure) {
-            $this->withHeader("X-Frame-Options", "DENY");
-            $this->withHeader("X-XSS-Protection", "1; mode=block");
-            $this->withHeader("X-Content-Type-Options", "nosniff");
+            $this->withSecurityHeaders();
         }
 
         // response body compression
@@ -483,15 +493,22 @@ class Response
      * Sends file-content as response
      *
      * @param string $fileName
+     * @param bool $secure
      * @throws UnknownFileSentException
      */
-    public function sendFile(string $fileName): void
+    public function sendFile(string $fileName, bool $secure = true): void
     {
         // cancel if already sent
         if ($this->isSent()) {
             return;
         }
 
+        // security headers
+        if ($secure) {
+            $this->withSecurityHeaders();
+        }
+
+        // enable cache
         if ($this->useCache) {
             $this->withCacheHeaders();
         }
@@ -528,10 +545,18 @@ class Response
      * @param string $viewName
      * @param array|null $variables
      * @param string|null $override
+     * @param bool $secure
      * @throws ViewNotFoundException
      */
-    public function render(string $viewName, ?array $variables = null, ?string $override = null): void
+    public function render(string $viewName, ?array $variables = null,
+                           ?string $override = null, bool $secure = true): void
     {
+        // security headers
+        if ($secure) {
+            $this->withSecurityHeaders();
+        }
+
+        // enable cache
         if ($this->useCache) {
             $this->withCacheHeaders();
         }
