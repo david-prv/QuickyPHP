@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align="center">
 <p>
   <img alt="" height="250" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
 </p>
