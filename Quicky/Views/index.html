@@ -2,32 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Default Page</title>
+    <title>Whoops...</title>
 
     <style>
+        * {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background: #ffffff;
-            font: 13px Helvetica, sans-serif;
+            font: 18px Helvetica, sans-serif;
             color: gray;
         }
 
+        .centered {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         h1 {
-            font-weight: normal;
-        }
-
-        .time {
-            margin: auto;
-            width: 50%;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .time-icon {
-            width: 20px;
-            transform: translateY(2px);
+            margin-bottom: 1rem;
+            font-family: 'Lato', sans-serif;
+            font-size: 50px;
         }
 
         .ref-id {
@@ -36,7 +37,12 @@
             text-align: center;
             position: absolute;
             bottom: 15px;
-            transform: translate(50%, 0%);
+            font-size: 13px;
+        }
+
+        .time-icon {
+            width: 20px;
+            transform: translate(-5px, -2px);
         }
     </style>
 </head>
@@ -47,16 +53,14 @@
     Icon credits: Font Awesome Pro 5.15.4 by @fontawesome (https://fontawesome.com)
 -->
 <body>
-    <div class="time">
-        <h1>
-            <svg fill="gray" class="time-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path d="M432 304c0 114.9-93.1 208-208 208S16 418.9 16 304c0-104 76.3-190.2 176-205.5V64h-28c-6.6 0-12-5.4-12-12V12c0-6.6 5.4-12 12-12h120c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-28v34.5c37.5 5.8 71.7 21.6 99.7 44.6l27.5-27.5c4.7-4.7 12.3-4.7 17 0l28.3 28.3c4.7 4.7 4.7 12.3 0 17l-29.4 29.4-.6.6C419.7 223.3 432 262.2 432 304zm-176 36V188.5c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12V340c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"/>
-            </svg>
-            took %P_TIME_S% sec
-        </h1>
-    </div>
+<section class="centered">
+    <svg fill="gray" class="time-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M432 304c0 114.9-93.1 208-208 208S16 418.9 16 304c0-104 76.3-190.2 176-205.5V64h-28c-6.6 0-12-5.4-12-12V12c0-6.6 5.4-12 12-12h120c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-28v34.5c37.5 5.8 71.7 21.6 99.7 44.6l27.5-27.5c4.7-4.7 12.3-4.7 17 0l28.3 28.3c4.7 4.7 4.7 12.3 0 17l-29.4 29.4-.6.6C419.7 223.3 432 262.2 432 304zm-176 36V188.5c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12V340c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12z"/>
+    </svg>
+    took %P_TIME_S% sec
     <div class="ref-id">
         (Ref: %REQ_REF_ID%)
     </div>
+</section>
 </body>
 </html>
