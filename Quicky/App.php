@@ -185,7 +185,11 @@ class App
         if (isset($settings["middleware"])) {
             $router = DynamicLoader::getLoader()->getInstance(Router::class);
             if ($router instanceof Router) {
-                $router->useMiddleware(...$settings["middleware"]);
+                if (is_array($settings["middleware"])) {
+                    $router->useMiddleware(...$settings["middleware"]);
+                } else {
+                    $router->useMiddleware($settings["middleware"]);
+                }
             }
         }
     }
@@ -225,14 +229,20 @@ class App
      *
      * @param array $settings
      */
-    public static function use(array $settings): void
+    public static function use(...$settings): void
     {
-        $quicky = DynamicLoader::getLoader()->getInstance(App::class);
+        $userSettings = $settings[0];
 
-        $quicky->useHandlers($settings);
-        $quicky->useMiddleware($settings);
-        $quicky->useEnv($settings);
-        $quicky->usePlaceholders($settings);
+        if (count($settings) >= 2) {
+            $userSettings = [$settings[0] => $settings[1]];
+        }
+
+        $app = DynamicLoader::getLoader()->getInstance(App::class);
+
+        $app->useHandlers($userSettings);
+        $app->useMiddleware($userSettings);
+        $app->useEnv($userSettings);
+        $app->usePlaceholders($userSettings);
     }
 
     /**
