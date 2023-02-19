@@ -1,10 +1,12 @@
-<p align="center">
-  <img height="250" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
+<div style="text-align: center;">
+<p>
+  <img alt="" height="250" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
 </p>
+</div>
 
 ------------------------------------
 
-[![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  
+[![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  [![PHPCS](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml)
 
 A php micro-framework for simple and quick web-applications  
 
