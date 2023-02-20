@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Quicky\Core;
 
 use Quicky\Interfaces\DispatchingInterface;
-use Quicky\Utils\Exceptions\InsufficientAliasException;
 
 /**
  * Class Aliases
@@ -54,14 +53,13 @@ class Aliases implements DispatchingInterface
      * @param string $aliasName
      * @param mixed $masterFunction
      * @param bool $ignoreClasses
-     * @throws InsufficientAliasException
      */
     public function alias(string $aliasName, $masterFunction, bool $ignoreClasses = true): void
     {
         // pre-condition
         $type = gettype($masterFunction);
         if (($type !== "string" && $type !== "object" && $type !== "array")) {
-            throw new InsufficientAliasException($aliasName);
+            return;
         }
 
         // add alias

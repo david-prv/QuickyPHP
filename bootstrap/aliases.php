@@ -6,6 +6,17 @@ use Quicky\Http\Response;
 
 $app = App::create();
 
+/*
+function test(): void
+{
+    echo "<h2>hello</h2>";
+}
+*/
+
+// App::use("alias", ["foo", "test"]);
+
+App::use("alias", ["B", App::class, false]);
+
 App::alias("A", App::class, false);
 
 App::alias("get", function (string $pattern, callable $callback, ...$middleware) {
@@ -35,5 +46,7 @@ App::alias("render", function (string $message) {
 });
 
 App::render("* beep * This is a test... * boop *");
+
+// A::foo();
 
 return $app;

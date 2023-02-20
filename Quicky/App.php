@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quicky;
 
+use Quicky\Core\Aliases;
 use Quicky\Core\Config;
 use Quicky\Core\Dispatcher;
 use Quicky\Core\DynamicLoader;
@@ -23,7 +24,6 @@ use Quicky\Http\Router;
 use Quicky\Utils\Exceptions\NotAResponseException;
 use Quicky\Utils\Exceptions\UnknownCallException;
 use Quicky\Utils\Exceptions\UnknownRouteException;
-use Quicky\Utils\Exceptions\ViewNotFoundException;
 use Throwable;
 
 /**
@@ -218,8 +218,26 @@ class App
     {
         if (isset($settings["placeholders"])) {
             $view = DynamicLoader::getLoader()->getInstance(View::class);
-            if ($view instanceof View) {
+            if ($view instanceof View && gettype($settings["placeholders"]) === "array") {
                 $view->usePlaceholders($settings["placeholders"]);
+            }
+        }
+    }
+
+    /**
+     * Applies aliases
+     *
+     * @param array $settings
+     * @return void
+     */
+    private function useAlias(array $settings): void
+    {
+        if (isset($settings["alias"])) {
+            $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
+            if ($aliases instanceof Aliases
+                && gettype($settings["alias"]) === "array"
+                && count($settings["alias"]) >= 2) {
+                $aliases->alias(...$settings["alias"]);
             }
         }
     }
@@ -243,6 +261,7 @@ class App
         $app->useMiddleware($userSettings);
         $app->useEnv($userSettings);
         $app->usePlaceholders($userSettings);
+        $app->useAlias($userSettings);
     }
 
     /**
@@ -304,7 +323,7 @@ class App
     ): ?callable {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine, $this->request);
         return null;
-   }
+    }
 
     /**
      * Basic exception handler for production.
