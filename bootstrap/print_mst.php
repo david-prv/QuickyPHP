@@ -13,3 +13,5 @@ App::route("GET", "/", function (Request $_, Response $response) {
 
     return $response;
 });
+
+return $app;

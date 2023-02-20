@@ -14,3 +14,5 @@ App::route("GET", "/", function (Request $_, Response $response) {
     $response->write("<p>Hallo Welt!</p>");
     return $response;
 }, new RateLimitMiddleware(1, 5), new LoggingMiddleware());
+
+return $app;

@@ -147,8 +147,7 @@ class DynamicLoader
                 // add it to the local list
                 $this->instances[$className] = $instance;
                 return $this->instances[$className];
-            } catch (ArgumentCountError $e) {
-            } catch (ReflectionException $e) {
+            } catch (ArgumentCountError|ReflectionException $e) {
             }
             return null;
         }
@@ -182,7 +181,7 @@ class DynamicLoader
 
         // for all file-infos
         foreach ($iterator as $info) {
-            // it is is a file
+            // it is a file
             if ($info->isFile()) {
                 $file = $info->getFilename();
                 $temp = explode(".", $file);
@@ -194,7 +193,7 @@ class DynamicLoader
                 );
                 $name = $namespace . "\\" . $temp[0];
                 if ($ext === "php" && $name !== "autoload" && $name !== "index") {
-                    array_push($this->classes, $name);
+                    $this->classes[] = $name;
                 }
             }
 

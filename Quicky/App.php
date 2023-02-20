@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Quicky;
 
-use Quicky\Core\Aliases;
 use Quicky\Core\Config;
 use Quicky\Core\Dispatcher;
 use Quicky\Core\DynamicLoader;
@@ -58,7 +57,7 @@ use Throwable;
  * @method static Router router()
  *
  * Aliases:
- * @method static void alias(string $aliasName, ...$masterFunction)
+ * @method static void alias(string $aliasName, mixed $masterFunction, bool $ignoreClasses = true)
  */
 class App
 {
@@ -88,7 +87,7 @@ class App
      *
      * @var Response|null
      */
-    private ?Response $response = null;
+    private ?Response $response;
 
     /**
      * Config loading modes
@@ -113,6 +112,7 @@ class App
     private function __construct(bool $catchErrors, string $mode)
     {
         $this->request = new Request();
+        $this->response = null;
 
         DynamicLoader::getLoader()->registerInstance(App::class, $this);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
@@ -121,7 +121,7 @@ class App
             $mode = "default";
         }
 
-        if (!is_null($config) && $config instanceof Config) {
+        if ($config instanceof Config) {
             $config->init($mode);
             $this->config = $config;
 
@@ -295,7 +295,6 @@ class App
      * @param string $errorFile
      * @param string $errorLine
      * @return callable|null ?callable
-     * @throws ViewNotFoundException
      */
     private function catchError(
         string $errorLevel,
@@ -313,7 +312,6 @@ class App
      *
      * @param Throwable $e
      * @return callable|null ?callable
-     * @throws ViewNotFoundException
      */
     private function catchException(Throwable $e): ?callable
     {

@@ -18,3 +18,5 @@ App::route("GET", "/@name", function (Request $request, Response $response) {
 
     return $response;
 });
+
+return $app;

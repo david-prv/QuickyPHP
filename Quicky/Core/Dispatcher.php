@@ -32,8 +32,8 @@ class Dispatcher
     {
         $loader = DynamicLoader::getLoader();
 
-        if ($x = self::unAlias($name, ...$args) !== false) {
-            return $x;
+        if (self::unAlias($name, ...$args) !== false) {
+            return true;
         }
 
         if (!is_null($className) && method_exists($className, $name)) {

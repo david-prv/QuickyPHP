@@ -24,3 +24,5 @@ App::route("GET", "/start/**/end", function (Request $_, Response $response) {
 
     return $response;
 });
+
+return $app;

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Quicky\Core;
 
-use phpDocumentor\Reflection\Types\Mixed_;
 use Quicky\Interfaces\DispatchingInterface;
 use Quicky\Utils\Exceptions\InsufficientAliasException;
 
@@ -53,27 +52,24 @@ class Aliases implements DispatchingInterface
      * class-specific methods like "array('MyClass', 'methodName')".
      *
      * @param string $aliasName
-     * @param mixed ...$masterFunction
+     * @param mixed $masterFunction
+     * @param bool $ignoreClasses
      * @throws InsufficientAliasException
      */
-    public function alias(string $aliasName, ...$masterFunction): void
+    public function alias(string $aliasName, $masterFunction, bool $ignoreClasses = true): void
     {
-        $master = $masterFunction;
-
         // pre-condition
         $type = gettype($masterFunction);
-        if (($type !== "string" && $type !== "object" && $type !== "array")
-            || count($masterFunction) !== 1) {
+        if (($type !== "string" && $type !== "object" && $type !== "array")) {
             throw new InsufficientAliasException($aliasName);
         }
 
-        // resolve arrays
-        if ($type === "array") {
-            $master = $masterFunction[0];
+        // add alias
+        if ($ignoreClasses === false && class_exists($masterFunction)) {
+            class_alias($masterFunction, $aliasName);
+        } else {
+            $this->aliases[$aliasName] = $masterFunction;
         }
-
-        // add or override alias
-        $this->aliases[$aliasName] = $master;
     }
 
     /**

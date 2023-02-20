@@ -6,6 +6,8 @@ use Quicky\Http\Response;
 
 $app = App::create();
 
+App::alias("A", App::class, false);
+
 App::alias("get", function (string $pattern, callable $callback, ...$middleware) {
     $router = App::router();
     $router->route("GET", $pattern, $callback, ...$middleware);
@@ -33,3 +35,5 @@ App::alias("render", function (string $message) {
 });
 
 App::render("* beep * This is a test... * boop *");
+
+return $app;

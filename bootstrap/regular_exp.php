@@ -37,3 +37,5 @@ App::route("GET", "/test2/@var::3-5", function (Request $request, Response $resp
 
     return $response;
 });
+
+return $app;

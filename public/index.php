@@ -24,7 +24,7 @@ require __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-require_once __DIR__ . "/../bootstrap/default.php";
+$app = require_once __DIR__ . "/../bootstrap/default.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +37,8 @@ require_once __DIR__ . "/../bootstrap/default.php";
 |
 */
 
-$app->run();
+if (!is_null($app) && version_compare(phpversion(), "7.4.0", "ge")) {
+    $app->run();
+} else {
+    die("The current running php version is not supported. Aborted!");
+}

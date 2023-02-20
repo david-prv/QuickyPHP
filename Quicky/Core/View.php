@@ -106,7 +106,6 @@ class View implements DispatchingInterface
      * @param string $errorFile
      * @param string $errorLine
      * @param Request $request
-     * @throws ViewNotFoundException
      */
     public static function error(
         string $errorLevel,
@@ -115,11 +114,14 @@ class View implements DispatchingInterface
         string $errorLine,
         Request $request
     ): void {
-        View::render("error", array(
-            "ERROR_TITLE" => "Oh no!",
-            "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
-            "REQ_REF_ID" => $request->getID()
-        ));
+        try {
+            View::render("error", array(
+                "ERROR_TITLE" => "Oh no!",
+                "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
+                "REQ_REF_ID" => $request->getID()
+            ));
+        } catch (ViewNotFoundException $e) {
+        }
         die();
     }
 
@@ -128,15 +130,17 @@ class View implements DispatchingInterface
      *
      * @param string $message
      * @param Request $request
-     * @throws ViewNotFoundException
      */
     public static function except(string $message, Request $request): void
     {
-        View::render("error", array(
-            "ERROR_TITLE" => "Oh no!",
-            "ERROR_MESSAGE" => $message,
-            "REQ_REF_ID" => $request->getID()
-        ));
+        try {
+            View::render("error", array(
+                "ERROR_TITLE" => "Oh no!",
+                "ERROR_MESSAGE" => $message,
+                "REQ_REF_ID" => $request->getID()
+            ));
+        } catch (ViewNotFoundException $e) {
+        }
         die();
     }
 
