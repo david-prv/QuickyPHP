@@ -37,6 +37,9 @@ use Throwable;
  * Read more:
  * @link https://pear.php.net/package/PhpDocumentor/docs/latest/phpDocumentor/tutorial_tags.method.pkg.html
  *
+ * Factory:
+ * @method static AppFactory factory()
+ *
  * Routes:
  * @method static void route(string $method, string $pattern, callable $callback, ...$middleware)
  *
@@ -121,7 +124,7 @@ class App
             $mode = "default";
         }
 
-        if ($config instanceof Config) {
+        if ($config instanceof Config && !is_null($config)) {
             $config->init($mode);
             $this->config = $config;
 
@@ -232,6 +235,7 @@ class App
      */
     private function useAlias(array $settings): void
     {
+        // TODO: Rework this, this might be wrong for multiple aliases
         if (isset($settings["alias"])) {
             $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
             if ($aliases instanceof Aliases
