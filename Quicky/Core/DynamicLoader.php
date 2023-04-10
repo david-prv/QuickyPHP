@@ -128,6 +128,8 @@ class DynamicLoader
      */
     public function getInstance(string $className, ?array $params = null): ?object
     {
+        // TODO: Make this work for static classes
+
         // if it is not an existing class...
         if (!in_array($className, $this->classes)) {
             return null;

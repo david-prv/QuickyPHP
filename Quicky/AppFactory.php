@@ -9,7 +9,6 @@
 
 namespace Quicky;
 
-use phpDocumentor\Reflection\Types\Callable_;
 use Quicky\Interfaces\DispatchingInterface;
 use Quicky\Interfaces\MiddlewareInterface;
 
