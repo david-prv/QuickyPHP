@@ -1,6 +1,6 @@
 <div align="center">
 <p>
-  <img alt="" height="280" src="https://quickyphp.de/img/RGB-Logo-Color-Name.svg">
+  <img alt="" height="280" src="https://quickyphp.de/img/new/Logo-04.png">
 </p>
 </div>
 
