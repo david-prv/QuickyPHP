@@ -4,7 +4,7 @@ use Quicky\Http\Route;
 
 require __DIR__ . "/QuickyTestCase.php";
 
-class RouteTest extends QuickyTestCase
+final class RouteTest extends QuickyTestCase
 {
     public function simpleAddRouteTest(): void
     {

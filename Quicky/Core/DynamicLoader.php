@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quicky\Core;
 
+use Quicky\App;
 use Quicky\Utils\MethodSearchTree;
 use ArgumentCountError;
 use DirectoryIterator;
@@ -92,6 +93,17 @@ class DynamicLoader
     }
 
     /**
+     * Fails if application was not initialized
+     * correctly or if boot-up failed bitterly
+     */
+    public function failIfNotInstantiated(): void
+    {
+        if (!$this->isInstantiated(App::class)) {
+            die("You can not interact with an uninstantiated application. Aborted!");
+        }
+    }
+
+    /**
      * Creates or returns the loader
      *
      * @param string|null $override
@@ -128,13 +140,15 @@ class DynamicLoader
      */
     public function getInstance(string $className, ?array $params = null): ?object
     {
+        $this->failIfNotInstantiated();
+
         // if it is not an existing class...
         if (!in_array($className, $this->classes)) {
             return null;
         }
 
         // if the instance is already instantiated...
-        if (isset($this->instances[$className])) {
+        if ($this->isInstantiated($className)) {
             return $this->instances[$className];
         } else {
             try {
@@ -151,6 +165,18 @@ class DynamicLoader
             }
             return null;
         }
+    }
+
+    /**
+     * Checks whether a certain class was
+     * instantiated once before
+     *
+     * @param string $className
+     * @return bool
+     */
+    public function isInstantiated(string $className): bool
+    {
+        return isset($this->instances[$className]);
     }
 
     /**

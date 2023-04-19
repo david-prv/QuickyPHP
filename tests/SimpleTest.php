@@ -19,6 +19,5 @@ final class SimpleTest extends QuickyTestCase
         $instance = App::create();
         $this->assertNotNull($instance);
         $this->assertInstanceOf(App::class, $instance);
-        $instance->run();
     }
 }

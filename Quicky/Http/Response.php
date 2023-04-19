@@ -548,9 +548,12 @@ class Response
      * @param bool $secure
      * @throws ViewNotFoundException
      */
-    public function render(string $viewName, ?array $variables = null,
-                           ?string $override = null, bool $secure = true): void
-    {
+    public function render(
+        string $viewName,
+        ?array $variables = null,
+        ?string $override = null,
+        bool $secure = true
+    ): void {
         // security headers
         if ($secure) {
             $this->withSecurityHeaders();

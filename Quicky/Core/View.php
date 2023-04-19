@@ -91,7 +91,7 @@ class View implements DispatchingInterface
 
         if (!is_null($variables)) {
             foreach ($variables as $key => $value) {
-                $html = str_replace("%$key%", $value, $html);
+                $html = str_replace("{{" . $key . "}}", $value, $html);
             }
         }
 

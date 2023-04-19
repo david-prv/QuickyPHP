@@ -3,11 +3,17 @@
 declare(strict_types=1);
 
 use Quicky\App;
+use Quicky\Utils\Exceptions\NotAResponseException;
+use Quicky\Utils\Exceptions\UnknownRouteException;
 
 require __DIR__ . "/QuickyTestCase.php";
 
-class BasicRouterTest extends QuickyTestCase
+final class BasicRouterTest extends QuickyTestCase
 {
+    /**
+     * @throws NotAResponseException
+     * @throws UnknownRouteException
+     */
     public function simpleRouteTest(): void
     {
         $app = App::create();

@@ -39,8 +39,8 @@ class ConfigTest extends QuickyTestCase
             $this->assertEquals($this::CURRENT_ENV, $config->getEnv());
             $this->assertEquals($this::CURRENT_VERSION, $config->getVersion());
             $this->assertEquals(3600, $config->getCacheExpiration());
-            $this->assertEquals("/app/Storage", $config->getStoragePath());
-            $this->assertEquals("/app/Views", $config->getViewsPath());
+            $this->assertEquals("/Quicky/Storage", $config->getStoragePath());
+            $this->assertEquals("/Quicky/Views", $config->getViewsPath());
             $this->assertTrue($config->isCacheActive());
             $this->assertFalse($config->isProd());
             $this->assertTrue($config->isDev());

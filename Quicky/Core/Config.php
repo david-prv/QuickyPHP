@@ -76,6 +76,11 @@ class Config implements DispatchingInterface
     {
         $this->parser = DynamicLoader::getLoader()->getInstance(ConfigParser::class);
         $this->dispatching = array("config");
+        $this->cache = [];
+        $this->project = [];
+        $this->storage = "";
+        $this->views = "";
+        $this->logs = "";
     }
 
     /**

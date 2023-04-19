@@ -31,6 +31,7 @@ class Dispatcher
     public static function dispatch(string $name, array $args, ?string $className = null)
     {
         $loader = DynamicLoader::getLoader();
+        $loader->failIfNotInstantiated();
 
         if (self::unAlias($name, ...$args) !== false) {
             return true;

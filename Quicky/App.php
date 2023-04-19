@@ -97,6 +97,12 @@ class App
     const QUICKY_CNF_MODE_DEFAULT = "default";
 
     /**
+     * Application states
+     */
+    const QUICKY_STATE_PRODUCTION = "production";
+    const QUICKY_STATE_DEVELOPMENT = "development";
+
+    /**
      * In-built session fields
      */
     const QUICKY_SESSION_FIELD_ID = "quicky_session_id";
@@ -109,12 +115,13 @@ class App
      * @param bool $catchErrors
      * @param string $mode
      */
-    private function __construct(bool $catchErrors, string $mode)
+    private function __construct(bool $catchErrors = false, string $mode = "")
     {
+        // register instance such that DynamicLoader is unlocked
+        DynamicLoader::getLoader()->registerInstance(App::class, $this);
+
         $this->request = new Request();
         $this->response = null;
-
-        DynamicLoader::getLoader()->registerInstance(App::class, $this);
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         if ($mode === "") {
@@ -226,6 +233,8 @@ class App
 
     /**
      * Applies aliases
+     *
+     * TODO: Add multiple aliases
      *
      * @param array $settings
      * @return void
