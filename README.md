@@ -1,6 +1,6 @@
 <div align="center">
 <p>
-  <img alt="" height="200" src="https://quickyphp.de/img/new/Logo-Crop-Without-Slogan.png">
+  <img alt="" height="300" src="https://quickyphp.de/img/new/animation-crop.gif">
 </p>
 </div>
 
