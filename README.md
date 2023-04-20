@@ -1,6 +1,6 @@
 <div align="center">
 <p>
-  <img alt="" height="300" src="https://quickyphp.de/img/new/Logo-Animation-Once.gif">
+  <img alt="" width="350" src="https://quickyphp.de/img/new/Logo-Animation-Once.gif">
 </p>
 </div>
 
