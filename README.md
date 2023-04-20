@@ -45,6 +45,33 @@ App::route("GET", "/", function(Request $request, Response $response) {
 $app->run();
 ```
 
+## You are lazy? No problem!
+You can build complex application configurations with the in-built AppFactory!
+```php
+require __DIR__ . "/../vendor/autoload.php";
+
+use Quicky\Middleware\RateLimitMiddleware;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
+use Quicky\AppFactory;
+use Quicky\App;
+
+$app = AppFactory::empty()
+  ->state(App::QUICKY_STATE_DEVELOPMENT)
+  ->middleware(RateLimitMiddleware::class, 1, 5)
+  ->alias("foo", function () { echo "bar"; })
+  ->alias("beep", array(MyClass::class, "boop"))
+  ->enforceCatchErrors()
+  ->build();
+
+App::route("GET", "/", function(Request $request, Response $response) {
+    $response->write("Hello World");
+    return $response;
+});
+
+$app->run();
+```
+
 ## Requirements
 QuickyPHP requires PHP 7.4+ or PHP 8 ([check compatibility](https://github.com/david-prv/QuickyPHP/blob/main/COMPATIBILITY.md)) and a webserver that supports Rewrite Rules.  
 Note: Composer Version 2 is required to find and install the package.
