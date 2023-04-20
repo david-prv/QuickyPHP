@@ -96,7 +96,7 @@ class DynamicLoader
      * Fails if application was not initialized
      * correctly or if boot-up failed bitterly
      */
-    public function failIfNotInstantiated(): void
+    public function failIfAppIsUnavailable(): void
     {
         if (!$this->isInstantiated(App::class)) {
             die("You can not interact with an uninstantiated application. Aborted!");
@@ -125,7 +125,7 @@ class DynamicLoader
      */
     public function registerInstance(string $className, object $instance): void
     {
-        if (!isset($this->instances[$className])) {
+        if (!$this->isInstantiated($className)) {
             $this->instances[$className] = $instance;
         }
     }
@@ -140,7 +140,10 @@ class DynamicLoader
      */
     public function getInstance(string $className, ?array $params = null): ?object
     {
-        $this->failIfNotInstantiated();
+        // since the dynamic loader is responsible
+        // for Quicky to manage all available instances and routes all interactions,
+        // this is a good place to again enforce our precondition
+        $this->failIfAppIsUnavailable();
 
         // if it is not an existing class...
         if (!in_array($className, $this->classes)) {

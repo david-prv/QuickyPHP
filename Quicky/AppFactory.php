@@ -173,13 +173,13 @@ class AppFactory
      * a class instead of a function
      *
      * @param string $aliasName
-     * @param string $masterFunction
+     * @param mixed $masterFunction
      * @param bool $ignoreClasses
      * @return $this
      */
-    public function alias(string $aliasName, string $masterFunction, bool $ignoreClasses = true): self
+    public function alias(string $aliasName, $masterFunction, bool $ignoreClasses = true): self
     {
-        $this->settings["alias"] = [$aliasName, $masterFunction, $ignoreClasses];
+        $this->settings["alias"][] = [$aliasName, $masterFunction, $ignoreClasses];
         return $this;
     }
 

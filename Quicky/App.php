@@ -234,20 +234,21 @@ class App
     /**
      * Applies aliases
      *
-     * TODO: Add multiple aliases
-     *
      * @param array $settings
      * @return void
      */
     private function useAlias(array $settings): void
     {
-        if (isset($settings["alias"])) {
-            $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
-            if ($aliases instanceof Aliases
-                && gettype($settings["alias"]) === "array"
-                && count($settings["alias"]) >= 2) {
-                $aliases->alias(...$settings["alias"]);
+        $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
+        if ($aliases instanceof Aliases && isset($settings["alias"]) && gettype($settings["alias"]) === "array"
+            && count($settings["alias"]) >= 2) {
+            if (gettype($settings["alias"][0]) === "array") {
+                foreach ($settings["alias"] as $alias) {
+                    $aliases->alias(...$alias);
+                }
+                return;
             }
+            $aliases->alias(...$settings["alias"]);
         }
     }
 
@@ -258,14 +259,15 @@ class App
      */
     public static function use(...$settings): void
     {
+        // decide the format of settings: many or single
         $userSettings = $settings[0];
-
         if (count($settings) >= 2) {
             $userSettings = [$settings[0] => $settings[1]];
         }
 
         $app = DynamicLoader::getLoader()->getInstance(App::class);
 
+        // instruct the application to apply the settings
         $app->useHandlers($userSettings);
         $app->useMiddleware($userSettings);
         $app->useEnv($userSettings);
