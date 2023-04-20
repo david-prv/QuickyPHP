@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quicky\Core;
 
+use Quicky\App;
 use Quicky\Interfaces\DispatchingInterface;
 use Quicky\Utils\ConfigParser;
 use Quicky\Utils\Exceptions\ConfigParserException;
@@ -147,7 +148,7 @@ class Config implements DispatchingInterface
     public function getName(): string
     {
         if (!isset($this->project["name"])) {
-            return "App - PHP framework";
+            return App::QUICKY_APP_NAME;
         }
         return (string)$this->project["name"];
     }
@@ -160,7 +161,7 @@ class Config implements DispatchingInterface
     public function getAuthor(): string
     {
         if (!isset($this->project["author"])) {
-            return "David Dewes";
+            return App::QUICKY_APP_AUTHOR;
         }
         return (string)$this->project["author"];
     }
@@ -173,7 +174,7 @@ class Config implements DispatchingInterface
     public function getVersion(): string
     {
         if (!isset($this->project["version"])) {
-            return "0.0.1";
+            return App::QUICKY_APP_VERSION;
         }
         return (string)$this->project["version"];
     }
@@ -186,7 +187,7 @@ class Config implements DispatchingInterface
     public function getEnv(): string
     {
         if (!isset($this->project["env"])) {
-            return "development";
+            return App::QUICKY_STATE_DEVELOPMENT;
         }
         return (string)$this->project["env"];
     }
@@ -198,7 +199,7 @@ class Config implements DispatchingInterface
      */
     public function isProd(): bool
     {
-        return $this->getEnv() === "production";
+        return $this->getEnv() === App::QUICKY_STATE_PRODUCTION;
     }
 
     /**

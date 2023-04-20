@@ -90,6 +90,13 @@ class App
     private ?Response $response;
 
     /**
+     * App information
+     */
+    const QUICKY_APP_AUTHOR = "David Dewes";
+    const QUICKY_APP_VERSION = "0.0.1";
+    const QUICKY_APP_NAME = "Quicky - PHP framework";
+
+    /**
      * Config loading modes
      */
     const QUICKY_CNF_MODE_JSON = "json";

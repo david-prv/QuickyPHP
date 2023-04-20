@@ -8,8 +8,8 @@ require __DIR__ . "/QuickyTestCase.php";
 
 class ConfigTest extends QuickyTestCase
 {
-    const CURRENT_NAME = "App - PHP Framework";
-    const CURRENT_VERSION = "0.0.1";
+    const CURRENT_NAME = "Quicky - PHP Framework";
+    const CURRENT_VERSION = "0.0.4";
     const CURRENT_ENV = "development";
     const CURRENT_AUTHOR = "David Dewes";
 
