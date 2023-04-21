@@ -45,7 +45,7 @@ class ConfigParser
      * @return array
      * @throws ConfigParserException
      */
-    public function loadFromJSON(): array
+    private function loadFromJSON(): array
     {
         $expectedPath = getcwd() . "/Quicky/Config/config.json";
         if (is_file($expectedPath)) {
