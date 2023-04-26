@@ -60,13 +60,12 @@ use Quicky\App;
 $app = AppFactory::empty()
   ->state(App::QUICKY_STATE_DEVELOPMENT)
   ->middleware(RateLimitMiddleware::class, 1, 5)
-  ->alias("foo", function () { echo "bar"; })
-  ->alias("beep", array(MyClass::class, "boop"))
+  ->alias("sayHello", function () { echo "Hello World"; })
   ->enforceCatchErrors()
   ->build();
 
 App::route("GET", "/", function(Request $request, Response $response) {
-    $response->write("Hello World");
+    App::sayHello();
     return $response;
 });
 
