@@ -17,11 +17,6 @@ class AppFactoryTest extends TestCase
 
     }
 
-    public function testExceptionHandler()
-    {
-
-    }
-
     public function testBuild()
     {
 
@@ -32,12 +27,12 @@ class AppFactoryTest extends TestCase
 
     }
 
-    public function testErrorHandler()
+    public function testEventListener()
     {
 
     }
 
-    public function testConfig()
+    public function testLoadConfig()
     {
 
     }

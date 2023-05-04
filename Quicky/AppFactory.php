@@ -115,16 +115,21 @@ class AppFactory
     }
 
     /**
-     * Define application state
+     * Define application state.
+     * Optionally, you can pass an override to
+     * the application, which enforces the framework
+     * to catch errors, no matter what state was given.
      *
      * @param string $state
+     * @param bool $ignoreStateAndCatch
      * @return $this
      */
-    public function state(string $state): self
+    public function state(string $state, bool $ignoreStateAndCatch = false): self
     {
         if ($state !== App::QUICKY_STATE_PRODUCTION && $state !== App::QUICKY_STATE_DEVELOPMENT) {
             $state = "production";
         }
+        $this->enforceCatchErrors = $ignoreStateAndCatch;
         $this->settings["env"] = $state;
         return $this;
     }
@@ -144,26 +149,27 @@ class AppFactory
     }
 
     /**
-     * Define error handler
+     * Add an event listener to the application.
+     * Events can be, for example: an error (default) or an
+     * exception occurring, and so on...
+     * All supported event types are available as static
+     * constants in App: e.g. "App::QUICKY_EVENT_ERROR"
      *
-     * @param callable $errorCallback
+     * @param string|null $eventType
+     * @param callable $eventCallback
      * @return $this
      */
-    public function errorHandler(callable $errorCallback): self
+    public function eventListener(?string $eventType, callable $eventCallback): self
     {
-        $this->settings["handlers"]["error"] = $errorCallback;
-        return $this;
-    }
-
-    /**
-     * Define exception handler
-     *
-     * @param callable $exceptionCallback
-     * @return $this
-     */
-    public function exceptionHandler(callable $exceptionCallback): self
-    {
-        $this->settings["handlers"]["exception"] = $exceptionCallback;
+        switch ($eventType) {
+            case App::QUICKY_EVENT_EXCEPTION:
+                $this->settings["handlers"]["exception"] = $eventCallback;
+                break;
+            default:
+            case App::QUICKY_EVENT_ERROR:
+                $this->settings["handlers"]["error"] = $eventCallback;
+                break;
+        }
         return $this;
     }
 
@@ -185,27 +191,16 @@ class AppFactory
 
     /**
      * Update the used parsing mode
-     * for configuration object
+     * for configuration object. All supported
+     * config modes are available as static constants in App:
+     * E.g. "App::QUICKY_CNF_MODE_ENV"
      *
      * @param string $configMode
      * @return $this
      */
-    public function config(string $configMode): self
+    public function loadConfig(string $configMode): self
     {
         $this->usedConfigMode = $configMode;
-        return $this;
-    }
-
-    /**
-     * Enable catch-all errors enforcement
-     * even if prod mode is disabled
-     *
-     * @param bool $enable
-     * @return $this
-     */
-    public function enforceCatchErrors(bool $enable = true): self
-    {
-        $this->enforceCatchErrors = $enable;
         return $this;
     }
 

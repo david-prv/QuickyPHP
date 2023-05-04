@@ -8,7 +8,7 @@
 
 [![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  [![PHPCS](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml)
 
-A php micro-framework for simple and quick web-applications  
+A php micro-framework for simple and quick web-applications
 
 🌐 Website: [https://quickyphp.de/](https://quickyphp.de/)  
 📖 Documentation: [https://quickyphp.de/docs/](https://quickyphp.de/docs/)  
@@ -58,10 +58,10 @@ use Quicky\AppFactory;
 use Quicky\App;
 
 $app = AppFactory::empty()
+  ->eventListener(App::QUICKY_EVENT_EXCEPTION, function (Throwable $exception) { ... })
   ->state(App::QUICKY_STATE_DEVELOPMENT)
   ->middleware(RateLimitMiddleware::class, 1, 5)
   ->alias("sayHello", function () { echo "Hello World"; })
-  ->enforceCatchErrors()
   ->build();
 
 App::route("GET", "/", function(Request $request, Response $response) {
@@ -109,7 +109,7 @@ Please feel free to contribute to this project. I am always happy to see new and
 ## Support
 If you like what I do, feel free to buy me a coffee for my work.  
 Programming early in the morning is hard without a good cup of this magical liquid.
-  
+
 Click here to support me:
 
 <a href="https://www.buymeacoffee.com/david.dewes">

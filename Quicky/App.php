@@ -97,6 +97,12 @@ class App
     const QUICKY_APP_NAME = "Quicky - PHP framework";
 
     /**
+     * Application events
+     */
+    const QUICKY_EVENT_ERROR = "error";
+    const QUICKY_EVENT_EXCEPTION = "exception";
+
+    /**
      * Config loading modes
      */
     const QUICKY_CNF_MODE_JSON = "json";
