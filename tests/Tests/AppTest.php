@@ -14,8 +14,10 @@ class AppTest extends TestCase
 
     public function testCreate()
     {
+        /** @var mixed $app */
+
         $app = TestFactory::getApp();
-        $this->assertNotNull("awd");
+        $this->assertNotNull($app);
     }
 
     public function testRender()

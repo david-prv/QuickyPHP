@@ -146,8 +146,8 @@ class Request
         $this->cookie = $this->headers["Cookie"] ?? "";
         $this->accept = $this->headers["Accept"] ?? "";
         $this->ua = $this->headers["User-Agent"] ?? "";
-        $this->secure = isset($_SERVER["HTTPS"]) && !is_null($_SERVER["HTTPS"]);
-        $this->referrer = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";
+        $this->secure = isset($_SERVER["HTTPS"]);
+        $this->referrer = $_SERVER["HTTP_REFERER"] ?? "";
         $this->data = (count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array());
         $this->args = array();
         $this->csrfToken = (isset($this->data[App::QUICKY_SESSION_FIELD_CSRF_TOKEN]))

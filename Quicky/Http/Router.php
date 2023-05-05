@@ -231,7 +231,6 @@ class Router implements DispatchingInterface
         }
 
         call_user_func($definitions);
-
     }
 
     /**
