@@ -4,6 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Quicky\App;
+use Quicky\AppFactory;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 
@@ -45,6 +46,15 @@ class AppTest extends TestCase
 
     public function testUse()
     {
+        $app = TestFactory::getApp();
+        App::use("env", AppFactory::PRODUCTION);
 
+        $this->assertTrue(App::config()->isProd());
+
+        App::use("alias", ["test", function () {
+            return "beep boop!";
+        }]);
+
+        $this->assertEquals("beep boop!", App::test());
     }
 }

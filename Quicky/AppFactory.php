@@ -17,6 +17,17 @@ use Quicky\Core\DynamicLoader;
 class AppFactory
 {
     /**
+     * Application constants abbreviations
+     */
+    const ERROR = App::QUICKY_EVENT_ERROR;
+    const EXCEPTION = App::QUICKY_EVENT_EXCEPTION;
+    const PRODUCTION = App::QUICKY_STATE_PRODUCTION;
+    const DEVELOPMENT = App::QUICKY_STATE_DEVELOPMENT;
+    const ENV = App::QUICKY_CNF_MODE_ENV;
+    const JSON = App::QUICKY_CNF_MODE_JSON;
+    const DEFAULT = App::QUICKY_CNF_MODE_DEFAULT;
+
+    /**
      * App Factory instance
      *
      * @var AppFactory|null
@@ -120,6 +131,9 @@ class AppFactory
      * the application, which enforces the framework
      * to catch errors, no matter what state was given.
      *
+     * All supported states are available as constants:
+     * E.g. "AppFactory::PRODUCTION"
+     *
      * @param string $state
      * @param bool $ignoreStateAndCatch
      * @return $this
@@ -153,13 +167,13 @@ class AppFactory
      * Events can be, for example: an error (default) or an
      * exception occurring, and so on...
      * All supported event types are available as static
-     * constants in App: e.g. "App::QUICKY_EVENT_ERROR"
+     * constants: e.g. "AppFactory::ERROR"
      *
      * @param string|null $eventType
      * @param callable $eventCallback
      * @return $this
      */
-    public function eventListener(?string $eventType, callable $eventCallback): self
+    public function on(?string $eventType, callable $eventCallback): self
     {
         switch ($eventType) {
             case App::QUICKY_EVENT_EXCEPTION:
@@ -192,8 +206,8 @@ class AppFactory
     /**
      * Update the used parsing mode
      * for configuration object. All supported
-     * config modes are available as static constants in App:
-     * E.g. "App::QUICKY_CNF_MODE_ENV"
+     * config modes are available as static constants:
+     * E.g. "AppFactory::ENV"
      *
      * @param string $configMode
      * @return $this

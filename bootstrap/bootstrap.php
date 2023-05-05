@@ -8,7 +8,7 @@ use Quicky\Middleware\LoggingMiddleware;
 
 /* Factoring main application */
 $app = AppFactory::empty()
-    ->state(App::QUICKY_STATE_PRODUCTION)
+    ->state(AppFactory::PRODUCTION)
     ->middleware(LoggingMiddleware::class)
     ->build();
 

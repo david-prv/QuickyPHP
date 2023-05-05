@@ -4,6 +4,8 @@ namespace Tests;
 
 use Exception;
 use Quicky\App;
+use Quicky\Http\Request;
+use Quicky\Http\Response;
 
 class TestFactory
 {
@@ -35,7 +37,9 @@ class TestFactory
      */
     public static function randomString(int $length = 5): string
     {
-        // taken from: https://stackoverflow.com/questions/4356289/php-random-string-generator
+        // taken from:
+        // https://stackoverflow.com/questions/4356289/php-random-string-generator
+
         return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
             ceil($length/strlen($x)) )),1,$length);
     }
@@ -70,5 +74,4 @@ class TestFactory
         }
         return self::$instance;
     }
-
 }
