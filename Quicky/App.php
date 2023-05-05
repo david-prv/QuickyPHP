@@ -55,6 +55,7 @@ use Throwable;
  *
  * Router:
  * @method static Router router()
+ * @method static void group($predicate, callable $definitions)
  *
  * Aliases:
  * @method static void alias(string $aliasName, mixed $masterFunction, bool $ignoreClasses = true)
@@ -163,6 +164,21 @@ class App
         } else {
             $this->stop();
         }
+    }
+
+    /**
+     * Handle static function calls.
+     * They will be dispatched to their corresponding
+     * dispatching classes.
+     *
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws UnknownCallException
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return Dispatcher::dispatch($name, $arguments);
     }
 
     /**
@@ -360,20 +376,5 @@ class App
     {
         View::except($e->getMessage(), $this->request);
         return null;
-    }
-
-    /**
-     * Handle static function calls.
-     * They will be dispatched to their corresponding
-     * dispatching classes.
-     *
-     * @param $name
-     * @param $arguments
-     * @return mixed
-     * @throws UnknownCallException
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        return Dispatcher::dispatch($name, $arguments);
     }
 }

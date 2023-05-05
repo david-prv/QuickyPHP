@@ -76,7 +76,7 @@ class Router implements DispatchingInterface
     public function __construct()
     {
         $this->routes = array();
-        $this->dispatching = array("router", "route");
+        $this->dispatching = array("router", "route", "group");
         $this->middleware = array();
         $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
         $this->cacheFile = getcwd() . "/Quicky/Http/" . $this->cacheFile;
@@ -214,6 +214,24 @@ class Router implements DispatchingInterface
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
         }
+    }
+
+    /**
+     * Group a bunch of route definitions together
+     * and enable them by predicate
+     *
+     * @param $predicate
+     * @param callable $definitions
+     * @return void
+     */
+    public function group($predicate, callable $definitions): void
+    {
+        if (!call_user_func($predicate)) {
+            return;
+        }
+
+        call_user_func($definitions);
+
     }
 
     /**

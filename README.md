@@ -46,30 +46,30 @@ App::route("GET", "/", function(Request $request, Response $response) {
 $app->run();
 ```
 
-## You are lazy? No problem!
-You can build complex application configurations with the in-built AppFactory!
+### We appreciate laziness <3
+You can build complex application configurations with the in-built AppFactory very easily!
 ```php
-require __DIR__ . "/../vendor/autoload.php";
-
-use Quicky\Middleware\RateLimitMiddleware;
-use Quicky\Http\Request;
-use Quicky\Http\Response;
-use Quicky\AppFactory;
-use Quicky\App;
-
 $app = AppFactory::empty()
   ->eventListener(App::QUICKY_EVENT_EXCEPTION, function (Throwable $exception) { ... })
   ->state(App::QUICKY_STATE_DEVELOPMENT)
   ->middleware(RateLimitMiddleware::class, 1, 5)
   ->alias("sayHello", function () { echo "Hello World"; })
   ->build();
+```
 
-App::route("GET", "/", function(Request $request, Response $response) {
-    App::sayHello();
-    return $response;
+### Where no route, there's no security risk!
+Use the route groups and predicates to ensure, that nobody can access views without the corresponding privileges/permissions:
+```php
+App::group([AuthController::class, "check"], function () {
+    App::route("GET", "/admin", function (Request $request, Response $response) {
+        /* Some admin stuff */
+        return $response;
+    });
+    App::route("GET", "/admin/dashboard", function (Request $request, Response $response) {
+        /* Silence is golden ... */
+        return $response;
+    });
 });
-
-$app->run();
 ```
 
 ## Requirements
