@@ -52,9 +52,11 @@ class AppTest extends TestCase
         $this->assertTrue(App::config()->isProd());
 
         App::use("alias", ["test", function () {
-            return "beep boop!";
+            echo "beep boop!";
         }]);
 
-        $this->assertEquals("beep boop!", App::test());
+        App::test();
+
+        $this->expectOutputString('beep boop!');
     }
 }

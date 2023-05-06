@@ -17,7 +17,7 @@ use Quicky\Core\DynamicLoader;
 class AppFactory
 {
     /**
-     * Application constants abbreviations
+     * Abbreviations for application constants
      */
     const ERROR = App::QUICKY_EVENT_ERROR;
     const EXCEPTION = App::QUICKY_EVENT_EXCEPTION;

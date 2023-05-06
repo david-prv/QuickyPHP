@@ -27,7 +27,7 @@ class AppFactoryTest extends TestCase
 
     }
 
-    public function testEventListener()
+    public function testOn()
     {
 
     }
@@ -48,11 +48,6 @@ class AppFactoryTest extends TestCase
     }
 
     public function testAlias()
-    {
-
-    }
-
-    public function testEnforceCatchErrors()
     {
 
     }

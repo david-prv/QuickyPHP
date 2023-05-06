@@ -4,8 +4,6 @@ namespace Tests;
 
 use Exception;
 use Quicky\App;
-use Quicky\Http\Request;
-use Quicky\Http\Response;
 
 class TestFactory
 {
@@ -67,11 +65,22 @@ class TestFactory
     public static function getApp(): App
     {
         self::generateRequest();
-        chdir("../");
+        chdir(__DIR__ . "/..");
+        self::printDebug(getcwd());
 
         if (self::$instance === null) {
             self::$instance = App::create();
         }
         return self::$instance;
+    }
+
+    /**
+     * @param string $msg
+     * @param $stream
+     * @return void
+     */
+    public static function printDebug(string $msg, $stream = STDOUT): void
+    {
+        fwrite($stream, "[DEBUG] $msg");
     }
 }
