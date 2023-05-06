@@ -150,12 +150,12 @@ class App
             // iff parameter is set
             if ($this->config->isProd() || $catchErrors) {
                 set_error_handler(function (
-                    string $errorLevel,
+                    int $errorLevel,
                     string $errorMessage,
                     string $errorFile,
-                    string $errorLine
+                    int $errorLine
                 ) {
-                    return $this->catchError($errorLevel, $errorMessage, $errorFile, $errorLine);
+                    return $this->catchError("$errorLevel", $errorMessage, $errorFile, "$errorLine");
                 }, E_ALL);
                 set_exception_handler(function (Throwable $e) {
                     return $this->catchException($e);

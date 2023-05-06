@@ -56,6 +56,7 @@ class TestFactory
             "REMOTE_ADDR" => "127.0.0.1",
             "HTTPS" => "true",
             "HTTP_REFERER" => "",
+            "REMOTE_PORT" => 80
         ];
     }
 
