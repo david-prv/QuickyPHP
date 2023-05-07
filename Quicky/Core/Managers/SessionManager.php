@@ -104,8 +104,8 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         $this->secure = $secure;
         $this->createdAt = microtime(true);
 
-        $_SESSION[App::QUICKY_SESSION_FIELD_ID] = $this->id;
-        $_SESSION[App::QUICKY_SESSION_FIELD_CREATED_AT] = $this->createdAt;
+        $_SESSION[App::__SESSION_ID] = $this->id;
+        $_SESSION[App::__SESSION_CREATED_AT] = $this->createdAt;
     }
 
     /**
@@ -168,9 +168,9 @@ class SessionManager implements DispatchingInterface, ManagingInterface
             $this->regenerateId();
         }
 
-        if (strtolower($name) !== App::QUICKY_SESSION_FIELD_ID
-            && strtolower($name) !== App::QUICKY_SESSION_FIELD_CREATED_AT
-            && strtolower($name) !== App::QUICKY_SESSION_FIELD_CSRF_TOKEN) {
+        if (strtolower($name) !== App::__SESSION_ID
+            && strtolower($name) !== App::__SESSION_CREATED_AT
+            && strtolower($name) !== App::__SESSION_CSRF) {
             $_SESSION[$name] = $value;
         }
     }
@@ -279,7 +279,7 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         }
 
         $token = bin2hex(random_bytes(32));
-        $_SESSION[App::QUICKY_SESSION_FIELD_CSRF_TOKEN] = $token;
+        $_SESSION[App::__SESSION_CSRF] = $token;
         return $token;
     }
 
@@ -295,6 +295,6 @@ class SessionManager implements DispatchingInterface, ManagingInterface
         if (!$this->isActive()) {
             return false;
         }
-        return $_SESSION[App::QUICKY_SESSION_FIELD_CSRF_TOKEN] === $token;
+        return $_SESSION[App::__SESSION_CSRF] === $token;
     }
 }

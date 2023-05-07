@@ -13,7 +13,21 @@ require __DIR__ . "/../vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------
-| Boot from Bootstrap
+| Pre-Boot preparations
+|--------------------------------------------------------------------------
+|
+| The first step is to declare some standardized variable constants
+| which can be used across the entirety of this application. It helps
+| to implement some kind of convention and ensures consistency. Also,
+| this way, we gain an easier usability for parameterized functions.
+|
+*/
+
+require __DIR__ . "/../bootstrap/setup.php";
+
+/*
+|--------------------------------------------------------------------------
+| Boot App from Bootstrap
 |--------------------------------------------------------------------------
 |
 | A bootstrap is responsible for setting up the whole application:
@@ -24,7 +38,7 @@ require __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-$app = require_once __DIR__ . "/../bootstrap/bootstrap.php";
+$app = require_once __DIR__ . "/../bootstrap/application.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +51,8 @@ $app = require_once __DIR__ . "/../bootstrap/bootstrap.php";
 |
 */
 
-if (!is_null($app) && version_compare(phpversion(), "7.4.0", "ge")) {
+if (verify_pre_condition($app)) {
     $app->run();
 } else {
-    die("The current running php version is not supported. Aborted!");
+    perform_boot_abort();
 }

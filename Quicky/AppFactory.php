@@ -17,17 +17,6 @@ use Quicky\Core\DynamicLoader;
 class AppFactory
 {
     /**
-     * Abbreviations for application constants
-     */
-    const ERROR = App::QUICKY_EVENT_ERROR;
-    const EXCEPTION = App::QUICKY_EVENT_EXCEPTION;
-    const PRODUCTION = App::QUICKY_STATE_PRODUCTION;
-    const DEVELOPMENT = App::QUICKY_STATE_DEVELOPMENT;
-    const ENV = App::QUICKY_CNF_MODE_ENV;
-    const JSON = App::QUICKY_CNF_MODE_JSON;
-    const DEFAULT = App::QUICKY_CNF_MODE_DEFAULT;
-
-    /**
      * App Factory instance
      *
      * @var AppFactory|null
@@ -140,7 +129,7 @@ class AppFactory
      */
     public function state(string $state, bool $ignoreStateAndCatch = false): self
     {
-        if ($state !== App::QUICKY_STATE_PRODUCTION && $state !== App::QUICKY_STATE_DEVELOPMENT) {
+        if ($state !== S_PRODUCTION && $state !== S_DEVELOPMENT) {
             $state = "production";
         }
         $this->enforceCatchErrors = $ignoreStateAndCatch;
@@ -176,11 +165,11 @@ class AppFactory
     public function on(?string $eventType, callable $eventCallback): self
     {
         switch ($eventType) {
-            case App::QUICKY_EVENT_EXCEPTION:
+            case E_EXCEPTIONS:
                 $this->settings["handlers"]["exception"] = $eventCallback;
                 break;
             default:
-            case App::QUICKY_EVENT_ERROR:
+            case E_ERRORS:
                 $this->settings["handlers"]["error"] = $eventCallback;
                 break;
         }

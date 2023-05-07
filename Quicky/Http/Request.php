@@ -150,8 +150,8 @@ class Request
         $this->referrer = $_SERVER["HTTP_REFERER"] ?? "";
         $this->data = (count($_POST) >= 1) ? $_POST : ((count($_GET) >= 1) ? $_GET : array());
         $this->args = array();
-        $this->csrfToken = (isset($this->data[App::QUICKY_SESSION_FIELD_CSRF_TOKEN]))
-            ? $this->data[App::QUICKY_SESSION_FIELD_CSRF_TOKEN]
+        $this->csrfToken = (isset($this->data[App::__SESSION_CSRF]))
+            ? $this->data[App::__SESSION_CSRF]
             : ((isset($this->headers["X-CSRF-TOKEN"])) ? $this->headers["X-CSRF-TOKEN"] : null);
     }
 

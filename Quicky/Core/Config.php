@@ -141,45 +141,6 @@ class Config implements DispatchingInterface
     }
 
     /**
-     * Returns project name
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        if (!isset($this->project["name"])) {
-            return App::QUICKY_APP_NAME;
-        }
-        return (string)$this->project["name"];
-    }
-
-    /**
-     * Returns project author
-     *
-     * @return string
-     */
-    public function getAuthor(): string
-    {
-        if (!isset($this->project["author"])) {
-            return App::QUICKY_APP_AUTHOR;
-        }
-        return (string)$this->project["author"];
-    }
-
-    /**
-     * Returns project version
-     *
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        if (!isset($this->project["version"])) {
-            return App::QUICKY_APP_VERSION;
-        }
-        return (string)$this->project["version"];
-    }
-
-    /**
      * Returns project env
      *
      * @return string
@@ -187,7 +148,7 @@ class Config implements DispatchingInterface
     public function getEnv(): string
     {
         if (!isset($this->project["env"])) {
-            return App::QUICKY_STATE_DEVELOPMENT;
+            return S_DEVELOPMENT;
         }
         return (string)$this->project["env"];
     }
@@ -199,7 +160,7 @@ class Config implements DispatchingInterface
      */
     public function isProd(): bool
     {
-        return $this->getEnv() === App::QUICKY_STATE_PRODUCTION;
+        return $this->getEnv() === S_PRODUCTION;
     }
 
     /**

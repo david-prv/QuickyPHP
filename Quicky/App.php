@@ -91,37 +91,11 @@ class App
     private ?Response $response;
 
     /**
-     * App information
-     */
-    const QUICKY_APP_AUTHOR = "David Dewes";
-    const QUICKY_APP_VERSION = "0.0.1";
-    const QUICKY_APP_NAME = "Quicky - PHP framework";
-
-    /**
-     * Application events
-     */
-    const QUICKY_EVENT_ERROR = "error";
-    const QUICKY_EVENT_EXCEPTION = "exception";
-
-    /**
-     * Config loading modes
-     */
-    const QUICKY_CNF_MODE_JSON = "json";
-    const QUICKY_CNF_MODE_ENV = "env";
-    const QUICKY_CNF_MODE_DEFAULT = "default";
-
-    /**
-     * Application states
-     */
-    const QUICKY_STATE_PRODUCTION = "production";
-    const QUICKY_STATE_DEVELOPMENT = "development";
-
-    /**
      * In-built session fields
      */
-    const QUICKY_SESSION_FIELD_ID = "quicky_session_id";
-    const QUICKY_SESSION_FIELD_CREATED_AT = "quicky_created_at";
-    const QUICKY_SESSION_FIELD_CSRF_TOKEN = "csrf_token";
+    const __SESSION_ID = "quicky_session_id";
+    const __SESSION_CREATED_AT = "quicky_created_at";
+    const __SESSION_CSRF = "csrf_token";
 
     /**
      * App constructor.
