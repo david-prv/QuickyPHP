@@ -28,7 +28,22 @@ const M_DEFAULT = "default";
  */
 function verify_pre_condition($app): bool
 {
-    return !is_null($app) && version_compare(phpversion(), "7.4.0", "ge");
+    return !is_null($app)
+        && $app instanceof \Quicky\App
+        && version_compare(phpversion(), "7.4.0", "ge");
+}
+
+/**
+ * Verifies if the boot-up was performed
+ * flawlessly and complains iff that is not
+ * the case
+ *
+ * @param $app
+ * @return bool
+ */
+function verify_post_condition($app): void
+{
+    // TODO
 }
 
 /**

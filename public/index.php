@@ -9,7 +9,7 @@
 |
 */
 
-require __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ require __DIR__ . "/../vendor/autoload.php";
 |
 */
 
-require __DIR__ . "/../bootstrap/functions.php";
+require_once __DIR__ . "/../bootstrap/functions.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +51,8 @@ $app = require_once __DIR__ . "/../bootstrap/application.php";
 |
 */
 
-if (verify_pre_condition($app)) {
-    $app->run();
-} else {
+if (!verify_pre_condition($app)) {
     perform_boot_abort();
 }
+$app->run();
+verify_post_condition($app);
