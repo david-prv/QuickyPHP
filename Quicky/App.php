@@ -98,6 +98,17 @@ class App
     const __SESSION_CSRF = "csrf_token";
 
     /**
+     * In-built identifiers
+     */
+    const __EVENT_ERROR = "error";
+    const __EVENT_EXCEPTION = "exception";
+    const __STATE_PRODUCTION = "production";
+    const __STATE_DEVELOPMENT = "development";
+    const __MODE_ENV = "env";
+    const __MODE_JSON = "json";
+    const __MODE_DEFAULT = "default";
+
+    /**
      * App constructor.
      *
      * @param bool $catchErrors
@@ -175,7 +186,7 @@ class App
      *
      * @param array $settings
      */
-    private function useHandlers(array $settings): void
+    private function applyHandlers(array $settings): void
     {
         if (isset($settings["handlers"]) && isset($settings["handlers"]["error"])) {
             set_error_handler($settings["handlers"]["error"], E_ALL);
@@ -190,7 +201,7 @@ class App
      *
      * @param array $settings
      */
-    private function useMiddleware(array $settings): void
+    private function applyMiddleware(array $settings): void
     {
         if (isset($settings["middleware"])) {
             $router = DynamicLoader::getLoader()->getInstance(Router::class);
@@ -209,7 +220,7 @@ class App
      *
      * @param array $settings
      */
-    private function useEnv(array $settings): void
+    private function applyEnv(array $settings): void
     {
         if (isset($settings["env"])) {
             $config = DynamicLoader::getLoader()->getInstance(Config::class);
@@ -224,7 +235,7 @@ class App
      *
      * @param array $settings
      */
-    private function usePlaceholders(array $settings): void
+    private function applyPlaceholders(array $settings): void
     {
         if (isset($settings["placeholders"])) {
             $view = DynamicLoader::getLoader()->getInstance(View::class);
@@ -240,7 +251,7 @@ class App
      * @param array $settings
      * @return void
      */
-    private function useAlias(array $settings): void
+    private function applyAlias(array $settings): void
     {
         $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
         if ($aliases instanceof Aliases && isset($settings["alias"]) && gettype($settings["alias"]) === "array"
@@ -271,11 +282,11 @@ class App
         $app = DynamicLoader::getLoader()->getInstance(App::class);
 
         // instruct the application to apply the settings
-        $app->useHandlers($userSettings);
-        $app->useMiddleware($userSettings);
-        $app->useEnv($userSettings);
-        $app->usePlaceholders($userSettings);
-        $app->useAlias($userSettings);
+        $app->applyHandlers($userSettings);
+        $app->applyMiddleware($userSettings);
+        $app->applyEnv($userSettings);
+        $app->applyPlaceholders($userSettings);
+        $app->applyAlias($userSettings);
     }
 
     /**

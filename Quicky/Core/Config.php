@@ -148,7 +148,7 @@ class Config implements DispatchingInterface
     public function getEnv(): string
     {
         if (!isset($this->project["env"])) {
-            return S_DEVELOPMENT;
+            return App::__STATE_DEVELOPMENT;
         }
         return (string)$this->project["env"];
     }
@@ -160,7 +160,7 @@ class Config implements DispatchingInterface
      */
     public function isProd(): bool
     {
-        return $this->getEnv() === S_PRODUCTION;
+        return $this->getEnv() === App::__STATE_PRODUCTION;
     }
 
     /**

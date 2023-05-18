@@ -1,25 +1,6 @@
 <?php
 
 /**
- * Events
- */
-const E_ERRORS = "error";
-const E_EXCEPTIONS = "exception";
-
-/**
- * States
- */
-const S_PRODUCTION = "production";
-const S_DEVELOPMENT = "development";
-
-/**
- * Modes
- */
-const M_ENV = "env";
-const M_JSON = "json";
-const M_DEFAULT = "default";
-
-/**
  * Verifies all necessary pre-conditions
  * before the application can run flawlessly
  *

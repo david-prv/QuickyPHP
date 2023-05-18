@@ -129,7 +129,7 @@ class AppFactory
      */
     public function state(string $state, bool $ignoreStateAndCatch = false): self
     {
-        if ($state !== S_PRODUCTION && $state !== S_DEVELOPMENT) {
+        if ($state !== App::__STATE_PRODUCTION && $state !== App::__STATE_DEVELOPMENT) {
             $state = "production";
         }
         $this->enforceCatchErrors = $ignoreStateAndCatch;
@@ -165,11 +165,11 @@ class AppFactory
     public function on(?string $eventType, callable $eventCallback): self
     {
         switch ($eventType) {
-            case E_EXCEPTIONS:
+            case App::__EVENT_EXCEPTION:
                 $this->settings["handlers"]["exception"] = $eventCallback;
                 break;
             default:
-            case E_ERRORS:
+            case App::__EVENT_ERROR:
                 $this->settings["handlers"]["error"] = $eventCallback;
                 break;
         }

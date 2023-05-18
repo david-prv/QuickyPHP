@@ -7,7 +7,7 @@ use Quicky\Http\Response;
 use Quicky\Middleware\LoggingMiddleware;
 
 $app = AppFactory::empty()
-    ->state(S_PRODUCTION)
+    ->state("production")
     ->middleware(LoggingMiddleware::class)
     ->build();
 

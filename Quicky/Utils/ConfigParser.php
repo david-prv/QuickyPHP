@@ -29,11 +29,11 @@ class ConfigParser
     public function parse($mode): array
     {
         switch ($mode) {
-            case M_ENV:
+            case App::__MODE_ENV:
                 return $this->loadFromEnv();
-            case M_JSON:
+            case App::__MODE_JSON:
                 return $this->loadFromJSON();
-            case M_DEFAULT:
+            case App::__MODE_DEFAULT:
             default:
                 return $this->loadDefault();
         }
