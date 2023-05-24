@@ -38,8 +38,10 @@ class TestFactory
         // taken from:
         // https://stackoverflow.com/questions/4356289/php-random-string-generator
 
-        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            ceil($length/strlen($x)) )),1,$length);
+        return substr(str_shuffle(str_repeat(
+            $x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            ceil($length/strlen($x))
+        )), 1, $length);
     }
 
     /**
@@ -77,10 +79,10 @@ class TestFactory
 
     /**
      * @param string $msg
-     * @param $stream
+     * @param bool|resource $stream
      * @return void
      */
-    public static function printDebug(string $msg, $stream = STDOUT): void
+    public static function printDebug(string $msg, bool $stream = STDOUT): void
     {
         fwrite($stream, "[DEBUG] $msg");
     }

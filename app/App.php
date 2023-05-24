@@ -118,7 +118,6 @@ class App
     {
         // register instance such that DynamicLoader is unlocked
         DynamicLoader::getLoader()->registerInstance(App::class, $this);
-
         $this->request = new Request();
         $this->response = null;
         $config = DynamicLoader::getLoader()->getInstance(Config::class);

@@ -203,7 +203,7 @@ class DynamicLoader
      *
      * @param string $current
      */
-    private function scan(string $current = "/Quicky"): void
+    private function scan(string $current = "/app"): void
     {
         // we use directory iterators to do the job
         $iterator = new DirectoryIterator($this->workingDir . $current);
@@ -218,7 +218,7 @@ class DynamicLoader
                 $namespace = str_replace(
                     '/',
                     "\\",
-                    substr(str_replace("app", "App", $current), 1)
+                    substr(str_replace("app", "Quicky", $current), 1)
                 );
                 $name = $namespace . "\\" . $temp[0];
                 if ($ext === "php" && $name !== "autoload" && $name !== "index") {

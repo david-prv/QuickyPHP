@@ -134,6 +134,7 @@ class AppFactory
         }
         $this->enforceCatchErrors = $ignoreStateAndCatch;
         $this->settings["env"] = $state;
+
         return $this;
     }
 

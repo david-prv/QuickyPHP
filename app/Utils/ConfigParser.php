@@ -47,7 +47,7 @@ class ConfigParser
      */
     private function loadFromJSON(): array
     {
-        $expectedPath = getcwd() . "/Quicky/Config/config.json";
+        $expectedPath = getcwd() . "/app/Config/config.json";
         if (is_file($expectedPath)) {
             $json = json_decode(file_get_contents($expectedPath), true);
             if (is_null($json) || $json === false) {
@@ -84,7 +84,7 @@ class ConfigParser
      */
     private function loadDefault(): array
     {
-        $expectedPath = getcwd() . "/Quicky/Config/default.json";
+        $expectedPath = getcwd() . "/app/Config/default.json";
         if (is_file($expectedPath)) {
             $json = json_decode(file_get_contents($expectedPath), true);
             if (is_null($json) || $json === false) {

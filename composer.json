@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Quicky\\": "Quicky/",
+            "Quicky\\": "app/",
             "Tests\\": "tests/Tests/"
         }
     }

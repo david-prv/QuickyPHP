@@ -4,7 +4,6 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Quicky\App;
-use Quicky\AppFactory;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 
@@ -26,11 +25,14 @@ class AppTest extends TestCase
         $this->assertEquals(1, App::router()->countRoutes());
 
         for ($i = 0; $i < 20; $i++) {
-            App::route(TestFactory::randomMethod(), "/" . TestFactory::randomString(),
+            App::route(
+                TestFactory::randomMethod(),
+                "/" . TestFactory::randomString(),
                 function (Request $_, Response $response) {
                 // more silence is even better
-                return $response;
-            });
+                    return $response;
+                }
+            );
         }
 
         $this->assertEquals(21, App::router()->countRoutes());
@@ -47,7 +49,7 @@ class AppTest extends TestCase
     public function testUse()
     {
         $app = TestFactory::getApp();
-        App::use("env", AppFactory::PRODUCTION);
+        App::use("env", App::__STATE_PRODUCTION);
 
         $this->assertTrue(App::config()->isProd());
 
