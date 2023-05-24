@@ -15,6 +15,7 @@ use Quicky\Core\Aliases;
 use Quicky\Core\Config;
 use Quicky\Core\Dispatcher;
 use Quicky\Core\DynamicLoader;
+use Quicky\Core\EventHook;
 use Quicky\Core\Managers\CookieManager;
 use Quicky\Core\Managers\SessionManager;
 use Quicky\Core\View;
@@ -59,6 +60,10 @@ use Throwable;
  *
  * Aliases:
  * @method static void alias(string $aliasName, mixed $masterFunction, bool $ignoreClasses = true)
+ *
+ * EventHook:
+ * @method static EventHook hook()
+ * @method static void listen(string $event, $callback);
  */
 class App
 {
@@ -91,6 +96,13 @@ class App
     private ?Response $response;
 
     /**
+     * By default registered events
+     *
+     * @var array
+     */
+    private array $events = ["load", "unload", "halt", "run", "stop", "error", "exception"];
+
+    /**
      * In-built session fields
      */
     const __SESSION_ID = "quicky_session_id";
@@ -120,6 +132,7 @@ class App
         DynamicLoader::getLoader()->registerInstance(App::class, $this);
         $this->request = new Request();
         $this->response = null;
+
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
 
         if ($mode === "") {
@@ -129,6 +142,9 @@ class App
         if ($config instanceof Config) {
             $config->init($mode);
             $this->config = $config;
+
+            // register events
+            App::hook()->register(...$this->events);
 
             // enable error catching for production or
             // iff parameter is set
@@ -296,6 +312,9 @@ class App
      */
     public function run(): void
     {
+
+
+
         // route request here
         $router = DynamicLoader::getLoader()->getInstance(Router::class);
 
@@ -311,6 +330,7 @@ class App
      */
     public function stop(): void
     {
+        App::hook()->fire("stop");
         exit();
     }
 
@@ -326,6 +346,7 @@ class App
         $response = new Response();
         $response->status($code);
         $response->write($message);
+        App::hook()->fire("halt", $code, $message);
         exit();
     }
 

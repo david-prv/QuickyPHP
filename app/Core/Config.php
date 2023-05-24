@@ -15,6 +15,7 @@ use Quicky\App;
 use Quicky\Interfaces\DispatchingInterface;
 use Quicky\Utils\ConfigParser;
 use Quicky\Utils\Exceptions\ConfigParserException;
+use Quicky\Utils\Exceptions\CoreException;
 
 /**
  * Class Config
@@ -88,7 +89,7 @@ class Config implements DispatchingInterface
      * Return config instance
      *
      * @return Config
-     * @throws ConfigParserException
+     * @throws CoreException
      */
     public static function config(): Config
     {
@@ -97,7 +98,7 @@ class Config implements DispatchingInterface
         if ($instance instanceof Config) {
             return $instance;
         } else {
-            throw new ConfigParserException();
+            throw new CoreException();
         }
     }
 
