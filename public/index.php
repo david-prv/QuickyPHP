@@ -38,7 +38,7 @@ require_once __DIR__ . "/../bootstrap/functions.php";
 |
 */
 
-$app = require_once __DIR__ . "/../bootstrap/application.php";
+$app = require_once __DIR__ . "/../bootstrap/app.php";
 
 /*
 |--------------------------------------------------------------------------

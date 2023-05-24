@@ -19,8 +19,6 @@ use Quicky\Utils\Exceptions\NetworkException;
 use Quicky\Utils\Exceptions\NotAResponseException;
 use Quicky\Utils\Exceptions\UnknownMethodException;
 use Quicky\Utils\Exceptions\UnknownRouteException;
-use Quicky\Http\Response;
-use Cassandra\FutureSession;
 
 /**
  * Class Router
@@ -68,7 +66,7 @@ class Router implements DispatchingInterface
      *
      * @var string
      */
-    private string $cacheFile = '.quicky.routes.cache';
+    private string $cacheFile = 'router.cache';
 
     /**
      * Router constructor.
@@ -79,7 +77,7 @@ class Router implements DispatchingInterface
         $this->dispatching = array("router", "route", "group");
         $this->middleware = array();
         $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
-        $this->cacheFile = getcwd() . "/Quicky/Http/" . $this->cacheFile;
+        $this->cacheFile = getcwd() . "/cache/" . $this->cacheFile;
         $this->cache = $this->loadCache();
     }
 

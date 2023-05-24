@@ -1,4 +1,15 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Auxiliary Functions
+|--------------------------------------------------------------------------
+|
+| This file contains a bunch of auxiliary functions that help
+| to ensure, that the application runs flawlessly on every
+| supported system. It also stops the application, iff an issue
+| is being noticed by the pre-condition check.
+|
+*/
 
 /**
  * Verifies all necessary pre-conditions
@@ -24,7 +35,7 @@ function verify_pre_condition($app): bool
  */
 function verify_post_condition($app): void
 {
-    // TODO
+    //
 }
 
 /**

@@ -1,17 +1,18 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Default Routes
+|--------------------------------------------------------------------------
+|
+| The standard QuickyPHP installation has a default route
+| pointing at "/", which is the default page when calling the IP
+| address of the webserver.
+|
+*/
 
 use Quicky\App;
-use Quicky\AppFactory;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
-use Quicky\Middleware\LoggingMiddleware;
-
-$app = AppFactory::empty()
-    ->state("production")
-    ->middleware(LoggingMiddleware::class)
-    ->build();
-
-App::session()->start();
 
 App::route("GET", "/", function (Request $request, Response $response) {
     $delta = number_format(
@@ -25,5 +26,3 @@ App::route("GET", "/", function (Request $request, Response $response) {
 
     return $response;
 });
-
-return $app;

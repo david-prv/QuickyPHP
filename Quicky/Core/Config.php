@@ -43,7 +43,7 @@ class Config implements DispatchingInterface
     private string $storage;
 
     /**
-     * Logs path
+     * logs path
      *
      * @var string
      */
