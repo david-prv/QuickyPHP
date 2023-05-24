@@ -18,4 +18,4 @@ jobs:
         with:
           args: --debug
           memory_limit: 256M
-          path: Quicky/
+          path: app/
