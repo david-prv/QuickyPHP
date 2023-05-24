@@ -30,4 +30,4 @@ jobs:
       - uses: pantheon-systems/phpcompatibility-action@v1
         with:
           test-versions: 8.2-
-          paths: ${{ github.workspace }}/Quicky
+          paths: ${{ github.workspace }}/app
