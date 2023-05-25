@@ -13,20 +13,6 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------
-| Pre-Boot preparations
-|--------------------------------------------------------------------------
-|
-| The first step is to declare some standardized variable constants
-| which can be used across the entirety of this application. It helps
-| to implement some kind of convention and ensures consistency. Also,
-| this way, we gain an easier usability for parameterized functions.
-|
-*/
-
-require_once __DIR__ . "/../bootstrap/functions.php";
-
-/*
-|--------------------------------------------------------------------------
 | Boot App from Bootstrap
 |--------------------------------------------------------------------------
 |
@@ -51,8 +37,4 @@ $app = require_once __DIR__ . "/../bootstrap/app.php";
 |
 */
 
-if (!verify_pre_condition($app)) {
-    perform_boot_abort();
-}
 $app->run();
-verify_post_condition($app);

@@ -22,6 +22,6 @@ $app = AppFactory::empty()
 
 App::session()->start();
 
-require_once("./routes/default.php");
+require_once("./routes/web.php");
 
 return $app;

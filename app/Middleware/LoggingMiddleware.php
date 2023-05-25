@@ -56,7 +56,8 @@ class LoggingMiddleware implements MiddlewareInterface
     public function __construct(?string $logFile = null)
     {
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
-        $this->logPath = $logFile ?? getcwd() . $config->getLogsPath() . "/access.log";
+        $currentDate = date("d-m-Y", time());
+        $this->logPath = $logFile ?? getcwd() . $config->getLogsPath() . "/quicky-log-$currentDate.log";
     }
 
     /**

@@ -3,13 +3,13 @@
     "name": "Quicky - PHP Framework",
     "author": "David Dewes",
     "version": "0.0.4",
-    "env": "development"
+    "env": "production"
   },
   "cache": {
     "enabled": true,
     "expires": 3600
   },
-  "views": "/app/Views",
+  "views": "/resources/views",
   "storage": "/storage",
   "logs": "/logs"
 }

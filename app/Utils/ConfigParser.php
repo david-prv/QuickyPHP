@@ -47,7 +47,7 @@ class ConfigParser
      */
     private function loadFromJSON(): array
     {
-        $expectedPath = getcwd() . "/app/Config/config.json";
+        $expectedPath = getcwd() . "/resources/config/config.json";
         if (is_file($expectedPath)) {
             $json = json_decode(file_get_contents($expectedPath), true);
             if (is_null($json) || $json === false) {
@@ -84,7 +84,7 @@ class ConfigParser
      */
     private function loadDefault(): array
     {
-        $expectedPath = getcwd() . "/app/Config/default.json";
+        $expectedPath = getcwd() . "/resources/config/default.json";
         if (is_file($expectedPath)) {
             $json = json_decode(file_get_contents($expectedPath), true);
             if (is_null($json) || $json === false) {
