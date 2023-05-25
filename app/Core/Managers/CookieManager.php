@@ -13,13 +13,13 @@ namespace Quicky\Core\Managers;
 
 use Quicky\Core\DynamicLoader;
 use Quicky\Interfaces\DispatchingInterface;
-use Quicky\Interfaces\ManagingInterface;
+use Quicky\Interfaces\ManagerInterface;
 use Quicky\Utils\Exceptions\CoreException;
 
 /**
  * Class CookieManager
  */
-class CookieManager implements DispatchingInterface, ManagingInterface
+class CookieManager implements DispatchingInterface, ManagerInterface
 {
     /**
      * Dispatching methods

@@ -12,9 +12,9 @@ declare(strict_types=1);
 namespace Quicky\Interfaces;
 
 /**
- * Interface ManagingInterface
+ * Interface ManagerInterface
  */
-interface ManagingInterface
+interface ManagerInterface
 {
     /**
      * Get a variable

@@ -13,7 +13,7 @@ namespace Quicky\Core\Managers;
 
 use Quicky\Core\DynamicLoader;
 use Quicky\Interfaces\DispatchingInterface;
-use Quicky\Interfaces\ManagingInterface;
+use Quicky\Interfaces\ManagerInterface;
 use Quicky\App;
 use Quicky\Utils\Exceptions\InvalidSessionException;
 use Exception;
@@ -21,7 +21,7 @@ use Exception;
 /**
  * Class SessionManager
  */
-class SessionManager implements DispatchingInterface, ManagingInterface
+class SessionManager implements DispatchingInterface, ManagerInterface
 {
     /**
      * In-built sessionId
