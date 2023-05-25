@@ -16,7 +16,8 @@ use Quicky\Http\Response;
 
 App::route("GET", "/", function (Request $request, Response $response) {
     $delta = number_format(
-        microtime(true) - App::session()->getCreatedAt(), 5
+        microtime(true) - App::session()->getCreatedAt(),
+        5
     );
 
     $response->render("index", array(
