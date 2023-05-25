@@ -120,9 +120,6 @@ class AppFactory
      * the application, which enforces the framework
      * to catch errors, no matter what state was given.
      *
-     * All supported states are available as constants:
-     * E.g. "AppFactory::PRODUCTION"
-     *
      * @param string $state
      * @param bool $ignoreStateAndCatch
      * @return $this
@@ -156,14 +153,12 @@ class AppFactory
      * Add an event listener to the application.
      * Events can be, for example: an error (default) or an
      * exception occurring, and so on...
-     * All supported event types are available as static
-     * constants: e.g. "AppFactory::ERROR"
      *
      * @param string|null $eventType
      * @param callable $eventCallback
      * @return $this
      */
-    public function on(?string $eventType, callable $eventCallback): self
+    public function catch(?string $eventType, callable $eventCallback): self
     {
         switch ($eventType) {
             case App::__EVENT_EXCEPTION:
@@ -195,9 +190,7 @@ class AppFactory
 
     /**
      * Update the used parsing mode
-     * for configuration object. All supported
-     * config modes are available as static constants:
-     * E.g. "AppFactory::ENV"
+     * for configuration object.
      *
      * @param string $configMode
      * @return $this

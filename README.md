@@ -50,7 +50,7 @@ $app->run();
 You can build complex application configurations with the in-built AppFactory very easily!
 ```php
 $app = AppFactory::empty()
-  ->on("exception", function (Throwable $exception) { ... })
+  ->catch("exception", function (Throwable $exception) { ... })
   ->state("development")
   ->middleware(RateLimitMiddleware::class, 1, 5)
   ->alias("sayHello", function () { echo "Hello World"; })
