@@ -26,6 +26,7 @@ I got the idea of how a simple PHP framework works from other open source projec
 - [FlightPHP](https://flightphp.com/)
 - [SlimFramework](https://www.slimframework.com/)
 - [CakePHP](https://cakephp.org/)
+- [Laravel Lumen](https://lumen.laravel.com/docs/10.x)
 
 ## Sneak Peak
 A simple web application powered by this framework:
