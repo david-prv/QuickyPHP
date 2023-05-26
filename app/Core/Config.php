@@ -133,11 +133,12 @@ class Config implements DispatchingInterface
     /**
      * Returns project info
      *
-     * @return array
+     * @param string|null $field
+     * @return mixed
      */
-    public function getProject(): array
+    public function getProject(?string $field = null)
     {
-        return $this->project;
+        return $field ? $this->project[$field] : $this->project;
     }
 
     /**
