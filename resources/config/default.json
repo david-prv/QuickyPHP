@@ -2,7 +2,7 @@
   "project": {
     "name": "Quicky - PHP Framework",
     "author": "David Dewes",
-    "version": "0.0.4",
+    "version": "0.0.4-pre",
     "env": "production"
   },
   "cache": {

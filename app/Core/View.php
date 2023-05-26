@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Quicky\Core;
 
+use Quicky\App;
 use Quicky\Http\Request;
 use Quicky\Interfaces\DispatchingInterface;
 use Quicky\Utils\Exceptions\CoreException;
@@ -116,7 +117,7 @@ class View implements DispatchingInterface
     ): void {
         try {
             View::render("error", array(
-                "ERROR_TITLE" => "Oh no!",
+                "ERROR_TITLE" => "Error!",
                 "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
                 "REQ_REF_ID" => $request->getID()
             ));
@@ -135,9 +136,10 @@ class View implements DispatchingInterface
     {
         try {
             View::render("error", array(
-                "ERROR_TITLE" => "Oh no!",
+                "ERROR_TITLE" => "Error!",
                 "ERROR_MESSAGE" => $message,
-                "REQ_REF_ID" => $request->getID()
+                "REQ_REF_ID" => $request->getID(),
+                "P_VERSION" => App::config()->getProject()["version"]
             ));
         } catch (ViewNotFoundException $e) {
         }
