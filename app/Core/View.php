@@ -120,8 +120,8 @@ class View implements DispatchingInterface
                 "ERROR_TITLE" => "Error!",
                 "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
                 "REQ_REF_ID" => $request->getID(),
-                "P_VERSION" => App::config()->getProject()["version"],
-                "EXTENSION" => ""
+                "APP_VERSION" => App::config()->getProject()["version"],
+                "SHOW_ERROR" => ""
             ));
         } catch (ViewNotFoundException $e) {
         }
@@ -141,8 +141,8 @@ class View implements DispatchingInterface
                 "ERROR_TITLE" => "Error!",
                 "ERROR_MESSAGE" => $message,
                 "REQ_REF_ID" => $request->getID(),
-                "P_VERSION" => App::config()->getProject()["version"],
-                "EXTENSION" => ""
+                "APP_VERSION" => App::config()->getProject()["version"],
+                "SHOW_ERROR" => ""
             ));
         } catch (ViewNotFoundException $e) {
         }

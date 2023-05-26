@@ -16,9 +16,9 @@ use Quicky\Http\Response;
 
 App::route("GET", "/", function (Request $request, Response $response) {
     $response->render("index", array(
-        "P_VERSION" => App::config()->getProject()["version"],
+        "APP_VERSION" => App::config()->getProject()["version"],
         "REQ_REF_ID" => $request->getID(),
-        "EXTENSION" => "hidden"
+        "SHOW_ERROR" => "hidden"
     ));
 
     return $response;
