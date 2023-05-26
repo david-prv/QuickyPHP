@@ -19,15 +19,22 @@
             background-size: 40px 40px;
         }
         .version {
-            color:gray!important;
-            font-size:15px;
-            text-decoration:none;
+            color: gray!important;
+            font-size: 15px;
+            text-decoration: none;
         }
-        .subseq {
+        .sub-seq {
             margin-bottom:24px;
         }
         .navbar {
             flex-flow: column-reverse;
+        }
+        .error {
+            color: whitesmoke!important;
+            text-decoration: none;
+        }
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -36,20 +43,23 @@
     <nav class="navbar p-3 text-center navbar-expand-lg navbar-dark bg-dark">
         <a class="version" href="#">Current version: v{{P_VERSION}}</a>
     </nav>
+    <nav class="navbar p-3 text-center navbar-expand-lg bg-danger {{EXTENSION}}">
+        <a class="error" href="#"><strong>{{ERROR_TITLE}}</strong> {{ERROR_MESSAGE}}</a>
+    </nav>
 </header>
 
 <main>
     <div class="container py-5 align-self-center align-middle">
         <div class="row align-items-md-stretch">
-            <div class="col-md-6 subseq">
-                <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <div class="col-md-6 sub-seq">
+                <div class="h-100 p-5 text-white bg-dark">
                     <h2><i class="fa fa-rocket"></i>&nbsp;Quick Start</h2>
                     <p>Welcome, stranger! Are you ready to build your own paradise with all the cool benefits we offer? Perfetto, we can't wait to watch your creature grow - I think I'm confusing something there... Anyway, here you go. Do not hestitate to contact us in case of emergency.</p>
                     <a href="https://quickyphp.de/docs/#doc-create-app" class="btn btn-outline-light" type="button">Read more</a>
                 </div>
             </div>
-            <div class="col-md-6 subseq">
-                <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <div class="col-md-6 sub-seq">
+                <div class="h-100 p-5 text-white bg-dark">
                     <h2><i class="fa-brands fa-github"></i>&nbsp;Contribute</h2>
                     <p>You want to participate in the improvement of the framework and become part of the team? Great, or as we would say in Germany: <span style="font-style:italic;">Wunderbar</span>. The first step you have to do is to fork the project once. Let's go, I am happy to see your suggestions!</p>
                     <a href="https://github.com/david-prv/quickyphp" class="btn btn-outline-light" type="button">Read more</a>
@@ -58,15 +68,15 @@
         </div>
 
         <div class="row align-items-md-stretch">
-            <div class="col-md-6 subseq">
-                <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <div class="col-md-6 sub-seq">
+                <div class="h-100 p-5 text-white bg-dark">
                     <h2><i class="fa fa-book-open"></i>&nbsp;Documentation</h2>
                     <p>You want to learn how to use QuickyPHP? Little insider tip: We have written a documentation; especially for you! There you will learn all the components and advantages of the framework and how to use them. After that, you will be a real professional!</p>
                     <a href="https://quickyphp.de/docs/" class="btn btn-outline-light" type="button">Read more</a>
                 </div>
             </div>
-            <div class="col-md-6 subseq">
-                <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <div class="col-md-6 sub-seq">
+                <div class="h-100 p-5 text-white bg-dark">
                     <h2><i class="fa-sharp fa-solid fa-code-merge"></i>&nbsp;Changelog</h2>
                     <p>Every good product needs time - like good cake. Since many bugs creep in at the beginning, we are continuously working on improving the framework. Here you can follow all changes in real time. By the way, you can also report problems there.</p>
                     <a href="https://github.com/david-prv/quickyphp/commits/main" class="btn btn-outline-light" type="button">Read more</a>

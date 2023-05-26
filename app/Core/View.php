@@ -116,10 +116,12 @@ class View implements DispatchingInterface
         Request $request
     ): void {
         try {
-            View::render("error", array(
+            View::render("index", array(
                 "ERROR_TITLE" => "Error!",
                 "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
-                "REQ_REF_ID" => $request->getID()
+                "REQ_REF_ID" => $request->getID(),
+                "P_VERSION" => App::config()->getProject()["version"],
+                "EXTENSION" => ""
             ));
         } catch (ViewNotFoundException $e) {
         }
@@ -135,11 +137,12 @@ class View implements DispatchingInterface
     public static function except(string $message, Request $request): void
     {
         try {
-            View::render("error", array(
+            View::render("index", array(
                 "ERROR_TITLE" => "Error!",
                 "ERROR_MESSAGE" => $message,
                 "REQ_REF_ID" => $request->getID(),
-                "P_VERSION" => App::config()->getProject()["version"]
+                "P_VERSION" => App::config()->getProject()["version"],
+                "EXTENSION" => ""
             ));
         } catch (ViewNotFoundException $e) {
         }
