@@ -100,8 +100,31 @@ composer install
 
 Use the `--no-dev` tag, if you want to skip the development dependencies. If you also want to skip the platform requirement check, use the tag `--ignore-platform-reqs`, which is not recommended.
 
-### Code Examples:
-I have written some basic examples [here](https://gist.github.com/david-prv/9e322ccaa67eb1698ed35551233aee47).
+## CLI
+Start local PHP development server
+```bash
+php quicky-cli start [<address> [<port>]]
+
+e.g. php quicky-cli start localhost 3000
+```
+Clear logs
+```bash
+php quicky-cli clear logs
+```
+Clear cache
+```bash
+php quicky-cli clear cache
+```
+Restore default configuration
+```bash
+php quicky-cli config restore
+```
+Update configuration
+```bash
+php quicky-cli config set <field> <value>
+
+e.g. php quicky-cli config set project.env production
+```
 
 ## Contributing
 Please feel free to contribute to this project. I am always happy to see new and fresh ideas.  
