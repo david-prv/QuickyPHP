@@ -1,0 +1,29 @@
+body {
+    background-color: #171A1C!important;
+}
+.version {
+    color: gray!important;
+    font-size: 15px;
+    text-decoration: none;
+}
+.sub-seq {
+    margin-bottom:24px;
+    transition: all .2s;
+}
+.container:hover > * > .sub-seq {
+    opacity: 0.2;
+}
+.sub-seq:hover {
+    transform: scale(1.03);
+    opacity: 1 !important;
+}
+.navbar {
+    flex-flow: column-reverse;
+}
+.error {
+    color: whitesmoke!important;
+    text-decoration: none;
+}
+.hidden {
+    display: none !important;
+}
