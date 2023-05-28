@@ -100,7 +100,7 @@ composer install
 
 Use the `--no-dev` tag, if you want to skip the development dependencies. If you also want to skip the platform requirement check, use the tag `--ignore-platform-reqs`, which is not recommended.
 
-## CLI
+## CLI Usage
 Start local PHP development server
 ```bash
 php quicky-cli start [<address> [<port>]]
