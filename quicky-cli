@@ -1,12 +1,143 @@
 #!/usr/bin/env php
 <?php
-require __DIR__.'/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
-use Quicky\Console\StartCommand;
+// Definitions
 
-$application = new Application("QuickyPHP - CLI");
+const CONFIG_DIR = "./resources/config";
+const LOGS_DIR = "./logs";
+const CACHE_DIR = "./cache";
 
-$application->add(new StartCommand());
+// Main
 
-$application->run();
+if ($argc < 2) {
+    exit("Usage: quicky-cli <command> [<args>]\n");
+}
+
+$command = $argv[1];
+
+switch ($command) {
+    case 'start':
+        $address = isset($argv[2]) ? $argv[2] : 'localhost';
+        $port = isset($argv[3]) ? $argv[3] : '8080';
+        startServer($address, $port);
+        break;
+    case 'clear':
+        $subCommand = isset($argv[2]) ? $argv[2] : '';
+        clear($subCommand);
+        break;
+    case 'config':
+        $subCommand = isset($argv[2]) ? $argv[2] : '';
+        $field = isset($argv[3]) ? $argv[3] : '';
+        $value = isset($argv[4]) ? $argv[4] : '';
+        config($subCommand, $field, $value);
+        break;
+    default:
+        exit("Unknown command: $command\n");
+}
+
+// Selectors
+
+function clear($subCommand) {
+    switch ($subCommand) {
+        case 'cache':
+            echo "Clearing cache...\n";
+            deleteFiles(CACHE_DIR);
+            break;
+        case 'logs':
+            echo "Clearing logs...\n";
+            deleteFiles(LOGS_DIR);
+            break;
+        default:
+            exit("Missing or unknown argument: clear $subCommand\n");
+    }
+}
+
+function config($subCommand, $field, $value) {
+    switch ($subCommand) {
+        case 'restore':
+            echo "Restoring config...\n";
+            restoreConfig();
+            break;
+        case 'set':
+            if (empty($field) || empty($value)) {
+                exit("Missing field or value for 'set' command.\n");
+            }
+            echo "Setting config field: $field = $value\n";
+            updateConfig($field, $value);
+            break;
+        default:
+            exit("Missing or unknown argument: config $subCommand\n");
+    }
+}
+
+// Helpers
+
+function startServer($address, $port) {
+    echo "Starting PHP Development Server at $address:$port...\n";
+    exec("cd ./public && php -S $address:$port");
+}
+
+function updateConfig($field, $value) {
+    $configFile = CONFIG_DIR . "/config.json";
+    $configData = file_get_contents($configFile);
+
+    $configArray = json_decode($configData, true);
+    setConfigField($configArray, $field, $value);
+
+    $configData = json_encode($configArray, JSON_PRETTY_PRINT);
+    if (!file_put_contents($configFile, $configData)) {
+        exit("FATAL: Could not override configuration file!");
+    }
+    exit("Success!");
+}
+
+function setConfigField(&$array, $field, $value) {
+    $keys = explode('.', $field);
+
+    foreach ($keys as $key) {
+        if (!isset($array[$key])) {
+            $array[$key] = [];
+        }
+
+        $array = &$array[$key];
+    }
+
+    $array = $value;
+}
+
+function restoreConfig() {
+    $configFile = CONFIG_DIR . "/config.json";
+    $defaultFile = CONFIG_DIR . "/default.json";
+
+    if (is_file($configFile) && is_file($defaultFile)) {
+        if (!unlink($configFile)) {
+            exit("FATAL: Could not delete $configFile");
+        }
+
+        if (!copy($defaultFile, $configFile)) {
+            exit("FATAL: Could not restore configuration file. Please check file permissions.");
+        }
+        exit("Success!");
+    }
+}
+
+function deleteFiles($folder) {
+    if (is_dir($folder)) {
+        $files = scandir($folder);
+
+        foreach ($files as $file) {
+            if ($file === ".gitkeep") continue;
+
+            if (is_file($folder . "/" . $file)) {
+                if (unlink($folder . "/" . $file)) {
+                    echo "Deleted $file\n";
+                } else {
+                    echo "FATAL: Can not delete $file\n";
+                }
+            }
+        }
+    } else {
+        echo "Unknown directory\n";
+    }
+    exit("Success!");
+}
