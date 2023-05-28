@@ -101,6 +101,13 @@ class View implements DispatchingInterface
 
     /**
      * Render a basic error message.
+     * The default QuickyPHP handler passes a bunch of
+     * useful information to the view:
+     * - Error title
+     * - Error message
+     * - The logging ref-ID
+     * - Error banner visibility flag
+     * - Error banner priority level
      *
      * @param string $errorLevel
      * @param string $errorMessage
@@ -115,13 +122,15 @@ class View implements DispatchingInterface
         string $errorLine,
         Request $request
     ): void {
+        $isNotice = (int)$errorLevel === E_USER_NOTICE;
         try {
             View::render("index", array(
-                "ERROR_TITLE" => "Error!",
+                "ERROR_TITLE" => ($isNotice) ? "Notice!" : "Error!",
                 "ERROR_MESSAGE" => "$errorMessage ($errorLevel) in $errorFile (line $errorLine)",
                 "REQ_REF_ID" => $request->getID(),
                 "APP_VERSION" => App::config()->getProject("version"),
-                "SHOW_ERROR" => ""
+                "SHOW_BANNER" => "show",
+                "BANNER_PRIORITY" => ($isNotice) ? "warning" : "danger"
             ));
         } catch (ViewNotFoundException $e) {
         }
@@ -129,7 +138,14 @@ class View implements DispatchingInterface
     }
 
     /**
-     * Render a basic exception message
+     * Render a basic exception message.
+     * The default QuickyPHP handler passes a bunch of
+     * useful information to the view:
+     * - Exception title
+     * - Exception message
+     * - The logging ref-ID
+     * - Error banner visibility flag
+     * - Error banner priority level
      *
      * @param string $message
      * @param Request $request
@@ -142,7 +158,8 @@ class View implements DispatchingInterface
                 "ERROR_MESSAGE" => $message,
                 "REQ_REF_ID" => $request->getID(),
                 "APP_VERSION" => App::config()->getProject("version"),
-                "SHOW_ERROR" => ""
+                "SHOW_BANNER" => "show",
+                "BANNER_PRIORITY" => "danger"
             ));
         } catch (ViewNotFoundException $e) {
         }

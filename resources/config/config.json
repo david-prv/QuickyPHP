@@ -1,15 +1,16 @@
 {
-  "project": {
-    "name": "Quicky - PHP Framework",
-    "author": "David Dewes",
-    "version": "0.0.4-pre",
-    "env": "development"
-  },
-  "cache": {
-    "enabled": true,
-    "expires": 3600
-  },
-  "views": "/resources/views",
-  "storage": "/storage",
-  "logs": "/logs"
+    "project": {
+        "name": "Quicky - PHP Framework",
+        "author": "David Dewes",
+        "version": "0.0.4-pre",
+        "env": "production"
+    },
+    "cache": {
+        "enabled": true,
+        "expires": 3600
+    },
+    "views": "\/resources\/views",
+    "storage": "\/storage",
+    "logs": "\/logs",
+    "legacy-check": "true"
 }

@@ -32,10 +32,9 @@ class ConfigParser
             case App::__MODE_ENV:
                 return $this->loadFromEnv();
             case App::__MODE_JSON:
-                return $this->loadFromJSON();
             case App::__MODE_DEFAULT:
             default:
-                return $this->loadDefault();
+                return $this->loadFromJSON();
         }
     }
 
@@ -72,28 +71,8 @@ class ConfigParser
             "cache" => explode(",", getenv("CACHE_INFO")),
             "storage" => getenv("STORAGE_PATH"),
             "views" => getenv("VIEWS_PATH"),
-            "logs" => getenv("LOGS_PATH")
+            "logs" => getenv("LOGS_PATH"),
+            "legacy-check" => getenv("LEGACY_CHECK")
         );
-    }
-
-    /**
-     * Loads default config
-     *
-     * @return array
-     * @throws ConfigParserException
-     */
-    private function loadDefault(): array
-    {
-        $expectedPath = getcwd() . "/resources/config/default.json";
-        if (is_file($expectedPath)) {
-            $json = json_decode(file_get_contents($expectedPath), true);
-            if (is_null($json) || $json === false) {
-                throw new ConfigParserException();
-            }
-
-            return $json;
-        } else {
-            throw new ConfigParserException();
-        }
     }
 }

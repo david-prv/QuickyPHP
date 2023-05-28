@@ -57,6 +57,13 @@ class Config implements DispatchingInterface
     private string $views;
 
     /**
+     * Legacy Check
+     *
+     * @var bool
+     */
+    private bool $legacy;
+
+    /**
      * Parser instance
      *
      * @var object|null
@@ -82,6 +89,7 @@ class Config implements DispatchingInterface
         $this->storage = "";
         $this->views = "";
         $this->logs = "";
+        $this->legacy = true;
     }
 
     /**
@@ -115,6 +123,7 @@ class Config implements DispatchingInterface
         $this->storage = $config["storage"];
         $this->views = $config["views"];
         $this->logs = $config["logs"];
+        $this->legacy = filter_var($config["legacy-check"], FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -238,6 +247,16 @@ class Config implements DispatchingInterface
     public function getLogsPath(): string
     {
         return $this->logs;
+    }
+
+    /**
+     * Returns whether legacy versions are checked
+     *
+     * @return bool
+     */
+    public function isLegacySensitive(): bool
+    {
+        return $this->legacy;
     }
 
     /**

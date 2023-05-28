@@ -132,7 +132,8 @@ class App
 
         if ($config instanceof Config) {
             $config->init($mode);
-            $this->config = $config;
+            $this->config = $config
+                ?? die("Application stopped abruptly. This should never happen!");
 
             // enable error catching for production or
             // iff parameter is set
@@ -148,6 +149,10 @@ class App
                 set_exception_handler(function (Throwable $e) {
                     return $this->catchException($e);
                 });
+            }
+
+            if ($config->isLegacySensitive()) {
+                $this->checkForLegacy();
             }
         } else {
             $this->stop();
@@ -182,6 +187,17 @@ class App
             self::$instance = new App($catchErrors, $mode);
         }
         return self::$instance;
+    }
+
+    /**
+     * Checks for older PHP versions and triggers
+     * a warning (which is by default displayed in the standard view)
+     */
+    private function checkForLegacy(): void
+    {
+        if (version_compare(phpversion(), "8.0.0", "lt")) {
+            trigger_error("Your PHP version is very old", E_USER_NOTICE);
+        }
     }
 
     /**
