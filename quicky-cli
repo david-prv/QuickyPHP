@@ -7,10 +7,6 @@ $CONFIG_DIR = "./resources/config";
 $LOGS_DIR = "." . getPath("logs");
 $CACHE_DIR = "." . getPath("cache");
 
-echo $CONFIG_DIR . "\n";
-echo $LOGS_DIR . "\n";
-echo $CACHE_DIR . "\n";
-
 // Main
 
 if ($argc < 2) {
@@ -34,6 +30,11 @@ switch ($command) {
         $field = isset($argv[3]) ? $argv[3] : '';
         $value = isset($argv[4]) ? $argv[4] : '';
         config($subCommand, $field, $value);
+        break;
+    case 'debug':
+        echo $CONFIG_DIR . "\n";
+        echo $LOGS_DIR . "\n";
+        echo $CACHE_DIR . "\n";
         break;
     default:
         exit("Unknown command: $command\n");
