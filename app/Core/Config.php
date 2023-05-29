@@ -36,6 +36,13 @@ class Config implements DispatchingInterface
     private array $cache;
 
     /**
+     * (Router) Cache path
+     *
+     * @var string
+     */
+    private string $cacheLoc;
+
+    /**
      * Storage path
      *
      * @var string
@@ -85,6 +92,7 @@ class Config implements DispatchingInterface
         $this->parser = DynamicLoader::getLoader()->getInstance(ConfigParser::class);
         $this->dispatching = array("config");
         $this->cache = [];
+        $this->cacheLoc = "";
         $this->project = [];
         $this->storage = "";
         $this->views = "";
@@ -119,11 +127,17 @@ class Config implements DispatchingInterface
         $config = $this->parser->parse($mode);
 
         $this->cache = $config["cache"];
+        $this->cache["enabled"] = (bool)filter_var($this->cache["enabled"], FILTER_VALIDATE_BOOLEAN);
+        $this->cache["expires"] = (int)filter_var($this->cache["expires"], FILTER_VALIDATE_INT);
+
         $this->project = $config["project"];
         $this->storage = $config["storage"];
         $this->views = $config["views"];
         $this->logs = $config["logs"];
-        $this->legacy = filter_var($config["legacy-check"], FILTER_VALIDATE_BOOLEAN);
+
+        $this->cacheLoc = $this->cache["path"];
+
+        $this->legacy = (bool)filter_var($config["legacy-check"], FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -217,6 +231,16 @@ class Config implements DispatchingInterface
             return -1;
         }
         return (int)$this->cache["expires"];
+    }
+
+    /**
+     * Returns (router) cache path
+     *
+     * @return string
+     */
+    public function getCachePath(): string
+    {
+        return $this->cacheLoc;
     }
 
     /**

@@ -70,14 +70,16 @@ class Router implements DispatchingInterface
 
     /**
      * Router constructor.
+     *
+     * @param string $cachePath
      */
-    public function __construct()
+    public function __construct(string $cachePath = "/cache")
     {
         $this->routes = array();
         $this->dispatching = array("router", "route", "group");
         $this->middleware = array();
         $this->methods = array("GET", "POST", "PUT", "PATCH", "UPDATE", "DELETE");
-        $this->cacheFile = getcwd() . "/cache/" . $this->cacheFile;
+        $this->cacheFile = getcwd() . "$cachePath/" . $this->cacheFile;
         $this->cache = $this->loadCache();
     }
 

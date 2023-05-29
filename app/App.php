@@ -317,7 +317,9 @@ class App
     public function run(): void
     {
         // route request here
-        $router = DynamicLoader::getLoader()->getInstance(Router::class);
+        $config = DynamicLoader::getLoader()->getInstance(Config::class);
+        $router = DynamicLoader::getLoader()->getInstance(Router::class,
+            [$config->getCachePath()]);
 
         if ($router instanceof Router) {
             $router($this->request, $this->response = new Response());
@@ -364,7 +366,8 @@ class App
         string $errorMessage,
         string $errorFile,
         string $errorLine
-    ): ?callable {
+    ): ?callable
+    {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine, $this->request);
         return null;
     }

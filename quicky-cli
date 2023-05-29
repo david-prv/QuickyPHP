@@ -3,9 +3,13 @@
 
 // Definitions
 
-const CONFIG_DIR = "./resources/config";
-const LOGS_DIR = "./logs";
-const CACHE_DIR = "./cache";
+$CONFIG_DIR = "./resources/config";
+$LOGS_DIR = "." . getPath("logs");
+$CACHE_DIR = "." . getPath("cache");
+
+echo $CONFIG_DIR . "\n";
+echo $LOGS_DIR . "\n";
+echo $CACHE_DIR . "\n";
 
 // Main
 
@@ -34,18 +38,21 @@ switch ($command) {
     default:
         exit("Unknown command: $command\n");
 }
+exit("Terminated without errors.");
 
 // Selectors
 
 function clear($subCommand) {
+    global $CACHE_DIR, $LOGS_DIR;
+
     switch ($subCommand) {
         case 'cache':
             echo "Clearing cache...\n";
-            deleteFiles(CACHE_DIR);
+            deleteFiles($CACHE_DIR);
             break;
         case 'logs':
             echo "Clearing logs...\n";
-            deleteFiles(LOGS_DIR);
+            deleteFiles($LOGS_DIR);
             break;
         default:
             exit("Missing or unknown argument: clear $subCommand\n");
@@ -72,13 +79,33 @@ function config($subCommand, $field, $value) {
 
 // Helpers
 
+function getPath($of): string {
+    global $CONFIG_DIR;
+
+    $configFile = $CONFIG_DIR . "/config.json";
+    $configData = file_get_contents($configFile);
+    $configArray = json_decode($configData, true);
+
+    switch ($of) {
+        case 'logs':
+            return $configArray['logs'];
+            break;
+        case 'cache':
+            return $configArray['cache']['path'];
+        default:
+            break;
+    }
+}
+
 function startServer($address, $port) {
     echo "Starting PHP Development Server at $address:$port...\n";
     exec("cd ./public && php -S $address:$port");
 }
 
 function updateConfig($field, $value) {
-    $configFile = CONFIG_DIR . "/config.json";
+    global $CONFIG_DIR;
+
+    $configFile = $CONFIG_DIR . "/config.json";
     $configData = file_get_contents($configFile);
 
     $configArray = json_decode($configData, true);
@@ -88,7 +115,6 @@ function updateConfig($field, $value) {
     if (!file_put_contents($configFile, $configData)) {
         exit("FATAL: Could not override configuration file!");
     }
-    exit("Success!");
 }
 
 function setConfigField(&$array, $field, $value) {
@@ -106,8 +132,10 @@ function setConfigField(&$array, $field, $value) {
 }
 
 function restoreConfig() {
-    $configFile = CONFIG_DIR . "/config.json";
-    $defaultFile = CONFIG_DIR . "/default.json";
+    global $CONFIG_DIR;
+
+    $configFile = $CONFIG_DIR . "/config.json";
+    $defaultFile = $CONFIG_DIR . "/default.json";
 
     if (is_file($configFile) && is_file($defaultFile)) {
         if (!unlink($configFile)) {
@@ -117,7 +145,6 @@ function restoreConfig() {
         if (!copy($defaultFile, $configFile)) {
             exit("FATAL: Could not restore configuration file. Please check file permissions.");
         }
-        exit("Success!");
     }
 }
 
@@ -139,5 +166,4 @@ function deleteFiles($folder) {
     } else {
         echo "Unknown directory\n";
     }
-    exit("Success!");
 }
