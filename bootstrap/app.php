@@ -22,6 +22,8 @@ $app = AppFactory::empty()
 
 App::session()->start();
 
+$app->register(\Quicky\Controllers\ExampleController::class);
+
 require_once("./routes/web.php");
 
 return $app;
