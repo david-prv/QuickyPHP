@@ -289,6 +289,7 @@ class Route
         }
 
         $regex = $this->getUrlMatchingRegex($pattern);
+        var_dump($regex);
         if (!preg_match($regex, $url)) {
             return false;
         }

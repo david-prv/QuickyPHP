@@ -24,3 +24,8 @@ App::route("GET", "/", function (Request $request, Response $response) {
 
     return $response;
 });
+
+App::route("GET", "/path/@var1/*", function (Request $request, Response $response) {
+    $response->write("Hallo %s!", $request->getArg("var1"));
+    return $response;
+});
