@@ -21,6 +21,7 @@ use Quicky\Core\View;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 use Quicky\Http\Router;
+use Quicky\Interfaces\ControllerInterface;
 use Quicky\Utils\Exceptions\NotAResponseException;
 use Quicky\Utils\Exceptions\UnknownCallException;
 use Quicky\Utils\Exceptions\UnknownRouteException;
@@ -91,6 +92,13 @@ class App
     private ?Response $response;
 
     /**
+     * Is the application already running?
+     *
+     * @var bool
+     */
+    public static bool $running = false;
+
+    /**
      * In-built session fields
      */
     const __SESSION_ID = "quicky_session_id";
@@ -132,8 +140,7 @@ class App
 
         if ($config instanceof Config) {
             $config->init($mode);
-            $this->config = $config
-                ?? die("Application stopped abruptly. This should never happen!");
+            $this->config = $config;
 
             // enable error catching for production or
             // iff parameter is set
@@ -292,6 +299,10 @@ class App
      */
     public static function use(...$settings): void
     {
+        if (self::$running) {
+            return;
+        }
+
         // decide the format of settings: many or single
         $userSettings = $settings[0];
         if (count($settings) >= 2) {
@@ -306,6 +317,24 @@ class App
         $app->applyEnv($userSettings);
         $app->applyPlaceholders($userSettings);
         $app->applyAlias($userSettings);
+    }
+
+    /**
+     * Adds a controller to the application
+     *
+     * @param $controller
+     * @param mixed ...$params
+     * @return void
+     */
+    public function register($controller, ...$params): void
+    {
+        if (self::$running) {
+            return;
+        }
+        $instance = (is_string($controller))
+            ? DynamicLoader::getLoader()->getInstance($controller)
+            : $controller;
+        $instance->setup(...$params);
     }
 
     /**
@@ -324,6 +353,7 @@ class App
         );
 
         if ($router instanceof Router) {
+            self::$running = true;
             $router($this->request, $this->response = new Response());
         } else {
             $this->stop();
@@ -335,6 +365,7 @@ class App
      */
     public function stop(): void
     {
+        self::$running = false;
         exit();
     }
 
@@ -347,6 +378,7 @@ class App
      */
     public function halt(int $code = 200, string $message = ""): void
     {
+        self::$running = false;
         $response = new Response();
         $response->status($code);
         $response->write($message);

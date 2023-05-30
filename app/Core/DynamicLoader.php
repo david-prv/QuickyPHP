@@ -17,6 +17,7 @@ use ArgumentCountError;
 use DirectoryIterator;
 use ReflectionClass;
 use ReflectionException;
+use stdClass;
 
 /**
  * Class DynamicLoader
@@ -136,9 +137,9 @@ class DynamicLoader
      *
      * @param string $className
      * @param array|null $params
-     * @return object|null
+     * @return mixed
      */
-    public function getInstance(string $className, ?array $params = null): ?object
+    public function getInstance(string $className, ?array $params = null)
     {
         // since the dynamic loader is responsible
         // for Quicky to manage all available instances and routes all interactions,
@@ -147,13 +148,12 @@ class DynamicLoader
 
         // if it is not an existing class...
         if (!in_array($className, $this->classes)) {
-            return null;
+            // return standard object
+            return new stdClass();
         }
 
         // if the instance is already instantiated...
-        if ($this->isInstantiated($className)) {
-            return $this->instances[$className];
-        } else {
+        if (!$this->isInstantiated($className) || !is_a($this->instances[$className], $className)) {
             try {
                 // instantiate the class either with instance args
                 // or without any arguments
@@ -163,11 +163,10 @@ class DynamicLoader
 
                 // add it to the local list
                 $this->instances[$className] = $instance;
-                return $this->instances[$className];
             } catch (ArgumentCountError|ReflectionException $e) {
             }
-            return null;
         }
+        return $this->instances[$className];
     }
 
     /**
