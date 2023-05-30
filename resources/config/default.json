@@ -12,6 +12,6 @@
   },
   "views": "/resources/views",
   "storage": "/storage",
-  "logs": "/logs",
+  "logs": "/storage/logs",
   "legacy-check": true
 }
