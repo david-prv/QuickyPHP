@@ -14,6 +14,7 @@
 use Quicky\App;
 use Quicky\AppFactory;
 use Quicky\Middleware\LoggingMiddleware;
+use Quicky\Controllers\ExampleController;
 
 $app = AppFactory::empty()
     ->state("production")
@@ -22,7 +23,7 @@ $app = AppFactory::empty()
 
 App::session()->start();
 
-$app->register(\Quicky\Controllers\ExampleController::class);
+$app->register(ExampleController::class);
 
 require_once("./routes/web.php");
 
