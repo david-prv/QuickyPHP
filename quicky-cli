@@ -17,18 +17,18 @@ $command = $argv[1];
 
 switch ($command) {
     case 'start':
-        $address = isset($argv[2]) ? $argv[2] : 'localhost';
-        $port = isset($argv[3]) ? $argv[3] : '8080';
+        $address = $argv[2] ?? 'localhost';
+        $port = $argv[3] ?? '8080';
         startServer($address, $port);
         break;
     case 'clear':
-        $subCommand = isset($argv[2]) ? $argv[2] : '';
+        $subCommand = $argv[2] ?? '';
         clear($subCommand);
         break;
     case 'config':
-        $subCommand = isset($argv[2]) ? $argv[2] : '';
-        $field = isset($argv[3]) ? $argv[3] : '';
-        $value = isset($argv[4]) ? $argv[4] : '';
+        $subCommand = $argv[2] ?? '';
+        $field = $argv[3] ?? '';
+        $value = $argv[4] ?? '';
         config($subCommand, $field, $value);
         break;
     case 'debug':
@@ -90,11 +90,9 @@ function getPath($of): string {
     switch ($of) {
         case 'logs':
             return $configArray['logs'];
-            break;
+        default:
         case 'cache':
             return $configArray['cache']['path'];
-        default:
-            break;
     }
 }
 
