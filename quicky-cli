@@ -1,5 +1,17 @@
 #!/usr/bin/env php
 <?php
+/*
+|--------------------------------------------------------------------------
+| Simple CLI
+|--------------------------------------------------------------------------
+|
+| This command-line interface (short: "CLI") can be used to
+| have easier control over all important tasks necessary.
+|
+| For example: editing the config, restoring the default config
+| in case of issues, starting the local dev server, ...
+|
+*/
 
 // Definitions
 
@@ -32,9 +44,7 @@ switch ($command) {
         config($subCommand, $field, $value);
         break;
     case 'debug':
-        echo $CONFIG_DIR . "\n";
-        echo $LOGS_DIR . "\n";
-        echo $CACHE_DIR . "\n";
+        debug($command);
         break;
     default:
         exit("Unknown command: $command\n");
@@ -43,7 +53,8 @@ exit("Terminated without errors.");
 
 // Selectors
 
-function clear($subCommand) {
+function clear($subCommand)
+{
     global $CACHE_DIR, $LOGS_DIR;
 
     switch ($subCommand) {
@@ -60,7 +71,8 @@ function clear($subCommand) {
     }
 }
 
-function config($subCommand, $field, $value) {
+function config($subCommand, $field, $value)
+{
     switch ($subCommand) {
         case 'restore':
             echo "Restoring config...\n";
@@ -80,7 +92,23 @@ function config($subCommand, $field, $value) {
 
 // Helpers
 
-function getPath($of): string {
+function debug($command): void
+{
+    global $CONFIG_DIR, $LOGS_DIR, $CACHE_DIR, $argc, $argv;
+
+    echo "cmd: $command\n";
+    echo "argc: $argc\n";
+    echo "argv: " . json_encode($argv) . "\n";
+    echo "config path: $CONFIG_DIR\n";
+    echo "logs path: $LOGS_DIR\n";
+    echo "cache path: $CACHE_DIR\n";
+    echo "verifying... config (" . is_dir($CONFIG_DIR) . "), logs ("
+        . is_dir($LOGS_DIR) . "), cache (" . is_dir($CACHE_DIR) . ")\n";
+    echo "default.json is present: " .  is_file($CONFIG_DIR . "/default.json") . "\n";
+}
+
+function getPath($of): string
+{
     global $CONFIG_DIR;
 
     $configFile = $CONFIG_DIR . "/config.json";
@@ -96,12 +124,14 @@ function getPath($of): string {
     }
 }
 
-function startServer($address, $port) {
+function startServer($address, $port)
+{
     echo "Starting PHP Development Server at $address:$port...\n";
     exec("cd ./public && php -S $address:$port");
 }
 
-function updateConfig($field, $value) {
+function updateConfig($field, $value)
+{
     global $CONFIG_DIR;
 
     $configFile = $CONFIG_DIR . "/config.json";
@@ -116,7 +146,8 @@ function updateConfig($field, $value) {
     }
 }
 
-function setConfigField(&$array, $field, $value) {
+function setConfigField(&$array, $field, $value)
+{
     $keys = explode('.', $field);
 
     foreach ($keys as $key) {
@@ -130,7 +161,8 @@ function setConfigField(&$array, $field, $value) {
     $array = $value;
 }
 
-function restoreConfig() {
+function restoreConfig()
+{
     global $CONFIG_DIR;
 
     $configFile = $CONFIG_DIR . "/config.json";
@@ -147,7 +179,8 @@ function restoreConfig() {
     }
 }
 
-function deleteFiles($folder) {
+function deleteFiles($folder)
+{
     if (is_dir($folder)) {
         $files = scandir($folder);
 
