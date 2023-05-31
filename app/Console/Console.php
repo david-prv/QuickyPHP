@@ -120,13 +120,13 @@ class Console
                 break;
             case 'clear':
                 $this->subCommand = $this->argv[2] ?? '';
-                $this->__clearSelector();
+                $this->clearSelector();
                 break;
             case 'config':
                 $this->subCommand = $this->argv[2] ?? '';
                 $field = $this->argv[3] ?? '';
                 $value = $this->argv[4] ?? '';
-                $this->__configSelector($field, $value);
+                $this->configSelector($field, $value);
                 break;
             case 'debug':
                 $this->debug();
@@ -142,7 +142,7 @@ class Console
      *
      * @return void
      */
-    private function __clearSelector()
+    private function clearSelector()
     {
         switch ($this->subCommand) {
             case 'cache':
@@ -165,7 +165,7 @@ class Console
      * @param $value
      * @return void
      */
-    private function __configSelector($field, $value)
+    private function configSelector($field, $value)
     {
         switch ($this->subCommand) {
             case 'restore':
