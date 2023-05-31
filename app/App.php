@@ -139,10 +139,10 @@ class App
             // iff parameter is set
             if ($this->config->isProd() || $catchErrors) {
                 set_error_handler(function (
-                    int $errorLevel,
+                    int    $errorLevel,
                     string $errorMessage,
                     string $errorFile,
-                    int $errorLine
+                    int    $errorLine
                 ) {
                     return $this->catchError("$errorLevel", $errorMessage, $errorFile, "$errorLine");
                 }, E_ALL);
@@ -318,8 +318,10 @@ class App
     {
         // route request here
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
-        $router = DynamicLoader::getLoader()->getInstance(Router::class,
-            [$config->getCachePath()]);
+        $router = DynamicLoader::getLoader()->getInstance(
+            Router::class,
+            [$config->getCachePath()]
+        );
 
         if ($router instanceof Router) {
             $router($this->request, $this->response = new Response());
@@ -366,8 +368,7 @@ class App
         string $errorMessage,
         string $errorFile,
         string $errorLine
-    ): ?callable
-    {
+    ): ?callable {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine, $this->request);
         return null;
     }
