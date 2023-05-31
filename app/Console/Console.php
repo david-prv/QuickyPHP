@@ -14,20 +14,48 @@ namespace Quicky\Console;
  */
 class Console
 {
+    /**
+     * The instance
+     *
+     * @var Console|null
+     */
     private static ?Console $instance = null;
 
+    /**
+     * Folder Locations
+     *
+     * @var string
+     */
     private string $configDir;
     private string $logsDir;
     private string $cacheDir;
+
+    /**
+     * Command Parts
+     *
+     * @var string|mixed
+     */
     private string $command;
     private string $subCommand;
+
+    /**
+     * CommandLine arguments
+     *
+     * @var int
+     */
     private int $argc;
     private array $argv;
 
+    /**
+     * Console constructor.
+     *
+     * @param int $argc
+     * @param array $argv
+     */
     private function __construct(int $argc, array $argv)
     {
         if ($argc < 2) {
-            $this->shutdown();
+            exit("Usage: quicky-cli <command> [<arg1> [<arg2> [ ... ]]]");
         }
 
         $this->configDir = "./resources/config";
@@ -40,6 +68,14 @@ class Console
         $this->subCommand = "";
     }
 
+    /**
+     * Static getter for console kernel
+     * (Also passes arguments to constructor)
+     *
+     * @param int $argc
+     * @param array $argv
+     * @return Console
+     */
     public static function kernel(int $argc, array $argv): Console
     {
         if (self::$instance === null) {
@@ -48,11 +84,12 @@ class Console
         return self::$instance;
     }
 
-    private function shutdown(): void
-    {
-        exit("Usage: quicky-cli <command> [<arg1> [<arg2> [ ... ]]]");
-    }
-
+    /**
+     * Reads from configuration file
+     *
+     * @param $of
+     * @return string
+     */
     private function getPath($of): string
     {
         $configFile = $this->configDir . "/config.json";
@@ -68,6 +105,11 @@ class Console
         }
     }
 
+    /**
+     * Handles a command
+     *
+     * @return void
+     */
     public function run(): void
     {
         switch ($this->command) {
@@ -78,13 +120,13 @@ class Console
                 break;
             case 'clear':
                 $this->subCommand = $this->argv[2] ?? '';
-                $this->clear();
+                $this->__clearSelector();
                 break;
             case 'config':
                 $this->subCommand = $this->argv[2] ?? '';
                 $field = $this->argv[3] ?? '';
                 $value = $this->argv[4] ?? '';
-                $this->config($field, $value);
+                $this->__configSelector($field, $value);
                 break;
             case 'debug':
                 $this->debug();
@@ -95,7 +137,12 @@ class Console
         exit("Terminated without errors.");
     }
 
-    private function clear()
+    /**
+     * Clear Command Selection
+     *
+     * @return void
+     */
+    private function __clearSelector()
     {
         switch ($this->subCommand) {
             case 'cache':
@@ -111,7 +158,14 @@ class Console
         }
     }
 
-    private function config($field, $value)
+    /**
+     * Configuration Command Selection
+     *
+     * @param $field
+     * @param $value
+     * @return void
+     */
+    private function __configSelector($field, $value)
     {
         switch ($this->subCommand) {
             case 'restore':
@@ -130,12 +184,26 @@ class Console
         }
     }
 
+    /**
+     * Starts a local development server
+     *
+     * @param $address
+     * @param $port
+     * @return void
+     */
     private function startServer($address, $port): void
     {
         echo "Starting PHP Development Server at $address:$port...\n";
         exec("cd ./public && php -S $address:$port");
     }
 
+    /**
+     * Master function for config updates
+     *
+     * @param $field
+     * @param $value
+     * @return void
+     */
     private function updateConfig($field, $value): void
     {
         $configFile = $this->configDir . "/config.json";
@@ -150,6 +218,14 @@ class Console
         }
     }
 
+    /**
+     * Sets a JSON field recursively
+     *
+     * @param $array
+     * @param $field
+     * @param $value
+     * @return void
+     */
     private function setConfigField(&$array, $field, $value): void
     {
         $keys = explode('.', $field);
@@ -165,6 +241,11 @@ class Console
         $array = $value;
     }
 
+    /**
+     * Restores the default config, iff possible
+     *
+     * @return void
+     */
     private function restoreConfig(): void
     {
         $configFile = $this->configDir . "/config.json";
@@ -181,6 +262,13 @@ class Console
         }
     }
 
+    /**
+     * Deletes all files in a folder
+     * (ignores .gitignore)
+     *
+     * @param $folder
+     * @return void
+     */
     private function deleteFiles($folder): void
     {
         if (is_dir($folder)) {
@@ -204,6 +292,11 @@ class Console
         }
     }
 
+    /**
+     * Prints a simple debug message
+     *
+     * @return void
+     */
     private function debug(): void
     {
         echo "cmd: $this->command\n";
