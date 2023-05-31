@@ -21,7 +21,6 @@ use Quicky\Core\View;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 use Quicky\Http\Router;
-use Quicky\Interfaces\ControllerInterface;
 use Quicky\Utils\Exceptions\NotAResponseException;
 use Quicky\Utils\Exceptions\UnknownCallException;
 use Quicky\Utils\Exceptions\UnknownRouteException;
@@ -317,24 +316,6 @@ class App
         $app->applyEnv($userSettings);
         $app->applyPlaceholders($userSettings);
         $app->applyAlias($userSettings);
-    }
-
-    /**
-     * Adds a controller to the application
-     *
-     * @param $controller
-     * @param mixed ...$params
-     * @return void
-     */
-    public function register($controller, ...$params): void
-    {
-        if (self::$running) {
-            return;
-        }
-        $instance = (is_string($controller))
-            ? DynamicLoader::getLoader()->getInstance($controller)
-            : $controller;
-        $instance->setup(...$params);
     }
 
     /**
