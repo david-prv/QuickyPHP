@@ -284,6 +284,10 @@ class Route
         $pattern = $this->getSanitizedPatternArray($this->pattern);
         $urlParts = $this->getSanitizedPatternArray($url);
 
+        if ($this->method !== $request->getMethod()) {
+            return false;
+        }
+
         if ((!$this->containsSuperWildcard()) && (count($pattern) !== count($urlParts))) {
             return false;
         }
