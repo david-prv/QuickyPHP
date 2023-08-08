@@ -86,7 +86,7 @@ class AppFactory
      * @param array $template
      * @return AppFactory
      */
-    public static function template(array $template): AppFactory
+    public static function load(array $template): AppFactory
     {
         if (self::$instance === null) {
             self::$instance = new AppFactory($template);
@@ -195,7 +195,7 @@ class AppFactory
      * @param string $configMode
      * @return $this
      */
-    public function loadConfig(string $configMode): self
+    public function configMode(string $configMode): self
     {
         $this->usedConfigMode = $configMode;
         return $this;
