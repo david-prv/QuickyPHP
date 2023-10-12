@@ -141,4 +141,6 @@ Click here to support me:
 </a>
 
 ## License
-Quicky is released under the [MIT](https://en.m.wikipedia.org/wiki/MIT_License) license.
+Released under [GPL](/LICENSE) by [@david-prv](https://github.com/david-prv).  
+
+![image](https://github.com/david-prv/scanner-bundle/assets/66866223/385b8bb1-4dc1-48f9-bfc7-e58be51823f1)
