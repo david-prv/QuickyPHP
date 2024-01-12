@@ -1,11 +1,3 @@
-<div align="center">
-<p>
-  <img alt="" width="350" src="https://quickyphp.de/img/new/Logo-Crop-Without-Slogan.png">
-</p>
-</div>
-
-------------------------------------
-
 [![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  [![PHPCS](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml)
 
 A php micro-framework for simple and quick web-applications
