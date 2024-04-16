@@ -10,8 +10,8 @@
 
 A php micro-framework for simple and quick web-applications
 
-## Work in progress...
-This project is still in *heavy* development. Methods will change or be removed entirely. Please do not implement any production systems with QuickyPHP yet! Wait until the first alpha releases are published and stable enough for production software. In any other case, feel free to play around with QuickyPHP!
+## 🚨 Development paused indefinitely!
+This project will not receive any major updates in the near future. I have paused development indefinitely as I no longer have enough freetime. QuickyPHP has not been discontinued, development is just delayed.
 
 ## Motivation
 I started this project because I wanted to procrastinate important work for university. No joke. But it turned into a slight obsession that has been with me for a few days now. I found developing my own PHP micro-framework so interesting that I kept reading up on documentation and articles and watching tutorial after tutorial.
