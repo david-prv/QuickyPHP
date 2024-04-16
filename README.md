@@ -1,10 +1,14 @@
+<div align="center">
+<p>
+  <img alt="" width="350" src="https://upload.david-dewes.de/Logo-Crop-Without-Slogan.png">
+</p>
+</div>
+
+------------------------------------
+
 [![PHPStan](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpstan.yml) [![PHPMD](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpmd.yml)  [![PHPCS](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/david-prv/QuickyPHP/actions/workflows/phpcs.yml)
 
 A php micro-framework for simple and quick web-applications
-
-🌐 Website: [https://quickyphp.de/](https://quickyphp.de/)  
-📖 Documentation: [https://quickyphp.de/docs/](https://quickyphp.de/docs/)  
-*(Currently under reconstruction)*
 
 ## Work in progress...
 This project is still in *heavy* development. Methods will change or be removed entirely. Please do not implement any production systems with QuickyPHP yet! Wait until the first alpha releases are published and stable enough for production software. In any other case, feel free to play around with QuickyPHP!
