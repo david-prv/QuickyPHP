@@ -78,9 +78,9 @@ class Dispatcher
      */
     public static function unAlias(string $methodName, ...$args)
     {
-        $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
+        $aliases = DynamicLoader::getLoader()->getInstance(Alias::class);
 
-        if ($aliases instanceof Aliases && $aliases->isAlias($methodName)) {
+        if ($aliases instanceof Alias && $aliases->isAlias($methodName)) {
             return $aliases->evaluate($methodName, ...$args);
         }
         return false;
@@ -89,7 +89,7 @@ class Dispatcher
     /**
      * Checks whether a className has a
      * certain type (nomenclature: "[name][type]",
-     * e.g. "ManagerInterface")
+     * e.g. "RepositoryInterface")
      *
      * @param string $className
      * @param string $classType
@@ -113,7 +113,7 @@ class Dispatcher
      */
     public static function isInterface(string $className): bool
     {
-        return self::classIsTypeOf($className, "Interface");
+        return self::classIsTypeOf($className, "Interfaces");
     }
 
     /**

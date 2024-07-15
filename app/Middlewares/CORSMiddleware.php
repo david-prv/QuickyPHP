@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Quicky\Middleware;
+namespace Quicky\Middlewares;
 
 use Quicky\Http\Request;
 use Quicky\Http\Response;

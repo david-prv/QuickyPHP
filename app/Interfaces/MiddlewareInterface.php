@@ -15,7 +15,7 @@ use Quicky\Http\Request;
 use Quicky\Http\Response;
 
 /**
- * Interface MiddlewareInterface
+ * Interfaces MiddlewareInterface
  */
 interface MiddlewareInterface
 {

@@ -14,9 +14,9 @@ namespace Quicky\Core;
 use Quicky\Interfaces\DispatchingInterface;
 
 /**
- * Class Aliases
+ * Class Alias
  */
-class Aliases implements DispatchingInterface
+class Alias implements DispatchingInterface
 {
     /**
      * Array of all aliases
@@ -34,7 +34,7 @@ class Aliases implements DispatchingInterface
     private array $dispatching;
 
     /**
-     * Aliases constructor.
+     * Alias constructor.
      */
     public function __construct()
     {

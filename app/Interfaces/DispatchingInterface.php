@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Quicky\Interfaces;
 
 /**
- * Interface DispatchingInterface
+ * Interfaces DispatchingInterface
  */
 interface DispatchingInterface
 {

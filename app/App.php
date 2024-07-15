@@ -11,12 +11,12 @@ declare(strict_types=1);
 
 namespace Quicky;
 
-use Quicky\Core\Aliases;
+use Quicky\Core\Alias;
 use Quicky\Core\Config;
 use Quicky\Core\Dispatcher;
 use Quicky\Core\DynamicLoader;
-use Quicky\Core\Managers\CookieManager;
-use Quicky\Core\Managers\SessionManager;
+use Quicky\Core\Repositories\CookieRepository;
+use Quicky\Core\Repositories\SessionRepository;
 use Quicky\Core\View;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
@@ -44,11 +44,11 @@ use Throwable;
  * @method static View view()
  * @method static void render(string $viewName, ?array $params = null)
  *
- * SessionManager:
- * @method static SessionManager session()
+ * SessionRepository:
+ * @method static SessionRepository session()
  *
- * CookieManager:
- * @method static CookieManager cookies()
+ * CookieRepository:
+ * @method static CookieRepository cookies()
  *
  * Config:
  * @method static Config config()
@@ -57,7 +57,7 @@ use Throwable;
  * @method static Router router()
  * @method static void group($predicate, callable $definitions)
  *
- * Aliases:
+ * Alias:
  * @method static void alias(string $aliasName, mixed $masterFunction, bool $ignoreClasses = true)
  */
 class App
@@ -278,8 +278,8 @@ class App
      */
     private function applyAlias(array $settings): void
     {
-        $aliases = DynamicLoader::getLoader()->getInstance(Aliases::class);
-        if ($aliases instanceof Aliases && isset($settings["alias"]) && gettype($settings["alias"]) === "array"
+        $aliases = DynamicLoader::getLoader()->getInstance(Alias::class);
+        if ($aliases instanceof Alias && isset($settings["alias"]) && gettype($settings["alias"]) === "array"
             && count($settings["alias"]) >= 2) {
             if (gettype($settings["alias"][0]) === "array") {
                 foreach ($settings["alias"] as $alias) {
@@ -330,7 +330,9 @@ class App
         $config = DynamicLoader::getLoader()->getInstance(Config::class);
         $router = DynamicLoader::getLoader()->getInstance(
             Router::class,
-            [$config->getCachePath()]
+            [
+                $config->getCachePath()
+            ]
         );
 
         if ($router instanceof Router) {
@@ -381,7 +383,8 @@ class App
         string $errorMessage,
         string $errorFile,
         string $errorLine
-    ): ?callable {
+    ): ?callable
+    {
         View::error($errorLevel, $errorMessage, $errorFile, $errorLine, $this->request);
         return null;
     }

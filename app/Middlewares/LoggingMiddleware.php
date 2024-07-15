@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Quicky\Middleware;
+namespace Quicky\Middlewares;
 
+use Exception;
 use Quicky\Core\Config;
 use Quicky\Core\DynamicLoader;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 use Quicky\Interfaces\MiddlewareInterface;
-use Exception;
 
 /**
  * Class LoggingMiddleware

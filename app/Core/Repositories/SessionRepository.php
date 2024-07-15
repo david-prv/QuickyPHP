@@ -9,19 +9,19 @@
 
 declare(strict_types=1);
 
-namespace Quicky\Core\Managers;
+namespace Quicky\Core\Repositories;
 
+use Exception;
+use Quicky\App;
 use Quicky\Core\DynamicLoader;
 use Quicky\Interfaces\DispatchingInterface;
-use Quicky\Interfaces\ManagerInterface;
-use Quicky\App;
+use Quicky\Interfaces\RepositoryInterface;
 use Quicky\Utils\Exceptions\InvalidSessionException;
-use Exception;
 
 /**
- * Class SessionManager
+ * Class SessionRepository
  */
-class SessionManager implements DispatchingInterface, ManagerInterface
+class SessionRepository implements DispatchingInterface, RepositoryInterface
 {
     /**
      * In-built sessionId
@@ -45,7 +45,7 @@ class SessionManager implements DispatchingInterface, ManagerInterface
     private bool $secure;
 
     /**
-     * SessionManager is active
+     * SessionRepository is active
      *
      * @var bool
      */
@@ -59,7 +59,7 @@ class SessionManager implements DispatchingInterface, ManagerInterface
     private array $dispatching;
 
     /**
-     * SessionManager constructor.
+     * SessionRepository constructor.
      */
     public function __construct()
     {
@@ -71,14 +71,14 @@ class SessionManager implements DispatchingInterface, ManagerInterface
     /**
      * Return session instance
      *
-     * @return SessionManager
+     * @return SessionRepository
      * @throws InvalidSessionException
      */
-    public static function session(): SessionManager
+    public static function session(): SessionRepository
     {
-        $instance = DynamicLoader::getLoader()->getInstance(SessionManager::class);
+        $instance = DynamicLoader::getLoader()->getInstance(SessionRepository::class);
 
-        if ($instance instanceof SessionManager) {
+        if ($instance instanceof SessionRepository) {
             return $instance;
         } else {
             throw new InvalidSessionException();
@@ -110,7 +110,7 @@ class SessionManager implements DispatchingInterface, ManagerInterface
 
     /**
      * Is this session secure against
-     * SessionManager Hijacking?
+     * SessionRepository Hijacking?
      *
      * @return bool
      */

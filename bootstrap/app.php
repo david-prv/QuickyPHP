@@ -13,7 +13,7 @@
 
 use Quicky\App;
 use Quicky\AppFactory;
-use Quicky\Middleware\LoggingMiddleware;
+use Quicky\Middlewares\LoggingMiddleware;
 
 $app = AppFactory::empty()
     ->state("production")

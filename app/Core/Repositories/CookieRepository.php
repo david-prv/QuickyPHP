@@ -9,17 +9,17 @@
 
 declare(strict_types=1);
 
-namespace Quicky\Core\Managers;
+namespace Quicky\Core\Repositories;
 
 use Quicky\Core\DynamicLoader;
 use Quicky\Interfaces\DispatchingInterface;
-use Quicky\Interfaces\ManagerInterface;
+use Quicky\Interfaces\RepositoryInterface;
 use Quicky\Utils\Exceptions\CoreException;
 
 /**
- * Class CookieManager
+ * Class CookieRepository
  */
-class CookieManager implements DispatchingInterface, ManagerInterface
+class CookieRepository implements DispatchingInterface, RepositoryInterface
 {
     /**
      * Dispatching methods
@@ -29,7 +29,7 @@ class CookieManager implements DispatchingInterface, ManagerInterface
     private array $dispatching;
 
     /**
-     * CookieManager constructor.
+     * CookieRepository constructor.
      */
     public function __construct()
     {
@@ -39,14 +39,14 @@ class CookieManager implements DispatchingInterface, ManagerInterface
     /**
      * Return session instance
      *
-     * @return CookieManager
+     * @return CookieRepository
      * @throws CoreException
      */
-    public static function cookies(): CookieManager
+    public static function cookies(): CookieRepository
     {
-        $instance = DynamicLoader::getLoader()->getInstance(CookieManager::class);
+        $instance = DynamicLoader::getLoader()->getInstance(CookieRepository::class);
 
-        if ($instance instanceof CookieManager) {
+        if ($instance instanceof CookieRepository) {
             return $instance;
         } else {
             throw new CoreException();

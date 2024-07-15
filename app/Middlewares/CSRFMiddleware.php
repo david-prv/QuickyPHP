@@ -9,10 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Quicky\Middleware;
+namespace Quicky\Middlewares;
 
 use Quicky\Core\DynamicLoader;
-use Quicky\Core\Managers\SessionManager;
+use Quicky\Core\Repositories\SessionRepository;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 use Quicky\Interfaces\MiddlewareInterface;
@@ -32,8 +32,8 @@ class CSRFMiddleware implements MiddlewareInterface
      */
     public function run(Request $request, Response $response, callable $next): Response
     {
-        $session = DynamicLoader::getLoader()->getInstance(SessionManager::class);
-        if ($session instanceof SessionManager) {
+        $session = DynamicLoader::getLoader()->getInstance(SessionRepository::class);
+        if ($session instanceof SessionRepository) {
             if (!$request->hasCSRFToken() || !$session->verifyCSRF($request->getCSRFToken())) {
                 // send forbidden message and error code
                 $response->status(403);
