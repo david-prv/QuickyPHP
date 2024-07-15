@@ -10,8 +10,8 @@
 
 A php micro-framework for simple and quick web-applications
 
-## 🚨 Development paused indefinitely!
-This project will not receive any major updates in the near future. I have paused development indefinitely as I no longer have enough freetime. QuickyPHP has not been discontinued, development is just delayed.
+> [!IMPORTANT]
+> This project will not receive any major updates in the near future. I have paused development indefinitely as I no longer have enough freetime. QuickyPHP has not been discontinued, development is just delayed.
 
 ## Motivation
 I started this project because I wanted to procrastinate important work for university. No joke. But it turned into a slight obsession that has been with me for a few days now. I found developing my own PHP micro-framework so interesting that I kept reading up on documentation and articles and watching tutorial after tutorial.
