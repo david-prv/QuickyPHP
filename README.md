@@ -42,7 +42,6 @@ App::route("GET", "/", function(Request $request, Response $response) {
 
 $app->run();
 ```
-![](https://upload.david-dewes.de/webbrowser.png)
 
 ## More Features
 ### Flexible Factory
