@@ -113,7 +113,7 @@ class Dispatcher
      */
     public static function isInterface(string $className): bool
     {
-        return self::classIsTypeOf($className, "Interfaces");
+        return self::classIsTypeOf($className, "Interface");
     }
 
     /**

@@ -54,21 +54,6 @@ $app = AppFactory::empty()
   ->build();
 ```
 
-### Where no route, there's no security risk!
-Use the route groups and predicates to ensure, that nobody can access views without the corresponding privileges/permissions:
-```php
-App::group([AuthController::class, "check"], function () {
-    App::route("GET", "/admin", function (Request $request, Response $response) {
-        /* Some admin stuff */
-        return $response;
-    });
-    App::route("GET", "/admin/dashboard", function (Request $request, Response $response) {
-        /* Silence is golden ... */
-        return $response;
-    });
-});
-```
-
 ## Requirements
 QuickyPHP requires PHP 7.4+ or PHP 8 ([check compatibility](https://github.com/david-prv/QuickyPHP/blob/main/COMPATIBILITY.md)) and a webserver that supports Rewrite Rules.  
 Note: Composer Version 2 is required to find and install the package.

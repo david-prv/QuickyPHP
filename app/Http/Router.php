@@ -217,23 +217,6 @@ class Router implements DispatchingInterface
     }
 
     /**
-     * Group a bunch of route definitions together
-     * and enable them by predicate
-     *
-     * @param $predicate
-     * @param callable $definitions
-     * @return void
-     */
-    public function group($predicate, callable $definitions): void
-    {
-        if (!call_user_func($predicate)) {
-            return;
-        }
-
-        call_user_func($definitions);
-    }
-
-    /**
      * Dump stored nodes as HTML
      */
     public function dump(): void
