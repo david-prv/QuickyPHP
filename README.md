@@ -24,7 +24,7 @@ I got the idea of how a simple PHP framework works from other open source projec
 - [CakePHP](https://cakephp.org/)
 - [Laravel Lumen](https://lumen.laravel.com/docs/10.x)
 
-## Sneak Peak
+## Example Application
 A simple web application powered by this framework:
 ```php
 require __DIR__ . "/../vendor/autoload.php";
@@ -42,8 +42,10 @@ App::route("GET", "/", function(Request $request, Response $response) {
 
 $app->run();
 ```
+![](https://upload.david-dewes.de/webbrowser.png)
 
-### We appreciate laziness <3
+## More Features
+### Flexible Factory
 You can build complex application configurations with the in-built AppFactory very easily!
 ```php
 $app = AppFactory::empty()
@@ -52,6 +54,50 @@ $app = AppFactory::empty()
   ->middleware(RateLimitMiddleware::class, 1, 5)
   ->alias("sayHello", function () { echo "Hello World"; })
   ->build();
+```
+
+### Automatic Dispatching
+This framework will automatically search for the correct method to dispatch, for any static invocation.
+```php
+App::test();
+```
+```php
+use Quicky\Interfaces\DispatchingInterface;
+
+class MyTest implements DispatchingInterface
+{
+  private array $dispatching;
+
+  public function __construct()
+  {
+    $this->dispatching = array("test");
+  }
+
+  public function dispatches(string $method): bool
+  {
+    return in_array($method, $this->dispatching);
+  }
+
+  public function test(): void
+  {
+    echo "I'm a test";
+  }
+}
+```
+
+### Secure Routing
+Protect your application with security sensitive middleware to prevent basic attack patterns.
+```php
+use Quicky\Middlewares\RateLimitMiddleware;
+
+// Apply to a single route ...
+App::route("GET", "/admin", function (Request $request, Response $response) {
+  $response->render("admin.dashboard");
+  return $response;
+}, new RateLimitMiddleware(1, 5));
+
+// ... or to all routes at once!
+App::use("middleware", new RateLimitMiddleware(1, 5));
 ```
 
 ## Requirements
