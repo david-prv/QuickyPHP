@@ -55,7 +55,6 @@ use Throwable;
  *
  * Router:
  * @method static Router router()
- * @method static void group($predicate, callable $definitions)
  *
  * Alias:
  * @method static void alias(string $aliasName, mixed $masterFunction, bool $ignoreClasses = true)
