@@ -58,9 +58,6 @@ $app = AppFactory::empty()
 ### Automatic Dispatching
 This framework will automatically search for the correct method to dispatch, for any static invocation.
 ```php
-App::test();
-```
-```php
 use Quicky\Interfaces\DispatchingInterface;
 
 class MyTest implements DispatchingInterface
@@ -89,13 +86,12 @@ Protect your application with security sensitive middleware to prevent basic att
 ```php
 use Quicky\Middlewares\RateLimitMiddleware;
 
-// Apply to a single route ...
+// Route can be accessed once every 5 seconds
 App::route("GET", "/admin", function (Request $request, Response $response) {
   $response->render("admin.dashboard");
   return $response;
-}, new RateLimitMiddleware(1, 5));
+});
 
-// ... or to all routes at once!
 App::use("middleware", new RateLimitMiddleware(1, 5));
 ```
 
