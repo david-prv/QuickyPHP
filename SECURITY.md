@@ -8,7 +8,7 @@ you start implementing production systems with sensitive data. Also, use **stron
 
 ## Reporting a Vulnerability
 
-Please report any vulnerability or deadly bug to issue@quickyphp.de.  
+Please report any vulnerability or deadly bug to hello@david-dewes.de.  
 Provide the following information:
 ### 1. Impact
 - Very Low: Not really a problem, just nice to have
