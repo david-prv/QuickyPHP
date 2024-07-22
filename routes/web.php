@@ -14,13 +14,19 @@ use Quicky\App;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
 
-App::route("GET", "/", function (Request $request, Response $response) {
-    $response->render("index", array(
-        "APP_VERSION" => App::config()->getProject("version"),
-        "REQ_REF_ID" => $request->getID(),
-        "SHOW_BANNER" => "hidden",
-        "BANNER_PRIORITY" => ""
-    ));
+App::route(
+    "GET",
+    "/",
+    function (Request $request, Response $response) {
+        $response->render("index", array(
+            "APP_VERSION" => App::config()->getProject("version"),
+            "REQ_REF_ID" => $request->getID(),
+            "SHOW_BANNER" => "hidden",
+            "BANNER_PRIORITY" => ""
+        ));
 
-    return $response;
-});
+        return $response;
+    })
+    ->middleware(new \Quicky\Middlewares\RateLimitMiddleware(20, 1))
+    ->middleware(new \Quicky\Middlewares\LoggingMiddleware())
+    ->middleware(new \Quicky\Middlewares\CORSMiddleware());

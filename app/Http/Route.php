@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Quicky\Http;
 
+use Quicky\Interfaces\MiddlewareInterface;
+
 /**
  * Class Route
  */
@@ -53,11 +55,12 @@ class Route
      * @param array $middleware
      */
     public function __construct(
-        string $method,
-        string $pattern,
+        string   $method,
+        string   $pattern,
         callable $callback,
-        array $middleware
-    ) {
+        array    $middleware
+    )
+    {
         $this->method = $method;
         $this->pattern = $pattern;
         $this->callback = $callback;
@@ -73,6 +76,19 @@ class Route
     public function hashCode(): string
     {
         return sha1($this->pattern . $this->method);
+    }
+
+    /**
+     * Adds a new middleware to an existing route.
+     * Chainable function.
+     *
+     * @param MiddlewareInterface $middleware
+     * @return $this
+     */
+    public function middleware(MiddlewareInterface $middleware): self
+    {
+        $this->middleware[] = $middleware;
+        return $this;
     }
 
     /**

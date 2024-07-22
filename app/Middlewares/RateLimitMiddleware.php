@@ -41,9 +41,9 @@ class RateLimitMiddleware implements MiddlewareInterface
      * RateLimitMiddleware constructor.
      *
      * @param int $maxRequests
-     * @param int $timePeriod
+     * @param int $timePeriod In seconds
      */
-    public function __construct(int $maxRequests, int $timePeriod)
+    public function __construct(int $maxRequests = 50, int $timePeriod = 1)
     {
         $this->maxRequests = $maxRequests;
         $this->timePeriod = $timePeriod;

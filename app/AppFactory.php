@@ -68,7 +68,7 @@ class AppFactory
     }
 
     /**
-     * Initialize an empty App Factory
+     * Initializes an empty App Factory
      *
      * @return AppFactory
      */
@@ -81,7 +81,7 @@ class AppFactory
     }
 
     /**
-     * Initialize a templated App Factory
+     * Initializes a templated App Factory
      *
      * @param array $template
      * @return AppFactory
@@ -95,7 +95,7 @@ class AppFactory
     }
 
     /**
-     * Build the application
+     * Builds the application
      *
      * @return App
      */
@@ -115,7 +115,7 @@ class AppFactory
     }
 
     /**
-     * Define application state.
+     * Defines application state.
      * Optionally, you can pass an override to
      * the application, which enforces the framework
      * to catch errors, no matter what state was given.
@@ -136,8 +136,11 @@ class AppFactory
     }
 
     /**
-     * Define globally used middleware for
-     * all later defined routes
+     * Plans globally used middleware for
+     * all later defined routes. Since the factory is
+     * active prior to the dependency instantiations, the
+     * middleware must be passed as qualified classnames, i.e.
+     * as strings and not as objects.
      *
      * @param string $className
      * @param mixed ...$args
@@ -150,7 +153,7 @@ class AppFactory
     }
 
     /**
-     * Add an event listener to the application.
+     * Adds an event listener to the application.
      * Events can be, for example: an error (default) or an
      * exception occurring, and so on...
      *
@@ -173,7 +176,7 @@ class AppFactory
     }
 
     /**
-     * Add an alias (function or class):
+     * Adds an alias (function or class):
      * Use $ignoreClasses = false in case you want to address
      * a class instead of a function
      *
@@ -189,7 +192,7 @@ class AppFactory
     }
 
     /**
-     * Update the used parsing mode
+     * Updates the used parsing mode
      * for configuration object.
      *
      * @param string $configMode
@@ -202,7 +205,7 @@ class AppFactory
     }
 
     /**
-     * Define globally applied placeholders for
+     * Defines globally applied placeholders for
      * all defined views
      *
      * @param array $placeholders

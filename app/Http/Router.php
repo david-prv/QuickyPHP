@@ -201,8 +201,9 @@ class Router implements DispatchingInterface
      * @param string $pattern
      * @param callable $callback
      * @param array $middleware
+     * @return Route
      */
-    public function route(string $method, string $pattern, callable $callback, ...$middleware): void
+    public function &route(string $method, string $pattern, callable $callback, ...$middleware): Route
     {
         if (!$this->isValidMethod($method)) {
             new UnknownMethodException($method);
@@ -214,6 +215,8 @@ class Router implements DispatchingInterface
         if (!$this->isRoute($route)) {
             $this->routes[$route->hashCode()] = $route;
         }
+
+        return $this->routes[$route->hashCode()];
     }
 
     /**

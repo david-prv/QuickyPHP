@@ -85,14 +85,19 @@ class MyTest implements DispatchingInterface
 Protect your application with security sensitive middleware to prevent basic attack patterns.
 ```php
 use Quicky\Middlewares\RateLimitMiddleware;
+use Quicky\Middlewares\CORSMiddleware;
+use Quicky\Middlewares\LoggingMiddleware;
 
-// Route can be accessed once every 5 seconds
+// Routes can be accessed once every 5 seconds
+App::use("middleware", new RateLimitMiddleware(1, 5));
+
+// This route additionally sets special CORS headers & enables logging
 App::route("GET", "/admin", function (Request $request, Response $response) {
   $response->render("admin.dashboard");
   return $response;
-});
-
-App::use("middleware", new RateLimitMiddleware(1, 5));
+})
+->middleware(new CORSMiddleware())
+->middleware(new LoggingMiddleware());
 ```
 
 ## Requirements

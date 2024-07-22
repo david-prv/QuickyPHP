@@ -20,6 +20,7 @@ use Quicky\Core\Repositories\SessionRepository;
 use Quicky\Core\View;
 use Quicky\Http\Request;
 use Quicky\Http\Response;
+use Quicky\Http\Route;
 use Quicky\Http\Router;
 use Quicky\Utils\Exceptions\NotAResponseException;
 use Quicky\Utils\Exceptions\UnknownCallException;
@@ -38,7 +39,7 @@ use Throwable;
  * @link https://pear.php.net/package/PhpDocumentor/docs/latest/phpDocumentor/tutorial_tags.method.pkg.html
  *
  * Routes:
- * @method static void route(string $method, string $pattern, callable $callback, ...$middleware)
+ * @method static Route route(string $method, string $pattern, callable $callback, ...$middleware)
  *
  * Views:
  * @method static View view()
